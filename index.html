@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tom-Luca Westendorf, Lennart Brandin, Stefan Schwenke">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Python">
+    <meta name="description" content="Daten einer Wetterstation anzeigen">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="test.css">
+    <title>Wetterstation</title>
+</head>
+<body>
+    <div class="weather-screen">
+        <div class="sunny">
+            <div class="sun"></div>
+            <div class="cloud1">
+                <img src="WetterDesign/Wolke.svg" alt="Wolke">
+            </div>
+            <div class="cloud2">
+                <img src="WetterDesign/Wolke.svg" alt="Wolke">
+            </div>
+            <div class="sun-light-gras">
+                <img src="WetterDesign/SunGrasHell.svg" alt="Light-Gras">
+            </div>
+            <div class="sun-dark-gras">
+                <img src="WetterDesign/SunGrasDunkel.svg" alt="Dark-Gras">
+            </div>
+            <div class="temperature">
+                <p id="sunny">Sonnig</p>
+                <p id="temp">25°C</p>
+            </div>        
+        </div>
+        <div class="cloudy">
+            <div class="cloud1">
+                <img src="WetterDesign/Wolke.svg" alt="Wolke">
+            </div>
+            <div class="cloud2">
+                <img src="WetterDesign/Wolke.svg" alt="Wolke">
+            </div>
+            <div class="cloud3">
+                <img src="WetterDesign/Wolke.svg" alt="Wolke">
+            </div>
+            <div class="cloud-light-gras">
+                <img src="WetterDesign/BewGrasHell.svg" alt="Light-Gras">
+            </div>
+            <div class="cloud-dark-gras">
+                <img src="WetterDesign/BewGrasDunkel.svg" alt="Dark-Gras">
+            </div>
+            <div class="temperature">
+                <h3 id="cloudy">Bewölkt</h3>
+                <h1 id="temp">25°C</h1>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
