@@ -9,3 +9,19 @@ function a(){
     }
 }
 a()
+
+function changeSun(){
+    document.querySelector(".sunny").style.display = "flex"
+    document.querySelector(".cloudy").style.display = "none"
+    document.querySelector(".rainy").style.display = "none"
+}
+function changeCloud(){
+    document.querySelector(".cloudy").style.display = "flex"
+    document.querySelector(".sunny").style.display = "none"
+    document.querySelector(".rainy").style.display = "none"
+}
+function changeRain(){
+    document.querySelector(".rainy").style.display = "flex"
+    document.querySelector(".sunny").style.display = "none"
+    document.querySelector(".cloudy").style.display = "none"
+}
