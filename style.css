@@ -112,7 +112,7 @@ body{
 }
 .rainy{
     overflow-x: hidden;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     background-color: #004788;
