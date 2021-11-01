@@ -6,10 +6,6 @@
 ### Change PIN var's
 ### Lennard BUS information transfer
 
-###### Code Todo:
-# In main(), get variables from readGPIOvalue() and push to insertVariable into table
-
-
 # Import used lib
 import datetime # Time
 import sqlite3 # Our DB
