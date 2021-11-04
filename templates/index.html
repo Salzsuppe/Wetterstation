@@ -7,8 +7,8 @@
     <meta name="author" content="Tom-Luca Westendorf, Lennart Brandin, Stefan Schwenke">
     <meta name="keywords" content="HTML, CSS, JavaScript, Python">
     <meta name="description" content="Daten einer Wetterstation anzeigen">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/button.css') }}">
     <title>Wetterstation</title>
 </head>
 <body>
@@ -21,16 +21,16 @@
         <div class="sunny">
             <div class="sun"></div>
             <div class="cloud1">
-                <img src="WetterDesign/Wolke.svg" alt="Wolke">
+                <img src="static/WetterDesign/Wolke.svg" alt="Wolke">
             </div>
             <div class="cloud2">
-                <img src="WetterDesign/Wolke.svg" alt="Wolke">
+                <img src="static/WetterDesign/Wolke.svg" alt="Wolke">
             </div>
             <div class="sun-light-gras">
-                <img src="WetterDesign/SunGrasHell.svg" alt="Light-Gras">
+                <img src="static/WetterDesign/SunGrasHell.svg" alt="Light-Gras">
             </div>
             <div class="sun-dark-gras">
-                <img src="WetterDesign/SunGrasDunkel.svg" alt="Dark-Gras">
+                <img src="static/WetterDesign/SunGrasDunkel.svg" alt="Dark-Gras">
             </div>
             <div class="temperature">
                 <p id="sunny">Sonnig</p>
@@ -39,19 +39,19 @@
         </div>
         <div class="cloudy">
             <div class="cloud1">
-                <img src="WetterDesign/Wolke.svg" alt="Wolke">
+                <img src="static/WetterDesign/Wolke.svg" alt="Wolke">
             </div>
             <div class="cloud2">
-                <img src="WetterDesign/Wolke.svg" alt="Wolke">
+                <img src="static/WetterDesign/Wolke.svg" alt="Wolke">
             </div>
             <div class="cloud3">
-                <img src="WetterDesign/Wolke.svg" alt="Wolke">
+                <img src="static/WetterDesign/Wolke.svg" alt="Wolke">
             </div>
             <div class="cloud-light-gras">
-                <img src="WetterDesign/BewGrasHell.svg" alt="Light-Gras">
+                <img src="static/WetterDesign/BewGrasHell.svg" alt="Light-Gras">
             </div>
             <div class="cloud-dark-gras">
-                <img src="WetterDesign/BewGrasDunkel.svg" alt="Dark-Gras">
+                <img src="static/WetterDesign/BewGrasDunkel.svg" alt="Dark-Gras">
             </div>
             <div class="temperature">
                 <p id="cloudy">Bewölkt</p>
@@ -61,10 +61,10 @@
         <div class="rainy">
             <div class="raindropWrapper"></div>
             <div class="rain-light-gras">
-                <img src="WetterDesign/RainLightGras.svg" alt="Light-Gras">
+                <img src="static/WetterDesign/RainLightGras.svg" alt="Light-Gras">
             </div>
             <div class="rain-dark-gras">
-                <img src="WetterDesign/RainDarkGras.svg" alt="Dark-Gras">
+                <img src="static/WetterDesign/RainDarkGras.svg" alt="Dark-Gras">
             </div>
             <div class="temperature">
                 <p id="rainy">Regen</p>
@@ -72,6 +72,6 @@
             </div>
         </div>
     </div>
-    <script src="main.js"></script>
+    <script src="{{ url_for('static',filename='main.js') }}"> </script>
 </body>
 </html>
