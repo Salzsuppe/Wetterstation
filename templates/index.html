@@ -67,8 +67,13 @@
                 <img src="static/Wetterdesign/RainDarkGras.svg" alt="Dark-Gras">
             </div>
             <div class="temperature">
+                <details>
+                    <button class="C" onclick="tempC()">C</button>
+                    <button class="F" onclick="tempF()">F</button>
+                    <button class="K" onclick="tempK()">K</button>
+                </details>
                 <p id="rainy">Regen</p>
-                <p id="temp">25°C</p>
+                <p id="temp">{{ TemperatureC_val }}°C</p>
             </div>
         </div>
     </div>
