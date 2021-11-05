@@ -11,10 +11,14 @@ def index():
 @app.route('/getdata')
 def getdata():
     datadict = {
-        "tmpC": 10,
+        "tmpC": getData.Temp,
         "tmpF": 2,
-        "tmpK": 3
-        ""
+        "tmpK": 3,
+        "humidity": 15,
+        "pressure": 123,
+        "rain": 1,
+        "wind": 5,
+        "uv": 2
     }
     return datadict
 
