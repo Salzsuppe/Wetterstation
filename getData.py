@@ -25,6 +25,7 @@ PIN_Rain = 15
 PIN_Wind = 16
 PIN_UV = 18
 
+Data_val = []
 # Some function configuration
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
@@ -94,7 +95,6 @@ def insertVariableInTable(INTemperatureC_val, INTemperatureF_val, INTemperatureK
 
 ### I dont think it will, but might break on runtime >= 1s, just here to remember it would be related to currtime
 def getDataByVariable(DateTime):
-    """kdsjkfsjdkfk"""
     conn = sqlite3.connect('Raw.db')
     cursor = conn.cursor()
     SearchParameter = """SELECT * FROM RawData WHERE DateTime = ?""" # I assume the * selects everything, it works
