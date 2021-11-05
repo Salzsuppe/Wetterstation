@@ -34,7 +34,7 @@
             </div>
             <div class="temperature">
                 <p id="sunny">Sonnig</p>
-                <p id="temp">25°C</p>
+                <p class="temp"></p>
             </div>        
         </div>
         <div class="cloudy">
@@ -55,7 +55,7 @@
             </div>
             <div class="temperature">
                 <p id="cloudy">Bewölkt</p>
-                <p id="temp">25°C</p>
+                <p class="temp"></p>
             </div>
         </div>
         <div class="rainy">
@@ -68,15 +68,15 @@
             </div>
             <div class="temperature">
                 <details>
-                    <button class="C" onclick="tempC()">C</button>
-                    <button class="F" onclick="tempF()">F</button>
-                    <button class="K" onclick="tempK()">K</button>
+                    <button class="C" onclick="onClickCelsius()">C</button>
+                    <button class="F" onclick="onClickFahrenheit()">F</button>
+                    <button class="K" onclick="onClickKelvin()">K</button>
                 </details>
                 <p id="rainy">Regen</p>
-                <p id="temp">{{ TemperatureC_val }}°C</p>
+                <p class="temp"></p>
             </div>
         </div>
     </div>
-    <script src="{{ url_for('static',filename='styles/main.js') }}"> </script>
+    <script src="{{ url_for('static',filename='main.js') }}"> </script>
 </body>
 </html>
