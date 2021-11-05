@@ -10,15 +10,31 @@ function a(){
 }
 a()
 
-
-function fillValues(){
-    let response = fetch("/getData")
-        .then (response => {
-            console.log(response)
-        })
+function changeTemp(temp, unit) {
+    for (const el of document.querySelectorAll(".temp")) {
+        el.innerText = temp + "°" + unit
+    }
 }
 
+let weatherData = null;
 
+async function fillValues(){
+    let response = await fetch("/getdata");
+    weatherData = await response.json();
+    changeTemp(weatherData.tmpC, "C")
+}
+
+function onClickCelsius() {
+    changeTemp(weatherData.tmpC, "C")
+}
+
+function onClickFahrenheit() {
+    changeTemp(weatherData.tmpF, "F")
+}
+
+function onClickKelvin() {
+    changeTemp(weatherData.tmpK, "K")
+}
 
 function changeSun(){
     document.querySelector(".sunny").style.display = "flex"
@@ -35,3 +51,5 @@ function changeRain(){
     document.querySelector(".sunny").style.display = "none"
     document.querySelector(".cloudy").style.display = "none"
 }
+
+fillValues()

@@ -90,9 +90,10 @@ def insertVariableInTable(INTemperatureC_val, INTemperatureF_val, INTemperatureK
     print("Data inserted in RawData", cursor.rowcount)
     cursor.close()
 
-
+TemperatureC = None
 ### I dont think it will, but might break on runtime >= 1s, just here to remember it would be related to currtime
 def getDataByVariable(DateTime):
+    global TemperatureC
     """kdsjkfsjdkfk"""
     conn = sqlite3.connect('Raw.db')
     cursor = conn.cursor()
@@ -102,6 +103,7 @@ def getDataByVariable(DateTime):
     completeRecords = cursor.fetchall() # Fetching the entire thing
     print("Records containing the current Time")
     for row in completeRecords: # Fetching all results containing $currtime from entire records
+        TemperatureC = row[0]
         print("TemperatureC =", row[0])
         print("TemperatureF =", row[1])
         print("TemperatureK =", row[2])
