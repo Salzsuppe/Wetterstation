@@ -1,4 +1,4 @@
-import getData
+# import getData
 from logging import debug
 from flask import Flask, render_template
 
@@ -11,11 +11,12 @@ def index():
 @app.route('/getdata')
 def getdata():
     datadict = {
-        "tmpC": getData.TemperatureC_val,
-        "tmpF": getData.TemperatureF_val,
-        "tmpK": getData.TemperatureK_val
+        "tmpC": 10,
+        "tmpF": 2,
+        "tmpK": 3
+        ""
     }
-
+    return datadict
 
 if __name__ == '__main__':
     app.run(debug=True)
