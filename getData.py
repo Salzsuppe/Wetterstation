@@ -25,26 +25,30 @@ PIN_Rain = 15
 PIN_Wind = 16
 PIN_UV = 18
 
+#Data_val = [] # Include when doing code optimization
+TemperatureC = None
+
 # Some function configuration
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
 # Create database table, if not already existing
-try:
-    conn.execute('''CREATE TABLE RawData
-            (TemperatureC REAL,
-            TemperatureF REAL,
-            TemperatureK REAL,
-            Humidity INT,
-            Pressure REAL,
-            Rain INT,
-            Wind REAL,
-            UV INT,
-            DateTime TEXT );''')
-    print("Table created succesfully")
-    conn.close()
-except:
-    print("Error creating Table, already existing?")
+def connectDB():
+    try:
+        conn.execute('''CREATE TABLE RawData
+                (TemperatureC REAL,
+                TemperatureF REAL,
+                TemperatureK REAL,
+                Humidity INT,
+                Pressure REAL,
+                Rain INT,
+                Wind REAL,
+                UV INT,
+                DateTime TEXT );''')
+        print("Table created succesfully")
+        conn.close()
+    except:
+        print("Error creating Table, already existing?")
 
 # Declaring functions
 # Input declaration, not necessary in a function, but makes it more comfortable in execution.
@@ -90,11 +94,9 @@ def insertVariableInTable(INTemperatureC_val, INTemperatureF_val, INTemperatureK
     print("Data inserted in RawData", cursor.rowcount)
     cursor.close()
 
-TemperatureC = None
 ### I dont think it will, but might break on runtime >= 1s, just here to remember it would be related to currtime
 def getDataByVariable(DateTime):
     global TemperatureC
-    """kdsjkfsjdkfk"""
     conn = sqlite3.connect('Raw.db')
     cursor = conn.cursor()
     SearchParameter = """SELECT * FROM RawData WHERE DateTime = ?""" # I assume the * selects everything, it works
@@ -104,23 +106,24 @@ def getDataByVariable(DateTime):
     print("Records containing the current Time")
     for row in completeRecords: # Fetching all results containing $currtime from entire records
         TemperatureC = row[0]
-        print("TemperatureC =", row[0])
-        print("TemperatureF =", row[1])
-        print("TemperatureK =", row[2])
-        print("Humidity =", row[3])
-        print("Pressure =", row[4])
-        print("Rain =", row[5])
-        print("Wind =", row[6])
-        print("UV =", row[7])
+        TemperatureF = row[1]
+        TemperatureK = row[2]
+        Humidity = row[3]
+        Pressure = row[4]
+        Rain = row[5]
+        Wind = row[6]
+        UV = row[7]
     cursor.close
 
 def main():
+    connectDB()
     declareGPIOstate()
     readGPIOValue()
     insertVariableInTable(TemperatureC_val, TemperatureF_val, TemperatureK_val, Humidity_val, Pressure_val, Rain_val, Wind_val, UV_val, currtime)
     getDataByVariable(currtime)
 
-main()
-# Cleanup
-GPIO.cleanup()
-conn.close()
+if __name__ == '__main__':
+    main()
+    # Cleanup
+    GPIO.cleanup()
+    conn.close()
