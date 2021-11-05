@@ -10,6 +10,16 @@ function a(){
 }
 a()
 
+function tempC(){
+    document.querySelector(".temp").innerHTML = TemperatureC_val
+}
+function tempF(){
+    document.querySelector(".temp").innerHTML = TemperatureF_var
+}
+function tempK(){
+    document.querySelector(".temp").innerHTML = TemperatureK_var
+}
+
 function changeSun(){
     document.querySelector(".sunny").style.display = "flex"
     document.querySelector(".cloudy").style.display = "none"
