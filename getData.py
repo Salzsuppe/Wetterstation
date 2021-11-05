@@ -30,21 +30,22 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
 # Create database table, if not already existing
-try:
-    conn.execute('''CREATE TABLE RawData
-            (TemperatureC REAL,
-            TemperatureF REAL,
-            TemperatureK REAL,
-            Humidity INT,
-            Pressure REAL,
-            Rain INT,
-            Wind REAL,
-            UV INT,
-            DateTime TEXT );''')
-    print("Table created succesfully")
-    conn.close()
-except:
-    print("Error creating Table, already existing?")
+def connectDB():
+    try:
+        conn.execute('''CREATE TABLE RawData
+                (TemperatureC REAL,
+                TemperatureF REAL,
+                TemperatureK REAL,
+                Humidity INT,
+                Pressure REAL,
+                Rain INT,
+                Wind REAL,
+                UV INT,
+                DateTime TEXT );''')
+        print("Table created succesfully")
+        conn.close()
+    except:
+        print("Error creating Table, already existing?")
 
 # Declaring functions
 # Input declaration, not necessary in a function, but makes it more comfortable in execution.
@@ -113,12 +114,14 @@ def getDataByVariable(DateTime):
     cursor.close
 
 def main():
+    connectDB()
     declareGPIOstate()
     readGPIOValue()
     insertVariableInTable(TemperatureC_val, TemperatureF_val, TemperatureK_val, Humidity_val, Pressure_val, Rain_val, Wind_val, UV_val, currtime)
     getDataByVariable(currtime)
 
-main()
-# Cleanup
-GPIO.cleanup()
-conn.close()
+if __name__ == '__main__':
+    main()
+    # Cleanup
+    GPIO.cleanup()
+    conn.close()
