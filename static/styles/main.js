@@ -10,6 +10,16 @@ function a(){
 }
 a()
 
+
+function fillValues(){
+    let response = fetch("/getData")
+        .then (response => {
+            console.log(response)
+        })
+}
+
+
+
 function changeSun(){
     document.querySelector(".sunny").style.display = "flex"
     document.querySelector(".cloudy").style.display = "none"
