@@ -3,7 +3,6 @@
 ### sudo timedatectl set-timezone Europe/Berlin
 ### Run by time, either hourly by crontab or wait(3600)
 ### Change PIN var's
-### Lennard BUS information transfer
 
 ######### USE Python3! ##########
 ###### Code Todo:
@@ -19,9 +18,14 @@ import RPi.GPIO as GPIO # Access the pins
 
 # Set up some var
 conn = sqlite3.connect('Raw.db') # Shortening argument lenght
-currtime = datetime.datetime.now().replace(microsecond=0).isoformat() # Store current time in ISO8601
+currtime = datetime.datetime.now().replace(microsecond=0, second=0, minute=0).isoformat() # Store current time in ISO and remove ms, s & m
 
-# The Pins (pyhsical, since we declared BOARD later)
+
+# Set pin numeration to physical 
+GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
+
+# Declare pins
 PIN_Temperature = 12
 PIN_Humidity = 11
 PIN_Pressure = 13
@@ -29,16 +33,8 @@ PIN_Rain = 15
 PIN_Wind = 16
 PIN_UV = 18
 
-Data_val = [] # List to store pin values
-
-TemperatureC = None
-
-# Some function configuration
-GPIO.setmode(GPIO.BOARD)
-GPIO.setwarnings(False)
-
-# Create database table, if not already existing
-def connectDB():
+def createDB():
+    '''Create database table, if not already existing'''
     try:
         conn.execute('''CREATE TABLE RawData
                 (TemperatureC REAL,
@@ -55,29 +51,29 @@ def connectDB():
     except:
         print("Error creating Table, already existing?")
 
-# Declaring functions
-# Input declaration, not necessary in a function, but makes it more comfortable in execution.
-### MAY CHANGE WITH BUS
 def declareGPIOstate():
-    #IN
+    '''Input Declaration'''
     chan_list = [PIN_Temperature,PIN_Humidity,PIN_Pressure,PIN_Rain,PIN_Wind,PIN_UV]
     GPIO.setup(chan_list, GPIO.IN)
 
-# Get Pin Values
 def readGPIOValue():
-    return dict(
-            TemperatureC_val = GPIO.input(PIN_Temperature),
-            TemperatureF_val = GPIO.input(PIN_Temperature)*9/5+32, # Same as TemperatureC_val*9/5+32, cant access it tho
-            TemperatureK_val = GPIO.input(PIN_Temperature)+273.15, # Same as TemperatureC_val+273.15,
-            Humidity_val = GPIO.input(PIN_Humidity),
-            Pressure_val = GPIO.input(PIN_Pressure),
-            Rain_val = GPIO.input(PIN_Rain),
-            Wind_val = GPIO.input(PIN_Wind),
-            UV_val = GPIO.input(PIN_UV),
-        )
+    '''Store Pin Values in List'''
+    valueList = [
+            GPIO.input(PIN_Temperature),
+            GPIO.input(PIN_Temperature)*9/5+32, # Same as TemperatureC_val*9/5+32, cant access it tho
+            GPIO.input(PIN_Temperature)+273.15, # Same as TemperatureC_val+273.15,
+            GPIO.input(PIN_Humidity),
+            GPIO.input(PIN_Pressure),
+            GPIO.input(PIN_Rain),
+            GPIO.input(PIN_Wind),
+            GPIO.input(PIN_UV),
+            currtime,
+        ]
+    return valueList
+
 # Setup DB functions
-def insertVariableInTable():
-    # Variables used in the INSERT function, too shorten it
+def insertVariableInTable(): 
+    '''Variablest used in the INSERT function, too shorten it'''
     conn = sqlite3.connect('Raw.db')
     cursor = conn.cursor()
     InsertParameter = """INSERT INTO RawData
@@ -90,27 +86,40 @@ def insertVariableInTable():
     print("Data inserted in RawData", cursor.rowcount)
     cursor.close()
 
-### I dont think it will, but might break on runtime >= 1s, just here to remember it would be related to currtime
 def getDataByVariable(DateTime):
+    '''Search the DB for DateTime and return the values as List'''
     conn = sqlite3.connect('Raw.db')
     cursor = conn.cursor()
-    SearchParameter = """SELECT * FROM RawData WHERE DateTime = ?""" # I assume the * selects everything, it works
+    SearchParameter = """SELECT * FROM RawData WHERE DateTime = ?""" # Select any Data where Row DateTime has value of Datetime 
 
-    cursor.execute(SearchParameter, (DateTime,)) # The actual SEARCH function
+    cursor.execute(SearchParameter, (DateTime,)) # Appending the var Value into the execute statement
     completeRecords = cursor.fetchall() # Fetching the entire thing
-    print("Records containing the current Time")
+    DataRecords = []
     for row in completeRecords: # Fetching all results containing $currtime from entire records
         print(DateTime)
-        DataRecords = [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]]
+        DataRecords = {
+                'TemperatureC':row[0],
+                'TemperatureF':row[1],
+                'TemperatureK':row[2],
+                'Humidity':row[3],
+                'Pressure':row[4],
+                'Rain':row[5],
+                'Wind':row[6],
+                'UV':row[7]
+                }
+        print(DataRecords)
     cursor.close
+    return DataRecords
 
 def main():
-    connectDB()
+    '''Call all functions'''
+    createDB()
     declareGPIOstate()
     readGPIOValue()
     insertVariableInTable()
     getDataByVariable(currtime)
 
+# Prevent execution on import
 if __name__ == '__main__':
     main()
     # Cleanup
