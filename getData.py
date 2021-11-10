@@ -8,6 +8,10 @@
 ######### USE Python3! ##########
 ###### Code Todo:
 
+#optionally:
+# Split Pins and others in cfg files
+# Make lists
+
 # Import used lib
 import datetime # Time
 import sqlite3 # Our DB
@@ -25,7 +29,8 @@ PIN_Rain = 15
 PIN_Wind = 16
 PIN_UV = 18
 
-#Data_val = [] # Include when doing code optimization
+Data_val = [] # List to store pin values
+
 TemperatureC = None
 
 # Some function configuration
@@ -57,37 +62,28 @@ def declareGPIOstate():
     #IN
     chan_list = [PIN_Temperature,PIN_Humidity,PIN_Pressure,PIN_Rain,PIN_Wind,PIN_UV]
     GPIO.setup(chan_list, GPIO.IN)
-    # Do we even need OUT? Perhaps to only provide power when programm running?
 
 # Get Pin Values
 def readGPIOValue():
-    global TemperatureC_val
-    global TemperatureF_val
-    global TemperatureK_val
-    global Humidity_val
-    global Pressure_val
-    global Rain_val
-    global Wind_val
-    global UV_val
-
-    TemperatureC_val = GPIO.input(PIN_Temperature)
-    TemperatureF_val = TemperatureC_val*9/5+32
-    TemperatureK_val = TemperatureC_val+273.15
-    Humidity_val = GPIO.input(PIN_Humidity)
-    Pressure_val = GPIO.input(PIN_Pressure)
-    Rain_val = GPIO.input(PIN_Rain)
-    Wind_val = GPIO.input(PIN_Wind)
-    UV_val = GPIO.input(PIN_UV)
-
+    return dict(
+            TemperatureC_val = GPIO.input(PIN_Temperature),
+            TemperatureF_val = GPIO.input(PIN_Temperature)*9/5+32, # Same as TemperatureC_val*9/5+32, cant access it tho
+            TemperatureK_val = GPIO.input(PIN_Temperature)+273.15, # Same as TemperatureC_val+273.15,
+            Humidity_val = GPIO.input(PIN_Humidity),
+            Pressure_val = GPIO.input(PIN_Pressure),
+            Rain_val = GPIO.input(PIN_Rain),
+            Wind_val = GPIO.input(PIN_Wind),
+            UV_val = GPIO.input(PIN_UV),
+        )
 # Setup DB functions
-def insertVariableInTable(INTemperatureC_val, INTemperatureF_val, INTemperatureK_val, INHumidity_val, INPressure_val, INRain_val, INWind_val, INUV_val, INDateTime_val):
+def insertVariableInTable():
     # Variables used in the INSERT function, too shorten it
     conn = sqlite3.connect('Raw.db')
     cursor = conn.cursor()
     InsertParameter = """INSERT INTO RawData
             (TemperatureC, TemperatureF, TemperatureK, Humidity, Pressure, Rain, Wind, UV, DateTime)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"""
-    DataCollection = (INTemperatureC_val, INTemperatureF_val, INTemperatureK_val, INHumidity_val, INPressure_val, INRain_val, INWind_val, INUV_val, INDateTime_val)
+    DataCollection = readGPIOValue() 
 
     cursor.execute(InsertParameter, DataCollection) # The actual INSERT function
     conn.commit()
@@ -96,7 +92,6 @@ def insertVariableInTable(INTemperatureC_val, INTemperatureF_val, INTemperatureK
 
 ### I dont think it will, but might break on runtime >= 1s, just here to remember it would be related to currtime
 def getDataByVariable(DateTime):
-    global TemperatureC
     conn = sqlite3.connect('Raw.db')
     cursor = conn.cursor()
     SearchParameter = """SELECT * FROM RawData WHERE DateTime = ?""" # I assume the * selects everything, it works
@@ -105,21 +100,15 @@ def getDataByVariable(DateTime):
     completeRecords = cursor.fetchall() # Fetching the entire thing
     print("Records containing the current Time")
     for row in completeRecords: # Fetching all results containing $currtime from entire records
-        TemperatureC = row[0]
-        TemperatureF = row[1]
-        TemperatureK = row[2]
-        Humidity = row[3]
-        Pressure = row[4]
-        Rain = row[5]
-        Wind = row[6]
-        UV = row[7]
+        print(DateTime)
+        DataRecords = [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]]
     cursor.close
 
 def main():
     connectDB()
     declareGPIOstate()
     readGPIOValue()
-    insertVariableInTable(TemperatureC_val, TemperatureF_val, TemperatureK_val, Humidity_val, Pressure_val, Rain_val, Wind_val, UV_val, currtime)
+    insertVariableInTable()
     getDataByVariable(currtime)
 
 if __name__ == '__main__':

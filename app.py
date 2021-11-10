@@ -1,6 +1,8 @@
 # import getData
 from logging import debug
 from flask import Flask, render_template
+import getData
+import datetime
 
 app = Flask(__name__)
 
@@ -10,6 +12,7 @@ def index():
     
 @app.route('/getdata')
 def getdata():
+    getDataByVariable(time)
     datadict = {
         "tmpC": getData.Temp,
         "tmpF": 2,
