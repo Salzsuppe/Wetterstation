@@ -3,7 +3,6 @@ from logging import debug
 from flask import Flask, render_template
 import getData
 import datetime
-import test
 
 def dataListByShiftTime(shift_val):
     '''Search DB by current Time shifted by shift_val'''

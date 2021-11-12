@@ -14,8 +14,6 @@
 import datetime # Time
 import sqlite3 # Our DB
 
-#import platform # Allows executing of program if no on main system 
-
 # Allows the program to be execute without RPi GPIO, with fake values.
 # Remove try except (((!except createDB()!))) to revert changes
 try:
