@@ -1,5 +1,4 @@
 ### Mandatory setup:
-### pip install datetime, sqlite3, RPi.GPIO
 ### sudo timedatectl set-timezone Europe/Berlin
 ### Run by time, either hourly by crontab or wait(3600)
 ### Change PIN var's
@@ -14,16 +13,27 @@
 # Import used lib
 import datetime # Time
 import sqlite3 # Our DB
-import RPi.GPIO as GPIO # Access the pins
+
+#import platform # Allows executing of program if no on main system 
+
+# Allows the program to be execute without RPi GPIO, with fake values.
+# Remove try except (((!except createDB()!))) to revert changes
+try:
+    import RPi.GPIO as GPIO # Access the pins
+except:
+    print("Failed to import GPIO lib, continue with faked values")
 
 # Set up some var
 conn = sqlite3.connect('Raw.db') # Shortening argument lenght
 currtime = datetime.datetime.now().replace(microsecond=0, second=0, minute=0).isoformat() # Store current time in ISO and remove ms, s & m
 
 
-# Set pin numeration to physical 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setwarnings(False)
+# Set pin numeration to physical
+try:
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setwarnings(False)
+except:
+    print("Failed to import GPIO lib, continue with faked values")
 
 # Declare pins
 PIN_Temperature = 12
@@ -53,27 +63,35 @@ def createDB():
 
 def declareGPIOstate():
     '''Input Declaration'''
-    chan_list = [PIN_Temperature,PIN_Humidity,PIN_Pressure,PIN_Rain,PIN_Wind,PIN_UV]
-    GPIO.setup(chan_list, GPIO.IN)
+    try:
+        chan_list = [PIN_Temperature,PIN_Humidity,PIN_Pressure,PIN_Rain,PIN_Wind,PIN_UV]
+        GPIO.setup(chan_list, GPIO.IN)
+    except:
+        print("No state declared")
 
 def readGPIOValue():
     '''Store Pin Values in List'''
-    valueList = [
-            GPIO.input(PIN_Temperature),
-            GPIO.input(PIN_Temperature)*9/5+32, # Same as TemperatureC_val*9/5+32, cant access it tho
-            GPIO.input(PIN_Temperature)+273.15, # Same as TemperatureC_val+273.15,
-            GPIO.input(PIN_Humidity),
-            GPIO.input(PIN_Pressure),
-            GPIO.input(PIN_Rain),
-            GPIO.input(PIN_Wind),
-            GPIO.input(PIN_UV),
-            currtime,
-        ]
-    return valueList
+    try:
+        valueList = [
+                GPIO.input(PIN_Temperature),
+                GPIO.input(PIN_Temperature)*9/5+32, # Same as TemperatureC_val*9/5+32, cant access it tho
+                GPIO.input(PIN_Temperature)+273.15, # Same as TemperatureC_val+273.15,
+                GPIO.input(PIN_Humidity),
+                GPIO.input(PIN_Pressure),
+                GPIO.input(PIN_Rain),
+                GPIO.input(PIN_Wind),
+                GPIO.input(PIN_UV),
+                currtime,
+            ]
+        return valueList
+
+    except:
+        valueList = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+        return valueList
 
 # Setup DB functions
 def insertVariableInTable(): 
-    '''Variablest used in the INSERT function, too shorten it'''
+    '''Variables used in the INSERT function, to shorten it'''
     conn = sqlite3.connect('Raw.db')
     cursor = conn.cursor()
     InsertParameter = """INSERT INTO RawData
@@ -123,5 +141,9 @@ def main():
 if __name__ == '__main__':
     main()
     # Cleanup
-    GPIO.cleanup()
+    try:
+        GPIO.cleanup()
+    except:
+        print("Pin cleanup failed")
+
     conn.close()

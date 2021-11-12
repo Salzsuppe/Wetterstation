@@ -3,6 +3,7 @@ from logging import debug
 from flask import Flask, render_template
 import getData
 import datetime
+import test
 
 def dataListByShiftTime(shift_val):
     '''Search DB by current Time shifted by shift_val'''
@@ -26,6 +27,8 @@ def getdata():
             'curr-4h': dataListByShiftTime(-4),
             'curr-5h': dataListByShiftTime(-5),
             }
+    # syntax for fetching data from nested dict
+    #print(PastTimeDataDict['curr-0h']['TemperatureC'])
     return PastTimeDataDict
 
 if __name__ == '__main__':
