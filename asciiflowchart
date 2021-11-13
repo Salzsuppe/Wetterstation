@@ -1,0 +1,28 @@
+
+Start
+|----config					
+|	|-DeclarePinLocation----->|		
+|				  |		
+|----measureValues		  |		
+|	|_______declare-I/O<------|		
+|	|<------readGPIOValue<----|		
+|	|	
+|	|	
+|	V					
+|	valueResults------------------->|	
+|					|	
+|--------createDB			|	
+|	    |___insertValuesInTable<----|
+|	    |
+|	    |<--getDataByVariable<-----
+|	    V
+|	 valuesByTime<--------------------|
+|	    |				  |
+|	    |				  |
+|	    V				  |
+|-------website/getdata			  |
+|	    |				  |
+|	    |				  |
+|	    v				  |
+|-------Mainwebsite(/)->determinetime---->|
+
