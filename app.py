@@ -10,6 +10,12 @@ import insertData # 'Display' depends on 'Collection'
 
 app = Flask(__name__)
 
+# Prevent error on table creation by trying to create table
+try:
+    insertData.createDB()
+except:
+    print("Table creation failed, already existing")
+
 # Functions used directly on the website
 def dataListByShiftTime(shift_val):
     '''Get DB entries by $currtime + $shift_val'''

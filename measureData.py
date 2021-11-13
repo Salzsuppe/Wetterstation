@@ -62,7 +62,7 @@ def main():
     try:
         measuredValueResult = measureValues()
     except:
-        measuredValueResult = [0, 1, 2, 3, 4, 5, 6, 7, "Nice and fake data"]
+        measuredValueResult = ["Nice and fake data", 0, 1, 2, 3, 4, 5, 6, 7, 8]
     return measuredValueResult
 
 # Prevent execution on import (It just works.)

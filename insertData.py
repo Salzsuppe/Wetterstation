@@ -57,14 +57,15 @@ def getDataByVariable(DateTime):
     for row in completeRecords: # Fetching all results containing $currtime from $completeRecords
         print(DateTime)
         DataRecords = {
-                'TemperatureC':row[0],
-                'TemperatureF':row[1],
-                'TemperatureK':row[2],
-                'Humidity':row[3],
-                'Pressure':row[4],
-                'Rain':row[5],
-                'Wind':row[6],
-                'UV':row[7]
+                'DateTime':row[0],
+                'TemperatureC':row[1],
+                'TemperatureF':row[2],
+                'TemperatureK':row[3],
+                'Humidity':row[4],
+                'Pressure':row[5],
+                'Rain':row[6],
+                'Wind':row[7],
+                'UV':row[8]
                 }
         print(DataRecords)
     cursor.close

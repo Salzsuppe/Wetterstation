@@ -14,9 +14,9 @@ Start
 |--------createDB			|	
 |	    |___insertValuesInTable<----|
 |	    |
-|	    |<--getDataByVariable<-----
-|	    V
-|	 valuesByTime<--------------------|
+|	    |<--getDataByVariable<--------|
+|	    V				  |
+|	 valuesByTime			  |
 |	    |				  |
 |	    |				  |
 |	    V				  |
