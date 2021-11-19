@@ -4,13 +4,14 @@
 # Import lib
 import sqlite3 # Our Database
 import measureData # 'Storing' depends on 'Collection', also importing currtime
+from cfg import config
 
 # Var to simplify the code
 conn = sqlite3.connect('Raw.db') # The argument which db you want to modify
 
 def createDB():
     '''Create database and its table, if not already existing'''
-    conn.execute('''CREATE TABLE RawData
+    conn.execute("""CREATE TABLE IF NOT EXISTS RawData 
             (DateTime TEXT,
             TemperatureC REAL,
             TemperatureF REAL,
@@ -19,8 +20,7 @@ def createDB():
             Pressure REAL,
             Rain INT,
             Wind REAL,
-            UV INT );''')
-    print("Table created succesfully")
+            UV INT );""")
     conn.close()
 
 
@@ -53,32 +53,21 @@ def getDataByVariable(DateTime):
     
     cursor.execute(SearchParameter, (DateTime,)) # Appending the var Value into the execute statement
     completeRecords = cursor.fetchall() # Fetching the entire DB
-    DataRecords = []
-    for row in completeRecords: # Fetching all results containing $currtime from $completeRecords
-        print(DateTime)
-        DataRecords = {
-                'DateTime':row[0],
-                'TemperatureC':row[1],
-                'TemperatureF':row[2],
-                'TemperatureK':row[3],
-                'Humidity':row[4],
-                'Pressure':row[5],
-                'Rain':row[6],
-                'Wind':row[7],
-                'UV':row[8]
-                }
-        print(DataRecords)
+    Values = []
+    for row in completeRecords: # Rearanging Values from complete Records, to ensure correct zip()
+        Values = [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]]
+
+    Names = config.dataEntryList
+    DataRecords = dict(zip(Names, Values)) # Merge ValueNames with Values into one dict()
     cursor.close
     conn.close()
-    return DataRecords
+    print(DataRecords)
+    return DataRecords 
 
 
 def main():
     '''Create table and insert Values'''
-    try:
-        createDB()
-    except:
-        print("Table creation failed, already existing?")
+    createDB()
 
     insertValuesInTable()
     getDataByVariable(measureData.currtime) # Just called to show nicely the inserted data

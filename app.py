@@ -1,5 +1,5 @@
 # The main function of this file will be the data display as Webserver
-# It is supposed to split the processing into Setup&Collection - Storign - "Display"
+# It is supposed to split the processing into Setup&Collection - Storing - "Display"
 
 # Import lib
 from logging import debug ### DISABLE DEBUG LATER
@@ -29,7 +29,7 @@ def dataListByShiftTime(shift_val):
 @app.route('/')
 def index():
     '''Root site, index.html will be presented'''
-    return render_template('index.html') # Flask will look for html in /templates
+    return render_template('index.html') # Flask will look for index.html in /templates
 
 @app.route('/getdata')
 def getdata():

@@ -9,3 +9,18 @@ pinDict = {
     'Wind':16,
     'UV':18
     }
+
+VPin = 22
+
+# Value Names, for Dict and Table creation(?)
+dataEntryList = [
+        'DateTime',
+        'TemperatureC',
+        'TemperatureF',
+        'TemperatureK',
+        'Humidity',
+        'Pressure',
+        'Rain',
+        'Wind',
+        'UV'
+        ]

@@ -26,7 +26,11 @@ def measureValues():
         '''Input declaration'''
         chan_list = list(config.pinDict.values()) # Use values() to isolate the values
         GPIO.setup(chan_list, GPIO.IN)
-
+        
+        # Provide power to sensors
+        # BE CAREFUL!, dont roast sensors with 3,3/5V
+        # If 3v use GPIO.OUT if 5v use gpio to switch one 5v output
+        ##### GPIO.setup(config.VPin, GPIO.OUT)
 
     def readGPIOValue():
         '''Store measured values in list'''
