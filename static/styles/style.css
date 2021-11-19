@@ -19,8 +19,8 @@ body{
 .sun{
     position: absolute;
     border-radius: 100%;
-    width: 18em;
-    height: 18em;
+    width: 18vw;
+    height: 18vw;
     top: -3em;
     left: -3em;
     background-color: #F3F300;
@@ -175,8 +175,4 @@ body{
 }
 .menu-pulldown button:hover{
     background-color: lightgrey;
-}
-
-@media(max-width: 1000px) {
-
 }
