@@ -14,7 +14,7 @@ body{
     align-items: center;
     justify-content: center;
     background-color: #00AEF9;
-    height: 45em;
+    height: 46vw;
 }
 .sun{
     position: absolute;
@@ -74,7 +74,7 @@ body{
     align-items: center;
     justify-content: center;
     background-color: #9CACB4;
-    height: 45em;
+    height: 46vw;
 }
 .cloudy .cloud1{
     position: absolute;
@@ -117,7 +117,7 @@ body{
     align-items: center;
     justify-content: center;
     background-color: #004788;
-    height: 45em;
+    height: 46vw;
     width: 100%;
 }
 .raindrop{
@@ -140,10 +140,43 @@ body{
     width: 55vw;
 }
 .temperature{
+    position: relative;
+    border-radius: 10px;
+    height: 10vw;
+    width: 15vw;
     z-index: 1;
 }
 .temperature #rainy{
     font-family: Cabin;
     font-size: 2rem;
     margin: 0.2em 0;
+}
+.menu-button{
+    position: absolute;
+    top: 1em;
+    right: 0.5em;
+    border: none;
+}
+.menu-pulldown{
+    display: none;
+    position: absolute;
+    right: -7.5em;
+    top: 0.8em;
+}
+.menu-pulldown-activated{
+    display: flex!important;
+    flex-direction: column;
+    justify-content: center;
+}
+.menu-pulldown button{
+    border: none;
+    padding: 1em 2em;
+    background-color: white;
+}
+.menu-pulldown button:hover{
+    background-color: lightgrey;
+}
+
+@media(max-width: 1000px) {
+
 }

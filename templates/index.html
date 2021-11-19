@@ -33,6 +33,12 @@
                 <img src="static/Wetterdesign/SunGrasDunkel.svg" alt="Dark-Gras">
             </div>
             <div class="temperature">
+                <button class="menu-button"><img src="/static/Wetterdesign/Polygon 1.svg" alt=""></button>
+                <div class="menu-pulldown">
+                    <button class="C" onclick="onClickCelsius()">Celsius</button>
+                    <button class="F" onclick="onClickFahrenheit()">Fahrenheit</button>
+                    <button class="K" onclick="onClickKelvin()">Kelvin</button>
+                </div>
                 <p id="sunny">Sonnig</p>
                 <p class="temp"></p>
             </div>        
@@ -54,6 +60,12 @@
                 <img src="static/Wetterdesign/BewGrasDunkel.svg" alt="Dark-Gras">
             </div>
             <div class="temperature">
+                <button class="menu-button"><img src="/static/Wetterdesign/Polygon 1.svg" alt=""></button>
+                <div class="menu-pulldown">
+                    <button class="C" onclick="onClickCelsius()">Celsius</button>
+                    <button class="F" onclick="onClickFahrenheit()">Fahrenheit</button>
+                    <button class="K" onclick="onClickKelvin()">Kelvin</button>
+                </div>
                 <p id="cloudy">Bewölkt</p>
                 <p class="temp"></p>
             </div>
@@ -67,16 +79,17 @@
                 <img src="static/Wetterdesign/RainDarkGras.svg" alt="Dark-Gras">
             </div>
             <div class="temperature">
-                <details>
-                    <button class="C" onclick="onClickCelsius()">C</button>
-                    <button class="F" onclick="onClickFahrenheit()">F</button>
-                    <button class="K" onclick="onClickKelvin()">K</button>
-                </details>
+                <button class="menu-button"><img src="/static/Wetterdesign/Polygon 1.svg" alt=""></button>
+                <div class="menu-pulldown">
+                    <button class="C" onclick="onClickCelsius()">Celsius</button>
+                    <button class="F" onclick="onClickFahrenheit()">Fahrenheit</button>
+                    <button class="K" onclick="onClickKelvin()">Kelvin</button>
+                </div>
                 <p id="rainy">Regen</p>
                 <p class="temp"></p>
             </div>
         </div>
     </div>
-    <script src="{{ url_for('static',filename='main.js') }}"> </script>
+    <script src="{{ url_for('static',filename='main.js') }}"></script>
 </body>
 </html>
