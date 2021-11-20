@@ -12,11 +12,6 @@
     <title>Wetterstation</title>
 </head>
 <body>
-    <center>
-            <button class="sun-button" onclick="changeSun()">sonne</button>
-            <button class="cloud-button" onclick="changeCloud()">wolken</button>
-            <button class="rain-button" onclick="changeRain()">regen</button>
-    </center>
     <div class="weather-screen">
         <div class="sunny">
             <div class="sun"></div>
@@ -38,6 +33,7 @@
                     <button class="C" onclick="onClickCelsius()">Celsius</button>
                     <button class="F" onclick="onClickFahrenheit()">Fahrenheit</button>
                     <button class="K" onclick="onClickKelvin()">Kelvin</button>
+                    <button class="feeling" onclick="getFeelingTemp()">Gefühlt</button>
                 </div>
                 <p id="sunny">Sonnig</p>
                 <p class="temp"></p>
@@ -65,6 +61,7 @@
                     <button class="C" onclick="onClickCelsius()">Celsius</button>
                     <button class="F" onclick="onClickFahrenheit()">Fahrenheit</button>
                     <button class="K" onclick="onClickKelvin()">Kelvin</button>
+                    <button class="feeling" onclick="getFeelingTemp()">Gefühlt</button>
                 </div>
                 <p id="cloudy">Bewölkt</p>
                 <p class="temp"></p>
@@ -84,6 +81,7 @@
                     <button class="C" onclick="onClickCelsius()">Celsius</button>
                     <button class="F" onclick="onClickFahrenheit()">Fahrenheit</button>
                     <button class="K" onclick="onClickKelvin()">Kelvin</button>
+                    <button class="feeling" onclick="getFeelingTemp()">Gefühlt</button>
                 </div>
                 <p id="rainy">Regen</p>
                 <p class="temp"></p>

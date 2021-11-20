@@ -23,13 +23,13 @@ function showMenu() {
     //activates the menu for changing the temperature units
     if (!menuActivated) {
         for (const el of document.querySelectorAll(".menu-pulldown")) {
-            el.classList.add("menu-pulldown-activated")
+            el.classList.add("menu-pulldown-activated") //changes the class name to show stmh else wich is styled in css
         }
         menuActivated = true;
     }
     else {
         for (const el of document.querySelectorAll(".menu-pulldown")) {
-            el.classList.remove("menu-pulldown-activated")
+            el.classList.remove("menu-pulldown-activated") //changes the class name again to show what it was before
         }
         menuActivated = false;
     }
@@ -46,34 +46,28 @@ async function fillValues(){
 
 //changing the temperature values on button click
 function onClickCelsius() {
-    changeTemp(weatherData['curr-0h']['TemperatureC'], "C")
+    changeTemp(weatherData['curr-0h']['TemperatureC'], "C") //getting variables from the dictionary
     showMenu()
 }
-
 function onClickFahrenheit() {
     changeTemp(weatherData['curr-0h']['TemperatureF'], "F")
     showMenu()
 }
-
 function onClickKelvin() {
     changeTemp(weatherData['curr-0h']['TemperatureK'], "K")
     showMenu()
 }
+//calculate felt temperature
+function getFeelingTemp() {
+    var t = weatherData['curr-0h']['TemperatureC']
+    var wind = weatherData['curr-0h']['Wind']
 
-function changeSun(){
-    document.querySelector(".sunny").style.display = "flex"
-    document.querySelector(".cloudy").style.display = "none"
-    document.querySelector(".rainy").style.display = "none"
-}
-function changeCloud(){
-    document.querySelector(".cloudy").style.display = "flex"
-    document.querySelector(".sunny").style.display = "none"
-    document.querySelector(".rainy").style.display = "none"
-}
-function changeRain(){
-    document.querySelector(".rainy").style.display = "flex"
-    document.querySelector(".sunny").style.display = "none"
-    document.querySelector(".cloudy").style.display = "none"
+    vSix = Math.pow(wind, 0.16) //function for calculating with exponents
+
+    var feeling = 13.12 + 0.6215*t - 11.37*vSix + 0.3965*t*vSix
+
+    changeTemp(feeling)
+    showMenu()
 }
 
 //adds an onclick event for the menu buttons
