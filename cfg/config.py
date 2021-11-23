@@ -10,6 +10,7 @@ pinDict = {
     'UV':18
     }
 
+# Output regulation Pin
 VPin = 22
 
 # Value Names, for Dict and Table creation(?)

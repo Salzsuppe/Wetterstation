@@ -1,9 +1,9 @@
-### MandatorySetup:
-### Change pin var
-### Run program by time
-
 # The main function of this file will be the data collection
 # It is supposed to split the processing into "Setup&Collection" - Storing - Display
+
+
+# Check Pin var
+# Check Readme.md links
 
 # Global to be able to import
 import datetime # Access time to store in DB 
@@ -45,7 +45,7 @@ def measureValues():
 
         for entry in list(config.pinDict.values()):
             # Append all pin values from pins in pinDict{} to valueList[]
-            if entry != 12:
+            if entry != config.pinDict['Temperature']:
                 valueList.append(GPIO.input(entry))
         
         return valueList
