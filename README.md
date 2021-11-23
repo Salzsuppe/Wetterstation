@@ -9,6 +9,40 @@ Mainsite die abrufbar ist um die Daten der letzten 5 Stunden anzuzeigen.
 Die Rohdaten der letzten 5 Stunden, die das frontend der Mainsite nutzt.
 + [Past 5h](http://raspi-home.ddns.net:8080/getdata/)
 
+## Getting Started
+
+Um das Programm zu nutzten, muss es heruntergeladen und konfiguriert werden.<sup>1</sup>
+
+Benötigt werden `python3, flask` packages.
+```
+git clone git@github.com:Salzsuppe/Wetterstation
+cd Wetterstation
+nano cfg/config.py
+```
+Nun die Pin-Numerierung anpassen, gemeint sind Physische Pins.
+
+<kbd>strg+X</kbd>, <kbd>y</kbd>, <kbd>Enter</kbd>
+Um die Änderungen unter dem selben Filename zu speichern.
+
+Um Daten von der aktuellen Zeit einzutragen, führen Sie das Programm aus.
+```
+python3 insertData.py
+```
+
+Für automatisch Stündliche Datenaufnahme, kann man z.B. ein Crontab Eintrag erstellen.
+`crontab -e`
+
+Nun die Line anhängen:
+```
+1 * * * * cd /path/to/Wetterstation && python3 /path/to/Wetterstation/getData.py # Ausführung in der ersten Minute jeder Stunde
+```
+
+
+
+---
+<sup>[1]: Git clone wird ohne private Key fehlschlagen, da es nicht public editierbar ist.</sup>
+
+
 ## Struktur
 [cfg/](https://github.com/Salzsuppe/Wetterstation/tree/main/cfg) Konfigurations Dateien
 
