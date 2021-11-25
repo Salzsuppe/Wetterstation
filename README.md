@@ -1,3 +1,6 @@
+!!Update folder structure!!
+
+
 # Wetterstation
 
 Die ist die Programmausarbeitung zu einer Wetterstation mithilfe eines Raspberrypi's zero W.
@@ -102,4 +105,28 @@ Nat√ºrlich haben wir auch ein paar Vorkenntnisse mitgebracht damit wir so weit k
   +  ...
 
 + Probleme
+### Backend - Library
+Am Anfang stellte sich die Frage womit man das Backend √berhaupt machen soll, C war eine offensichtliche
+M√glichkeit da wir mit den Arduinos auch in C programmmieren. Nach ein bisschen st√bern stellte sich heraus,
+dass die C Library, die sehr dem Style des Arduinos √hnelt (Digital.write()), nicht l√nger supported wird.
+Nach k√rze endschied ich mich dann das ganze Backend in Python3 zu programmieren.
+Ich hatte keine Ahnung von Python3, aber auch nicht viel mehr von C au√üer das was im Unterricht behandelt wurde.
+
+### Backend - Headless Setup/WLAN
+Den Raspberrypi aufzusetzen ging schnell vorbei, nach k√rze fand ich wie ich mithilfe von wpa_supplicant.conf
+eine WLAN configurations aufsetzten kann bevor ich ihn starte. Nun konnte ich mit SSH auf in zugreifen.
+
+Ein Problem was nun auftauchte war das ganze im Schulnetzwerk zu machen. Es hat eine PEAP config was ein bisschen
+komplizierter in der configurations Datei ist, ich habe es auf mehrere Weisen versucht, 
+unteranderem Netzwerk-Manager aufzusetzen, was alles nicht funktioniert hatte.
+
+Zwischendurch hatten wir einen WLAN router den wir an das LAN Netzwerk angebunden haben, hier konnte ich lokal mit ihm kommunizieren,
+aber nicht in das Internet aufgrund Proxy Anmelde-Daten (Diese k√nnte ich warscheinlich in den Einstellungen aufsetzen).
+
+In Zukunft k√nnte die lokale Kommunikation ausreichen da ich plane einen Reverse SSH tunnel zu dem Server in der Schule zu machen.
+Dies resultiert daran das der SSH port von dem Raspberrypi zu dem Server forwarded wird, und von dort im WWW erreichbar ist.
+
+In der Schule kann ich inzwischen auch mit ihm kommunizieren da man sowohl SSH connections als auch Internet Access √berUSB-Data port nutzen kann.
+
+### Pins/Sensoren
 
