@@ -94,7 +94,9 @@ Natürlich haben wir auch ein paar Vorkenntnisse mitgebracht damit wir so weit k
   + Zuletzt habe ich noch Kenntnisse mit Mikroconrollern mitgebracht
 
 + Lennart
-  + ...
+  + Linux-Enviroment (Filesystem/Console/Software)
+  + Networking-Grundlagen (SSH, Sockets, Firewalls, Traffic)
+  + Bash-Scripting (Enviroment, Commands, Scripts)
 
 + Stefan
   +  ...
