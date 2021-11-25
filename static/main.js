@@ -17,26 +17,26 @@ function changeTemp(temp, unit) {
     }
 }
 
-let weatherData = null;
+let weatherData;
 
 async function fillValues(){
     //gets all the data from the flask application in app.py
     let response = await fetch("/getdata");
-    weatherData.toFixed(2) = await response.json();
-    changeTemp(weatherData['curr-0h']['TemperatureC'], "C")
+    weatherData = await response.json();
+    changeTemp(weatherData['curr-0h']['TemperatureC'].toFixed(2), "C")
 }
 
 //changing the temperature values on button click
 function onClickCelsius() {
-    changeTemp(weatherData['curr-0h']['TemperatureC'], "C") //getting variables from the dictionary
+    changeTemp(weatherData['curr-0h']['TemperatureC'].toFixed(2), "C") //getting variables from the dictionary
     showMenu()
 }
 function onClickFahrenheit() {
-    changeTemp(weatherData['curr-0h']['TemperatureF'], "F")
+    changeTemp(weatherData['curr-0h']['TemperatureF'].toFixed(2), "F")
     showMenu()
 }
 function onClickKelvin() {
-    changeTemp(weatherData['curr-0h']['TemperatureK'], "K")
+    changeTemp(weatherData['curr-0h']['TemperatureK'].toFixed(2), "K")
     showMenu()
 }
 
@@ -70,14 +70,11 @@ function getFeelingTemp() {
 
     vSix = Math.pow(wind, 0.16) //function for calculating with exponents
 
-    var feeling = 13.12 + 0.6215*t - 11.37*vSix + 0.3965*t*vSix
-    var roundFeeling = feeling.toFixed(2)
-
+    var feeling = 13.12 + 0.6215*t - 11.37*vSix + 0.3965*t*vSix //formular to calculate the felt temprature
+    var roundFeeling = feeling.toFixed(2) //round the answer to two digits
 
     changeTemp(roundFeeling)
     showMenu()
 }
-
-
 fillValues()
 makeRain()
