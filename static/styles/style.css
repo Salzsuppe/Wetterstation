@@ -24,18 +24,29 @@ body{
     top: -3em;
     left: -3em;
     background-color: #F3F300;
+    box-shadow: 0 0 5em 3em #F3F300;
 }
 .sunny .cloud1{
     position: absolute;
-    top: 5vw;
+    top: 7vw;
     right: 16vw;
     width: 23vw;
+    border-radius: 50%;
+    box-shadow: 2em 2em 10em 6em lightgray;
 }
 .sunny .cloud2{
     position: absolute;
-    top: 8vw;
+    top: 10vw;
     left: 17vw;
     width: 23vw;
+    border-radius: 50%;
+    box-shadow: 2em 2em 10em 6em lightgray;
+}
+.tree{
+    position: absolute;
+    right: 18vw;
+    top: 28vw;
+    z-index: 5;
 }
 .sun-dark-gras{
     position: absolute;
@@ -152,6 +163,7 @@ body{
     margin: 0.2em 0;
 }
 .menu-button{
+    background-color: unset;
     position: absolute;
     top: 1em;
     right: 0.5em;
@@ -161,7 +173,6 @@ body{
     display: none;
     position: absolute;
     right: -7.5em;
-    top: 0.8em;
 }
 .menu-pulldown-activated{
     display: flex!important;
@@ -170,9 +181,36 @@ body{
 }
 .menu-pulldown button{
     border: none;
+    border-radius: 10px;
+    margin-top: 1em;
     padding: 1em 2em;
     background-color: white;
 }
 .menu-pulldown button:hover{
     background-color: lightgrey;
+}
+.weather-data{
+    margin-top: 20em;
+    display: flex;
+    justify-content: center;
+}
+.table-wrapper{
+    width: 90%;
+    background-color: lightgray;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px, 10px;
+}
+td, th {
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+tr:nth-child(odd) {
+    background-color: #c4c4c4;
 }

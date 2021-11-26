@@ -23,27 +23,27 @@ async function fillValues(){
     //gets all the data from the flask application in app.py
     let response = await fetch("/getdata");
     weatherData = await response.json();
-    changeTemp(weatherData['curr-0h']['TemperatureC'].toFixed(2), "C")
+    changeTemp(weatherData['curr-0h']['TemperatureC'], "C")
 }
 
 //changing the temperature values on button click
 function onClickCelsius() {
-    changeTemp(weatherData['curr-0h']['TemperatureC'].toFixed(2), "C") //getting variables from the dictionary
+    changeTemp(weatherData['curr-0h']['TemperatureC'], "C") //getting variables from the dictionary
     showMenu()
 }
 function onClickFahrenheit() {
-    changeTemp(weatherData['curr-0h']['TemperatureF'].toFixed(2), "F")
+    changeTemp(weatherData['curr-0h']['TemperatureF'], "F")
     showMenu()
 }
 function onClickKelvin() {
-    changeTemp(weatherData['curr-0h']['TemperatureK'].toFixed(2), "K")
+    changeTemp(weatherData['curr-0h']['TemperatureK'], "K")
     showMenu()
 }
 
 let menuActivated = false;
 
 function showMenu() {
-    //activates the menu for changing the temperature units
+    //activates the menu for changing the temperature unitssdjklfdj
     if (!menuActivated) {
         for (const el of document.querySelectorAll(".menu-pulldown")) {
             el.classList.add("menu-pulldown-activated") //changes the class name to show smth else wich is styled in css
@@ -78,3 +78,11 @@ function getFeelingTemp() {
 }
 fillValues()
 makeRain()
+
+function update(){
+    document.getElementById("a").innerText = weatherData['curr-5h']['UV']
+}
+
+setInterval(() => {
+    console.log()
+}, 60 * 60 * 100)
