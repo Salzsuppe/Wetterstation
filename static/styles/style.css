@@ -194,19 +194,18 @@ body{
     display: flex;
     justify-content: center;
 }
-.table-wrapper{
-    width: 90%;
-    background-color: lightgray;
+#table-wrapper{
+    width: 80%;
 }
 table {
-    font-family: arial, sans-serif;
+    font-family: Rubik;
     border-collapse: collapse;
-    width: 100%;
-    margin: 10px, 10px;
+    margin: 2em, 2em;
+    width: 100%
 }
 td, th {
     text-align: left;
-    padding: 8px;
+    padding: 1em;
 }
 tr:nth-child(even) {
     background-color: #dddddd;
