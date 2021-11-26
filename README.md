@@ -59,7 +59,7 @@ Nun die Line anhängen:
 [static/](https://github.com/Salzsuppe/Wetterstation/tree/main/static) enthält Grafiken und das JavaScript für das Frontend
 + [Wetterdesign/](https://github.com/Salzsuppe/Wetterstation/tree/main/static/Wetterdesign) enthält die Roh-Grafik
 + [styles/](https://github.com/Salzsuppe/Wetterstation/tree/main/static/styles) enthält die anordnung der Roh-Grafik
-+ [main.js](https://github.com/Salzsuppe/Wetterstation/blob/main/static/main.js) das gesamte Frontend script, für Designänderungen, und die Dateneintragungen
++ [main.js](https://github.com/Salzsuppe/Wetterstation/blob/main/static/main.js) das gesamte Frontend script, für Design Anderungen, und die Dateneintragungen
 
 [templates/](https://github.com/Salzsuppe/Wetterstation/tree/main/templates)
 + [index.html](https://github.com/Salzsuppe/Wetterstation/blob/main/templates/index.html) die Vorlage, in welche die Werte eingefüllt werden
@@ -68,7 +68,7 @@ Nun die Line anhängen:
 
 [README.md](https://github.com/Salzsuppe/Wetterstation/blob/main/README.md) Dieses File
 
-[Raw.db](https://github.com/Salzsuppe/Wetterstation/blob/main/Raw.db) Unsere Database, mit Table RawData, die unsere gemessene und verarbeiteten Werte enthält
+[Raw.db](https://github.com/Salzsuppe/Wetterstation/blob/main/Raw.db) Unsere Database, mit Table RawData, die unsere gemessene und verarbeiteten Werte enthÃ¤lt
 
 [app.py](https://github.com/Salzsuppe/Wetterstation/blob/main/app.py) Unsere Website-Framework wo der Inhalt für die URL's gestellt wird
 
@@ -103,17 +103,19 @@ Natürlich haben wir auch ein paar Vorkenntnisse mitgebracht damit wir so weit k
 
 + Stefan
   +  ...
+  +  (Lennart möchte anmerken: Stefan kann googlen)
 
-+ Probleme
+## Probleme
+
 ### Backend - Library
-Am Anfang stellte sich die Frage womit man das Backend �berhaupt machen soll, C war eine offensichtliche
-M�glichkeit da wir mit den Arduinos auch in C programmmieren. Nach ein bisschen st�bern stellte sich heraus,
-dass die C Library, die sehr dem Style des Arduinos �hnelt (Digital.write()), nicht l�nger supported wird.
-Nach k�rze endschied ich mich dann das ganze Backend in Python3 zu programmieren.
+Am Anfang stellte sich die Frage womit man das Backend überhaupt machen soll, C war eine offensichtliche
+Möglichkeit da wir mit den Arduinos auch in C programmmieren. Nach ein bisschen stöbern stellte sich heraus,
+dass die C Library, die sehr dem Style des Arduinos ähnelt (Digital.write()), nicht länger supported wird.
+Nach kürze endschied ich mich dann das ganze Backend in Python3 zu programmieren.
 Ich hatte keine Ahnung von Python3, aber auch nicht viel mehr von C außer das was im Unterricht behandelt wurde.
 
 ### Backend - Headless Setup/WLAN
-Den Raspberrypi aufzusetzen ging schnell vorbei, nach k�rze fand ich wie ich mithilfe von wpa_supplicant.conf
+Den Raspberrypi aufzusetzen ging schnell vorbei, nach kürze fand ich wie ich mithilfe von wpa_supplicant.conf
 eine WLAN configurations aufsetzten kann bevor ich ihn starte. Nun konnte ich mit SSH auf in zugreifen.
 
 Ein Problem was nun auftauchte war das ganze im Schulnetzwerk zu machen. Es hat eine PEAP config was ein bisschen
@@ -121,12 +123,12 @@ komplizierter in der configurations Datei ist, ich habe es auf mehrere Weisen ve
 unteranderem Netzwerk-Manager aufzusetzen, was alles nicht funktioniert hatte.
 
 Zwischendurch hatten wir einen WLAN router den wir an das LAN Netzwerk angebunden haben, hier konnte ich lokal mit ihm kommunizieren,
-aber nicht in das Internet aufgrund Proxy Anmelde-Daten (Diese k�nnte ich warscheinlich in den Einstellungen aufsetzen).
+aber nicht in das Internet aufgrund Proxy Anmelde-Daten (Diese könnte ich warscheinlich in den Einstellungen aufsetzen).
 
-In Zukunft k�nnte die lokale Kommunikation ausreichen da ich plane einen Reverse SSH tunnel zu dem Server in der Schule zu machen.
+In Zukunft könnte die lokale Kommunikation ausreichen da ich plane einen Reverse SSH tunnel zu dem Server in der Schule zu machen.
 Dies resultiert daran das der SSH port von dem Raspberrypi zu dem Server forwarded wird, und von dort im WWW erreichbar ist.
 
-In der Schule kann ich inzwischen auch mit ihm kommunizieren da man sowohl SSH connections als auch Internet Access �berUSB-Data port nutzen kann.
+In der Schule kann ich inzwischen auch mit ihm kommunizieren da man sowohl SSH connections als auch Internet Access über USB-Data port nutzen kann.
 
 ### Pins/Sensoren
 
