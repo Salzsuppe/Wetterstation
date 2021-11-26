@@ -73,7 +73,7 @@ function getFeelingTemp() {
     var feeling = 13.12 + 0.6215*t - 11.37*vSix + 0.3965*t*vSix //formular to calculate the felt temprature
     var roundFeeling = feeling.toFixed(2) //round the answer to two digits
 
-    changeTemp(roundFeeling)
+    changeTemp(roundFeeling, "C")
     showMenu()
 }
 makeRain()
