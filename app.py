@@ -19,10 +19,19 @@ except:
 # Functions used directly on the website
 def dataListByShiftTime(shift_val):
     '''Get DB entries by $currtime + $shift_val'''
-    ShiftedTime = measureData.nonISOtime + datetime.timedelta(hours=shift_val)
+    ShiftedTime = measureData.nonISOtime + datetime.timedelta(hours=(shift_val*-1))
     ISOformatTime = ShiftedTime.isoformat()
     
     return insertData.getDataByVariable(ISOformatTime)
+
+def dataListByDate(Year,Month,Date):
+    '''Get DB entries by $Date'''
+    DataDict = {}
+    for hour in range(24): # Appending the Data hourly
+        DataDate = datetime.datetime(Year, Month, Date, hour).isoformat() # Isotime for the given date 0-24
+        Data = insertData.getDataByVariable(DataDate)
+        DataDict[hour] = Data # Append in dict
+    return DataDict
 
 # Accessible URL's
 
@@ -33,17 +42,10 @@ def index():
 
 @app.route('/getdata')
 def getdata():
-    '''Store data from past 5h in nested Dict on /getdata'''
-    PastTimeDataDict = {
-            'curr-0h': dataListByShiftTime(0),
-            'curr-1h': dataListByShiftTime(-1),
-            'curr-2h': dataListByShiftTime(-2),
-            'curr-3h': dataListByShiftTime(-3),
-            'curr-4h': dataListByShiftTime(-4),
-            'curr-5h': dataListByShiftTime(-5),
-            }
-    # Syntax for fetching out of nested dict
-    # $ print(PastTimeDataDict['curr-0h']['TemperatureC']
+    '''Store data from past 6h in nested Dict on /getdata'''
+    PastTimeDataDict = {}
+    for hour in range(6):
+        PastTimeDataDict["curr-"+str(hour)+"h"] = dataListByShiftTime(hour)
     return PastTimeDataDict
 
 # Prevent execution on import & enable on Site Debug
