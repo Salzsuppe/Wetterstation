@@ -1,9 +1,9 @@
-### MandatorySetup:
-### Change pin var
-### Run program by time
-
 # The main function of this file will be the data collection
 # It is supposed to split the processing into "Setup&Collection" - Storing - Display
+
+
+# Check Pin var
+# Check Readme.md links
 
 # Global to be able to import
 import datetime # Access time to store in DB 
@@ -26,7 +26,11 @@ def measureValues():
         '''Input declaration'''
         chan_list = list(config.pinDict.values()) # Use values() to isolate the values
         GPIO.setup(chan_list, GPIO.IN)
-
+        
+        # Provide power to sensors
+        # BE CAREFUL!, dont roast sensors with 3,3/5V
+        # If 3v use GPIO.OUT if 5v use gpio to switch one 5v output
+        ##### GPIO.setup(config.VPin, GPIO.OUT)
 
     def readGPIOValue():
         '''Store measured values in list'''
@@ -41,7 +45,7 @@ def measureValues():
 
         for entry in list(config.pinDict.values()):
             # Append all pin values from pins in pinDict{} to valueList[]
-            if entry != 12:
+            if entry != config.pinDict['Temperature']:
                 valueList.append(GPIO.input(entry))
         
         return valueList
