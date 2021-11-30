@@ -30,13 +30,6 @@ def getDataByVariable(DateTime):
 
 
 def getAvg(dictTuple):
-    
-    tmpValueDict = {} # Hold values all fetched TempC, TempF... values with names 0, 1...
-    for entry in dictTuple: # completeTable consist of [(x, y), (xn, yn), ..]
-        # Setup loop
-        for name in range(len(entry)):
-            tmpValueDict[name] = []
-
-        for position in range(len(entry)): # loops through (0, 1, ..)
-            tmpValueDict[position] += [entry[position]] # Append in dict
-    print(tmpValueDict)
+    for entry in range(len(dictTuple[0])):
+        y = [el[entry] for el in dictTuple]
+        print(y)
