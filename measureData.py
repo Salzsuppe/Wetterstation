@@ -1,13 +1,14 @@
 # The main function of this file will be the data collection
-# It is supposed to split the processing into "Setup&Collection" - Storing - Display
+# It is supposed to split the processing into "Setup" - Collection - Storing - Extraction - Display
 
+# This is a module, supposed to be imported, on execution data wont be stored
 
 # Check Pin var
 # Check Readme.md links
 
-# Global to be able to import
+# Import lib
 import datetime # Access time to store in DB 
-from cfg import config # Pin numeration,
+from cfg import config # Pin numeration
 
 # nonISO is used in dataListByshiftTime(nonISOtime) 
 nonISOtime = datetime.datetime.now().replace(microsecond=0, second=0, minute=0) # Cut ms, s & m
@@ -26,20 +27,21 @@ def measureValues():
         '''Input declaration'''
         chan_list = list(config.pinDict.values()) # Use values() to isolate the values
         GPIO.setup(chan_list, GPIO.IN)
-        
-        # Provide power to sensors
-        # BE CAREFUL!, dont roast sensors with 3,3/5V
-        # If 3v use GPIO.OUT if 5v use gpio to switch one 5v output
-        ##### GPIO.setup(config.VPin, GPIO.OUT)
+       
+        # make sure VPIN is regulating 3.3V instead of 5V
+        GPIO.setup(config.VPin, GPIO.OUT)
 
     def readGPIOValue():
         '''Store measured values in list'''
+        GPIO.output(config.VPin, GPIO.HIGH) # Enable voltage regulation pin
+
         temperature = GPIO.input(config.pinDict['Temperature']) # For simplified processing
         valueList = [] # Empty to fill in loop
 
-        # Append all values that are changed into the list
+        # Modifying Values 
         changingValues = [currtime, temperature, temperature*9/5+32, temperature+273.15]
-        #valueList.append(changingValues) # Append changedValues to the main list
+        
+        # Append changingValues to the main list
         for value in changingValues:
             valueList.append(value)
 
@@ -66,10 +68,17 @@ def main():
     try:
         measuredValueResult = measureValues()
     except:
-        measuredValueResult = ["Nice and fake data", 0, 1, 2, 3, 4, 5, 6, 7, 8]
-        print(measuredValueResult)
+        measuredValueResult = ["Nice and fake data", 0, 1, 2, 3, 4, 5, 6, 7]
+
+    print(measuredValueResult)
     return measuredValueResult
+
+def debugmain():
+    val = measureValues()
+    print(val)
+    return val
 
 # Prevent execution on import (It just works.)
 if __name__ == '__main__':
-    main()
+    # Change to main()/debugmain() depending on the need 
+    debugmain() 

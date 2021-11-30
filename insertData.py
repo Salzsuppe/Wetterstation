@@ -1,9 +1,11 @@
 # The main function of this file will be the data storage in sqlite3
-# It is supposed to split the processing into Setup&Collection - "Storing" - Display
+# It is supposed to split the processing into Setup - Collection - "Storing" - Extraction - Display
+
+# This is file is a program, on execution it will create a DB entry with the current Values
 
 # Import lib
 import sqlite3 # Our Database
-import measureData # 'Storing' depends on 'Collection', also importing currtime
+import measureData # 'Storing' depends on 'Collection'
 from cfg import config
 
 # Var to simplify the code
@@ -43,34 +45,10 @@ def insertValuesInTable():
     conn.close()
 
 
-def getDataByVariable(DateTime):
-    '''Search the DB for DateTime and return the values as List'''
-    conn = sqlite3.connect('Raw.db') # Open DB
-    cursor = conn.cursor() # Open cursor
-    
-    # Select any Data where Row DateTime has value $DateTime
-    SearchParameter = """SELECT * FROM RawData WHERE DateTime = ?""" 
-    
-    cursor.execute(SearchParameter, (DateTime,)) # Appending the var Value into the execute statement
-    completeRecords = cursor.fetchall() # Fetching the entire DB
-    Values = []
-    for row in completeRecords: # Rearanging Values from complete Records, to ensure correct zip()
-        Values = [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]]
-
-    Names = config.dataEntryList
-    DataRecords = dict(zip(Names, Values)) # Merge ValueNames with Values into one dict()
-    cursor.close
-    conn.close()
-    print(DataRecords)
-    return DataRecords 
-
-
 def main():
     '''Create table and insert Values'''
     createDB()
-
     insertValuesInTable()
-    getDataByVariable(measureData.currtime) # Just called to show nicely the inserted data
 
 # Prevent execution on import (It just works.)
 if __name__ == '__main__':
