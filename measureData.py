@@ -8,7 +8,7 @@
 
 # Import lib
 import datetime # Access time to store in DB 
-from cfg import config # Pin numeration
+from sensor.cfg import config # Pin numeration,
 
 # nonISO is used in dataListByshiftTime(nonISOtime) 
 nonISOtime = datetime.datetime.now().replace(microsecond=0, second=0, minute=0) # Cut ms, s & m
