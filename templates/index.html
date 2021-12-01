@@ -15,12 +15,9 @@
     <div class="weather-screen">
         <div class="sunny">
             <div class="sun"></div>
-            <div class="cloud1">
-                <img src="static/Wetterdesign/Wolke.svg" alt="Wolke">
-            </div>
-            <div class="cloud2">
-                <img src="static/Wetterdesign/Wolke.svg" alt="Wolke">
-            </div>
+            <div class="cloud1"></div>
+            <div class="cloud2"></div>
+            <div class="tree"><img src="/static/Wetterdesign/Baum.png" alt=""></div>
             <div class="sun-light-gras">
                 <img src="static/Wetterdesign/SunGrasHell.svg" alt="Light-Gras">
             </div>
@@ -87,6 +84,11 @@
                 <p class="temp"></p>
             </div>
         </div>
+    </div>
+    <div class="weather-data">
+        <div class="warning-sings">
+        </div>
+        <div class="table-wrapper" id="table-wrapper"></div>
     </div>
     <script src="{{ url_for('static',filename='main.js') }}"></script>
 </body>

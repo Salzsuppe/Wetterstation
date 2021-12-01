@@ -23,27 +23,27 @@ async function fillValues(){
     //gets all the data from the flask application in app.py
     let response = await fetch("/getdata");
     weatherData = await response.json();
-    changeTemp(weatherData['curr-0h']['TemperatureC'].toFixed(2), "C")
+    changeTemp(weatherData['curr-0h']['TemperatureC'], "C")
 }
 
 //changing the temperature values on button click
 function onClickCelsius() {
-    changeTemp(weatherData['curr-0h']['TemperatureC'].toFixed(2), "C") //getting variables from the dictionary
+    changeTemp(weatherData['curr-0h']['TemperatureC'], "C") //getting variables from the dictionary
     showMenu()
 }
 function onClickFahrenheit() {
-    changeTemp(weatherData['curr-0h']['TemperatureF'].toFixed(2), "F")
+    changeTemp(weatherData['curr-0h']['TemperatureF'], "F")
     showMenu()
 }
 function onClickKelvin() {
-    changeTemp(weatherData['curr-0h']['TemperatureK'].toFixed(2), "K")
+    changeTemp(weatherData['curr-0h']['TemperatureK'], "K")
     showMenu()
 }
 
 let menuActivated = false;
 
 function showMenu() {
-    //activates the menu for changing the temperature units
+    //activates the menu for changing the temperature unitssdjklfdj
     if (!menuActivated) {
         for (const el of document.querySelectorAll(".menu-pulldown")) {
             el.classList.add("menu-pulldown-activated") //changes the class name to show smth else wich is styled in css
@@ -73,8 +73,126 @@ function getFeelingTemp() {
     var feeling = 13.12 + 0.6215*t - 11.37*vSix + 0.3965*t*vSix //formular to calculate the felt temprature
     var roundFeeling = feeling.toFixed(2) //round the answer to two digits
 
-    changeTemp(roundFeeling)
+    changeTemp(roundFeeling, "C")
     showMenu()
 }
-fillValues()
 makeRain()
+
+function update(){
+    let template = `
+    <div class="table-wrapper">
+    <table>
+      <tr>
+        <th></th>
+        <th>-5h</th>
+        <th>-4h</th>
+        <th>-3h</th>
+        <th>-2h</th>
+        <th>-1h</th>
+        <th>Gerade</th>
+        <th>Avg.D</th>
+      </tr>
+      <tr>
+        <td>UV-Index</td>
+        <td>${weatherData['curr-5h']['UV']}</td>
+        <td>${weatherData['curr-4h']['UV']}</td>
+        <td>${weatherData['curr-3h']['UV']}</td>
+        <td>${weatherData['curr-2h']['UV']}</td>
+        <td>${weatherData['curr-1h']['UV']}</td>
+        <td>${weatherData['curr-0h']['UV']}</td>
+        <td></td>
+      </tr>
+      <tr>
+      <td>Luftdruck</td>
+       <td>${weatherData['curr-5h']['Pressure']}</td>
+        <td>${weatherData['curr-4h']['Pressure']}</td>
+        <td>${weatherData['curr-3h']['Pressure']}</td>
+        <td>${weatherData['curr-2h']['Pressure']}</td>
+        <td>${weatherData['curr-1h']['Pressure']}</td>
+        <td>${weatherData['curr-0h']['Pressure']}</td>
+        <td></td>
+      </tr>
+      <tr>
+      <td>Luftfeuchtigkeit</td>
+        <td>${weatherData['curr-5h']['Humidity']}</td>
+        <td>${weatherData['curr-4h']['Humidity']}</td>
+        <td>${weatherData['curr-3h']['Humidity']}</td>
+        <td>${weatherData['curr-2h']['Humidity']}</td>
+        <td>${weatherData['curr-1h']['Humidity']}</td>
+        <td>${weatherData['curr-0h']['Humidity']}</td>
+        <td></td>
+      </tr>
+      <tr>
+      <td>Windstärke</td>
+        <td>${weatherData['curr-5h']['Wind']}</td>
+        <td>${weatherData['curr-4h']['Wind']}</td>
+        <td>${weatherData['curr-3h']['Wind']}</td>
+        <td>${weatherData['curr-2h']['Wind']}</td>
+        <td>${weatherData['curr-1h']['Wind']}</td>
+        <td>${weatherData['curr-0h']['Wind']}</td>
+        <td></td>
+      </tr>
+    </table>
+    <table>
+        <tr>
+          <th></th>
+          <th>Mo</th>
+          <th>Di</th>
+          <th>Mi</th>
+          <th>Do</th>
+          <th>Fr</th>
+          <th>Sa</th>
+          <th>So</th>
+          <th>Avg.W</th>
+        </tr>
+        <tr>
+          <td>UV-Index</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+        <td>Luftdruck</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+        <td>Luftfeuchtigkeit</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+        <td>Windstärke</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>`
+
+    document.getElementById("table-wrapper").innerHTML = template;
+}
+fillValues().then(update)
+setInterval(update, 60 * 60 * 1000)
