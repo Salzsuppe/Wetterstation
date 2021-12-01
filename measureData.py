@@ -7,7 +7,7 @@
 
 # Global to be able to import
 import datetime # Access time to store in DB 
-from cfg import config # Pin numeration,
+from sensor.cfg import config # Pin numeration,
 
 # nonISO is used in dataListByshiftTime(nonISOtime) 
 nonISOtime = datetime.datetime.now().replace(microsecond=0, second=0, minute=0) # Cut ms, s & m
@@ -67,6 +67,7 @@ def main():
         measuredValueResult = measureValues()
     except:
         measuredValueResult = ["Nice and fake data", 0, 1, 2, 3, 4, 5, 6, 7, 8]
+        print(measuredValueResult)
     return measuredValueResult
 
 # Prevent execution on import (It just works.)
