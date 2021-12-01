@@ -30,6 +30,9 @@ def getDataByVariable(DateTime):
 
 
 def getAvg(dictTuple):
-    for entry in range(len(dictTuple[0])):
-        y = [el[entry] for el in dictTuple]
-        print(y)
+    x = []
+    for i in range(len(dictTuple[0])):
+        y = [el[i] for el in dictTuple]
+        x.append(y)
+
+    print(x[0])
