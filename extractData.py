@@ -30,7 +30,7 @@ def getDataByVariable(DateTime):
 
 
 def getAvg(dictTuple):
-    '''Returns the avg of a list of tuples {(1,2,3),(2,4,6)} = 1.5, 3, 4.5'''
+    '''Returns the avg of a list of tuples {'xyz':(1,2,3),'xyza'(2,4,6)} = 1.5, 3, 4.5'''
     listTuple = [values for values in dictTuple.values()] # Convert dict to list
     valueList = []
     for position in range(len(listTuple)):
