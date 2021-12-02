@@ -29,7 +29,7 @@ def dataListByDate(Year,Month,Date):
     DataDict = {}
     for hour in range(24): 
         DataDate = datetime.datetime(Year, Month, Date, hour).isoformat() # Isotime for the given date 0-24
-        Data = insertData.getDataByVariable(DataDate)
+        Data = extractData.getDataByVariable(DataDate)
         DataDict[hour] = Data # Append in dict
     return DataDict
 
@@ -49,10 +49,10 @@ def getdata():
         PastTimeDataDict["curr-"+str(hour)+"h"] = dataListByShiftTime(hour)
     return PastTimeDataDict
 
-@app.route('/avg/<Year>/<Month>/<Date>')
-def returnAvg(Year,Month,Date):
-    '''Allows the access to avg values, by inserting the wanted time'''
-    return extractData.getAvg(dataListByDate(Year,Month,Date))
+@app.route('/avg')
+def avgDay():
+    today = datetime.date.today()
+    return extractData.getAvg(dataListByDate(1111,11,11))
 
 # Prevent execution on import & enable on Site Debug
 if __name__ == '__main__':

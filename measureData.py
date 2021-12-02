@@ -68,7 +68,7 @@ def main():
     try:
         measuredValueResult = measureValues()
     except:
-        measuredValueResult = ["Nice and fake data", 0, 1, 2, 3, 4, 5, 6, 7]
+        measuredValueResult = [currtime, 0, 1, 2, 3, 4, 5, 6, 7]
 
     print(measuredValueResult)
     return measuredValueResult
