@@ -18,8 +18,6 @@ def getDataByVariable(DateTime):
     cursor.execute(SearchParameter, (DateTime,)) # Appending the var Value into the execute statement
     completeRecords = cursor.fetchall() # Fetching the entire DB
     Values = []
-    #for 2ddrow in completeRecords: # Rearanging Values from complete Records, to ensure correct zip()
-    #    Values = [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]]
     for row in completeRecords: # Rearanging Values from complete Records, to ensure correct zip()
         Values = [row[pos] for pos in range(len(row))]
 
@@ -35,12 +33,13 @@ def getAvg(dictTuple):
     '''Returns the avg of a list of tuples {(1,2,3),(2,4,6)} = 1.5, 3, 4.5'''
     listTuple = [values for values in dictTuple.values()] # Convert dict to list
     valueList = []
-    for position in range(len(listTuple[0])):
+    for position in range(len(listTuple)):
         sortedVal = [Tuple[position] for Tuple in listTuple] # grabs value at loop position for each Tuple inside the list
         listVal = [entry[position] for entry in listTuple] # The tuple to learn its lenght
         average = sum(sortedVal)/len(listVal)
         valueList.append(average)
     
-    Names = config.dataEntryList
+    Names = [name for name in config.dataEntryList if name != config.dataEntryList[0]] # Import Dict names, cut DateTime
     AverageDict = dict(zip(Names, valueList)) # Convert list back to dict
+    print(AverageDict)
     return AverageDict
