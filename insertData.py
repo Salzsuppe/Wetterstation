@@ -6,7 +6,7 @@
 # Import lib
 import sqlite3 # Our Database
 import measureData # 'Storing' depends on 'Collection'
-from cfg import config
+from sensor.cfg import config
 
 # Var to simplify the code
 conn = sqlite3.connect('Raw.db') # The argument which db you want to modify

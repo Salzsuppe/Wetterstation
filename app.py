@@ -49,6 +49,11 @@ def getdata():
         PastTimeDataDict["curr-"+str(hour)+"h"] = dataListByShiftTime(hour)
     return PastTimeDataDict
 
+@app.route('/avg/<DateTime>')
+def returnAvg():
+    '''Allows the access to avg values, by inserting the wanted time'''
+    return extractData.getAvg(DateTime)
+
 # Prevent execution on import & enable on Site Debug
 if __name__ == '__main__':
     app.run(debug=True)
