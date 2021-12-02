@@ -35,8 +35,7 @@ def getAvg(dictTuple):
     valueList = []
     for position in range(len(listTuple)):
         sortedVal = [Tuple[position] for Tuple in listTuple] # grabs value at loop position for each Tuple inside the list
-        listVal = [entry[position] for entry in listTuple] # The tuple to learn its lenght
-        average = sum(sortedVal)/len(listVal)
+        average = sum(sortedVal)/len(sortedVal)
         valueList.append(average)
     
     Names = [name for name in config.dataEntryList if name != config.dataEntryList[0]] # Import Dict names, cut DateTime
