@@ -4,7 +4,9 @@
 # This is a module, supposed to be import, not executed
 
 # Import lib
-import sqlite3 # Our Database
+import sqlite3
+from sqlite3.dbapi2 import Error
+from typing import Dict # Our Database
 from sensor.cfg import config
 
 def getDataByVariable(DateTime):
@@ -29,15 +31,22 @@ def getDataByVariable(DateTime):
     return DataRecords
 
 
-def getAvg(dictTuple):
+def getAvg(dictDict):
     '''Returns the avg of a list of tuples {'xyz':(1,2,3),'xyza'(2,4,6)} = 1.5, 3, 4.5'''
-    listTuple = [values for values in dictTuple.values()] # Convert dict to list
+    listofDict = [values for values in dictDict.values()] # Convert dict to list
     valueList = []
-    for position in range(len(listTuple)):
-        sortedVal = [Tuple[position] for Tuple in listTuple] # grabs value at loop position for each Tuple inside the list
+    for position in range(len(listofDict)):
+        for Dictionary in listofDict:
+            
+            print("SubLooplocal:")
+            print(locals())
+        print("Locals")
+        print(locals())
+        sortedVal = [list(Dictionary.values())[position] for Dictionary in listofDict] # grabs value at loop position for each Tuple inside the list
         average = sum(sortedVal)/len(sortedVal)
         valueList.append(average)
     
+    print("ValueList="+str(valueList))
     Names = [name for name in config.dataEntryList if name != config.dataEntryList[0]] # Import Dict names, cut DateTime
     AverageDict = dict(zip(Names, valueList)) # Convert list back to dict
     print(AverageDict)

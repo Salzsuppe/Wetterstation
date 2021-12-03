@@ -19,19 +19,14 @@ insertData.createDB()
 # Functions used directly on the website
 def dataListByShiftTime(shift_val):
     '''Get DB entries by $currtime + $shift_val'''
-    ShiftedTime = measureData.nonISOtime + datetime.timedelta(hours=(shift_val*-1))
-    ISOformatTime = ShiftedTime.isoformat()
-    
-    return extractData.getDataByVariable(ISOformatTime)
-
-def dataListByDate(Year,Month,Date):
-    '''Get DB entries by $Date'''
-    DataDict = {}
-    for hour in range(24): 
-        DataDate = datetime.datetime(Year, Month, Date, hour).isoformat() # Isotime for the given date 0-24
-        Data = extractData.getDataByVariable(DataDate)
-        DataDict[hour] = Data # Append in dict
-    return DataDict
+    PastTimeDataDict = {}
+    for hour in range(shift_val):
+        ShiftedTime = measureData.nonISOtime + datetime.timedelta(hours=(hour*-1))
+        ISOformatTime = ShiftedTime.isoformat()
+        print(ISOformatTime)##DEBUG
+        print(hour)##DEBUG
+        PastTimeDataDict["curr-"+str(hour)+"h"] = extractData.getDataByVariable(ISOformatTime)
+    return PastTimeDataDict
 
 
 # Accessible URL's
@@ -41,18 +36,15 @@ def index():
     '''Root site, index.html will be presented'''
     return render_template('index.html') # Flask will look for index.html in /templates
 
-@app.route('/getdata')
-def getdata():
-    '''Store data from past 6h in nested Dict on /getdata'''
-    PastTimeDataDict = {}
-    for hour in range(6):
-        PastTimeDataDict["curr-"+str(hour)+"h"] = dataListByShiftTime(hour)
-    return PastTimeDataDict
+@app.route('/getdata/<int:hours>')
+def data(hours):
+    '''Store data from past $hours in nested Dict on /getdata/'''
+    return dataListByShiftTime(hours)
 
-@app.route('/avg')
-def avgDay():
-    today = datetime.date.today()
-    return extractData.getAvg(dataListByDate(1111,11,11))
+@app.route('/avg/<int:hours>')
+def avg(hours):
+    '''Store avg data from past $hours in nested Dict on /avg/'''
+    return extractData.getAvg(dataListByShiftTime(hours))
 
 # Prevent execution on import & enable on Site Debug
 if __name__ == '__main__':
