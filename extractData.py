@@ -4,9 +4,7 @@
 # This is a module, supposed to be import, not executed
 
 # Import lib
-import sqlite3
-from sqlite3.dbapi2 import Error
-from typing import Dict # Our Database
+import sqlite3 # Our DB
 from sensor.cfg import config
 
 def getDataByVariable(DateTime):
@@ -40,7 +38,10 @@ def getAvg(dictDict):
         for Dictionary in listofDict:
             if (len(Dictionary) != 0):
                 del Dictionary[list(Dictionary.keys())[0]] # Deletes the first entry (DateTime) in Dict
-                sortedList.append = list(Dictionary.values())[position]
+                print(position)
+                print(Dictionary.values())
+                val = list(Dictionary.values())[(position)]
+                sortedList.append(val)
         average = sum(sortedList)/len(sortedList)
         valueList.append(average)
     [print(str(x)) for x in valueList]

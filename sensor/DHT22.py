@@ -1,8 +1,6 @@
 # This is a script to read the DHT22 
 # It requires manual setup since it differs and cannot be used in I2C
 
-### THIS NEEDS TO BE RUN AS ROOT
-
 def DHT22value():
     import Adafruit_DHT
     from cfg import config 
