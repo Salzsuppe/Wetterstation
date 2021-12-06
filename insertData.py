@@ -26,7 +26,7 @@ def createDB():
     conn.close()
 
 
-def insertValuesInTable():
+def insertValuesInTable(DataCollection):
     '''Variables used in the INSERT function, to shorten it'''
     conn = sqlite3.connect('Raw.db') # Open DB
     cursor = conn.cursor() # Open cursor
@@ -34,7 +34,6 @@ def insertValuesInTable():
     InsertParameter = """INSERT INTO RawData
             (DateTime, TemperatureC, TemperatureF, TemperatureK, Humidity, Pressure, Rain, Wind, UV)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"""
-    DataCollection = measureData.main() # Fetching the data list from measureData.py
 
     # The INSERT function, using the $DataCollection to insert as var in the $InserParameter
     # Combined it is the command to append into the DB
@@ -44,12 +43,19 @@ def insertValuesInTable():
     cursor.close()
     conn.close()
 
+def fakedataDay():
+    '''Inserts Data for an entire Day with made up values'''
+    import datetime
+    for hour in range(24):
+        ShiftedTime = measureData.nonISOtime + datetime.timedelta(hours=(hour*-1))
+        insertValuesInTable([ShiftedTime.isoformat(), 0, 1, 2, 3, 4, 5, 6, 7])
 
 def main():
     '''Create table and insert Values'''
     createDB()
-    insertValuesInTable()
+    insertValuesInTable(measureData.main())
 
 # Prevent execution on import (It just works.)
 if __name__ == '__main__':
-    main()
+    #main()
+    fakedataDay()
