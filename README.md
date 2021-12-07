@@ -118,7 +118,7 @@ Diese Funktion macht sich app.routes<sup>2</sup> aus app.py zum Nutzen. Die app.
 
 Diese Art von Projekt war für uns alle etwas neues, wir haben uns in der Zeit der ausarbeitung vieles neues angeeignet um ein möglichst gutes Ergebnis zu erziehlen. Dabei sind wir einigen Problemen entgegengetreten welche wir aber glücklicherweise bewältigen konnten.
 
-+ Vorkenntnisse
+### Vorkenntnisse
 
 Natürlich haben wir auch ein paar Vorkenntnisse mitgebracht damit wir so weit kommen konnten bei diesem Projekt.
 

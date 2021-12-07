@@ -23,8 +23,6 @@ def dataListByShiftTime(shift_val):
     for hour in range(shift_val):
         ShiftedTime = measureData.nonISOtime + datetime.timedelta(hours=(hour*-1))
         ISOformatTime = ShiftedTime.isoformat()
-        print(ISOformatTime)##DEBUG
-        print(hour)##DEBUG
         PastTimeDataDict["curr-"+str(hour)+"h"] = extractData.getDataByVariable(ISOformatTime)
     return PastTimeDataDict
 

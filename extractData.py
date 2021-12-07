@@ -31,21 +31,21 @@ def getDataByVariable(DateTime):
 
 def getAvg(dictDict):
     '''Returns the avg of a list of tuples {'xyz':(1,2,3),'xyza'(2,4,6)} = 1.5, 3, 4.5'''
-    listofDict = [values for values in dictDict.values()] # Convert dict to list
-    sortedList = [] # Arraging the values for calc
-    valueList = [] # For the finished calc
-    for position in range(len(listofDict)):
-        for Dictionary in listofDict:
-            if (len(Dictionary) != 0):
-                del Dictionary[list(Dictionary.keys())[0]] # Deletes the first entry (DateTime) in Dict
-                print(position)
-                print(Dictionary.values())
-                val = list(Dictionary.values())[(position)]
-                sortedList.append(val)
-        average = sum(sortedList)/len(sortedList)
-        valueList.append(average)
-    [print(str(x)) for x in valueList]
-    #Names = [name for name in config.dataEntryList if name != config.dataEntryList[0]] # Import Dict names, cut DateTime
-    #AverageDict = dict(zip(Names, valueList)) # Convert list back to dict
-    #print(AverageDict)
-    return valueList
+    ListDict = list(dictDict.values()) # Changes the outer Dict in a list
+    print(ListDict)
+    ValueDict = {}
+    for subDict in ListDict: # Removes DateTime string
+        del subDict["DateTime"]
+        
+        for Key in subDict:
+            KeyVal = subDict[Key]
+            lenght = len(dictDict)
+            ValueDict[Key] = ValueDict.get(Key,0)+(KeyVal/lenght) # Create the entry (if not existing) and add value
+    return ValueDict
+
+
+    
+    
+
+
+#getAvg({"curr-0":{"DateTime":2468,"TmpC":2,"TmpF":4},"curr-1":{"DateTime":1234,"TmpC":4,"TmpF":8}})
