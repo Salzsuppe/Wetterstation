@@ -1,9 +1,8 @@
-!!Update folder structure!!
-
-
 # Wetterstation
 
-Die ist die Programmausarbeitung zu einer Wetterstation mithilfe eines Raspberrypi's zero 2W.
+[comment]: <> (This is a comment it wont be included in the HTML displayed, only in the source)
+
+Die ist die Programmausarbeitung zu einer Wetterstation mithilfe eines Raspberrypi's zero 2W als Website host
 
 ## Links zur Website:
 
@@ -94,6 +93,47 @@ Nun die Zeile anhängen:
 
 
 ## Funktionsweise
+
+[comment]: <> (Unfortunaly, inside the source it is not formatted properly, but it will be on the HTML)
+
+Ein Überblick der generellen Funktionsweise als Programmablaufplan:
+```
+┌─────────────────────────────────┐        ┌───────────────────────────────┐        ┌─────────────────────────┐
+│          measureData.main()     │        │       insertData.main()       │        │                         │
+│            ┌───────┐            │        │          ┌────────┐           │        │          ┌─────┐        │
+│            │ Start │            │        │          │createDB│           │        │          │Start│        │
+│            └───┬───┘            │        │          └───┬────┘           │        │          └──┬──┘        │
+│                │                │        │              │                │        │             │           │
+│                │                │        │              │                │        │   ┌─────────▼────────┐  │
+│   ┌────────────▼────────────┐   │        │  ┌───────────▼────────────┐   │        │   │ enable-App.routes│  │
+│   │                         │   │        │  │                        │   │        │   └──────────────────┘  │
+│   │ Einrichtung - Libraries │   │        │  │ insertVariablesinTable │   │        │                         │
+│   │                         │   │        │  │ ${measureData.main()}  │   │        │                         │
+│   └────────────┬────────────┘   │        │  └────────┬───────────────┘   │        │  ┌──────────────────┐   │
+│                │                │        │           │                   │        │  │app.route(/)      │   │
+│                │                ├────────┤           │                   ├───────►│  │return(index.html)│   │
+│                │                │        │           │                   │ import │  └──────────────────┘   │
+│      ┌─────────▼─────────┐      │        │           │                   │        │                         │
+│      │                   │      │        │ ┌─────────┴─────────────────┐ ├────────►                         │
+│      │ DeclareGPIOstate  │      │        │ │getDataByVariable(DateTime)│ │ import │  ┌───────────────────┐  │
+│      │                   │      │        │ └─────────┬───┬─────────────┘ │        │  │app.route(/getdata)│  │
+│      └─────────┬─────────┘      ├────────►           │   │               │        │  │return(Past5hData) │  │
+│                │                │ import │           │   │               │        │  └───────────────────┘  │
+│                │                │        │        $$$$$$$▼$$$$$$$        │        │                         │
+│        ┌───────┴──────┐         │        │        $   return()  $        │        │                         │
+│        │              │         │        │        $ DataRecords $        │        └─────────────────────────┘
+│        │ readGPIOValue│         │        │        $             $        │
+│        │              │         │        │        $$$$$$$$$$$$$$$        │
+│        └──────┬───────┘         │        │           │                   │
+│               │                 │        │           │                   │
+│        $$$$$$$▼$$$$$$$$         │        │    ┌──────▼───────────────┐   │
+│        $   return()   $         │        │    │                      │   │
+│        $ valueResult  $         │        │    │  print(insertedData) │   │
+│        $              $         │        │    │                      │   │
+│        $$$$$$$$$$$$$$$$         │        │    └──────────────────────┘   │
+│                                 │        │                               │
+└─────────────────────────────────┘        └───────────────────────────────┘
+```
 ### Speicherung
 
 Die [Sensor-files](https://github.com/Salzsuppe/Wetterstation/tree/sensor) werden von measureData.py aufgerufen und gelesen, 
@@ -136,6 +176,26 @@ Natürlich haben wir auch ein paar Vorkenntnisse mitgebracht damit wir so weit k
   +  ...
   +  (Lennart möchte anmerken: Stefan kann googlen)
 
+### Erkentnisse
+
+Während der Ausarbeitung haben wir uns verschiedene Dinge angeignet um das Projekt so auszuführen.
+
++ Tom
+  + 
+  + 
+
++ Lennart
+  + Python3 (Libraries, functions, loops)
+  + Sqlite3 (Struktur, statements)
+  + Flask als webframework
+  + I2C/UART/SPI/1-Wire - Protocols
+  + C++ vorkenntnisse
+  + Markdown (.md) Syntaxt (Diese Datei)
+  + Git repository (Github/git)
+
++ Stefan
+  + 
+  + 
 ## Probleme
 
 ### Backend - Library
@@ -169,4 +229,5 @@ Analog Sensoren müssen mithilfe eines AD-Wandlers gelesen werden. Dieser wieder
 
 Ich habe mehrere Sensoren ausprobiert, das System mehrmals neu aufgesetzt, verschiedenste Tutorials durchsucht und oft die Schaltung neu aufgebaut.
 I2C funktioniert bei mir weder am Raspi Zero 2W noch am Raspi 4b+ den ich privat besitze.
-Der BH1750 wurde vom ESP32 erkannt, aber bisher bei der auslesung hat er noch nicht funktioniert.
+Am ESP32 werden BMP180 & BH1750 erkannt und können gelesen werden, die Werte sollen in Zukunft über serial übertragen werden.
+
