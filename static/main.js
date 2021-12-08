@@ -21,8 +21,12 @@ let weatherData;
 
 async function fillValues(){
     //gets all the data from the flask application in app.py
-    let response = await fetch("/getdata");
+    for (hour = 0; hour < 6; hour++) {}
+    for (avg = 0; avg < 168; avg++) {}
+    let response = await fetch(`/getdata/${hour}`);
+    let avgResponse = await fetch(`/avg/${avg}`);
     weatherData = await response.json();
+    avgData = await avgResponse.json();
     changeTemp(weatherData['curr-0h']['TemperatureC'], "C")
 }
 
@@ -136,14 +140,14 @@ function update(){
     <table>
         <tr>
           <th></th>
-          <th>Mo</th>
-          <th>Di</th>
-          <th>Mi</th>
-          <th>Do</th>
-          <th>Fr</th>
-          <th>Sa</th>
-          <th>So</th>
-          <th>Avg.W</th>
+          <th>Gestern</th>
+          <th>Vorgestern</th>
+          <th>Vor 3 Tagen</th>
+          <th>Vor 4 Tagen</th>
+          <th>Vor 5 Tagen</th>
+          <th>Vor 6 Tagen</th>
+          <th>Vor 7 Tagen</th>
+          <th>7 Tage Avg.</th>
         </tr>
         <tr>
           <td>UV-Index</td>
