@@ -185,9 +185,8 @@ Während der Ausarbeitung haben wir uns verschiedene Dinge angeignet um das Proj
 + Tom
   + Python Kenntnisse verbessert
   + JavaScript
-  + Flask als webframework
-  + Markdown (.md) Syntaxt (Diese Datei)
-  + Git repository (Github/git)
+  + Daten von einem Flask Server in JS abrufen
+  + Umgang mit Git gelernt
 
 + Lennart
   + Python3 (Libraries, functions, loops)
