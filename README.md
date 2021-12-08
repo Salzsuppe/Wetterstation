@@ -166,9 +166,8 @@ Diese Art von Projekt war für uns alle etwas neues, wir haben uns in der Zeit d
 Natürlich haben wir auch ein paar Vorkenntnisse mitgebracht damit wir so weit kommen konnten bei diesem Projekt.
 
 + Tom
-  + Ich hatte mich voher schon mit Website Design, sprich HTML, CSS, JavaScript beschäftigt
-  + Außerdem hatte ich schon Kenntnisse im Bereich Python Programmierung
-  + Zuletzt habe ich noch Kenntnisse mit Mikroconrollern mitgebracht
+  + Website Design, sprich HTML, CSS
+  + Python Programmierung
 
 + Lennart
   + Linux-Enviroment (Filesystem/Console/Software)
@@ -184,8 +183,11 @@ Natürlich haben wir auch ein paar Vorkenntnisse mitgebracht damit wir so weit k
 Während der Ausarbeitung haben wir uns verschiedene Dinge angeignet um das Projekt so auszuführen.
 
 + Tom
-  + 
-  + 
+  + Python Kenntnisse verbessert
+  + JavaScript
+  + Flask als webframework
+  + Markdown (.md) Syntaxt (Diese Datei)
+  + Git repository (Github/git)
 
 + Lennart
   + Python3 (Libraries, functions, loops)
