@@ -24,6 +24,6 @@ dataEntryList = [
         'Pressure',
         'Rain',
         'Wind',
-        'UV'
+        'UV',
         'Light'
         ]
