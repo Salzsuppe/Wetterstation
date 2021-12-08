@@ -2,7 +2,7 @@
 
 [comment]: <> (This is a comment it wont be included in the HTML displayed, only in the source)
 
-Die ist die Programmausarbeitung zu einer Wetterstation mithilfe eines Raspberrypi's zero 2W als Website host
+Die ist die Programmausarbeitung zu einer Wetterstation mithilfe eines Raspberrypi's zero 2W als Website host und einem ESP32, der die Daten mit I2C misst und an den Raspberrypi weiterleitet.
 
 ## Links zur Website:
 
@@ -94,45 +94,48 @@ Nun die Zeile anhängen:
 
 ## Funktionsweise
 
-[comment]: <> (Unfortunaly, inside the source it is not formatted properly, but it will be on the HTML)
+[comment]: <> (Unfortunaly, inside the source it is not formatted properly (depending on source tab size), but it will be on the HTML)
 
 Ein Überblick der generellen Funktionsweise als Programmablaufplan:
 ```
 ┌─────────────────────────────────┐        ┌───────────────────────────────┐        ┌─────────────────────────┐
-│          measureData.main()     │        │       insertData.main()       │        │                         │
+│          measureData.main()     │        │       insertData.main()       │        │          app.py         │
 │            ┌───────┐            │        │          ┌────────┐           │        │          ┌─────┐        │
 │            │ Start │            │        │          │createDB│           │        │          │Start│        │
 │            └───┬───┘            │        │          └───┬────┘           │        │          └──┬──┘        │
 │                │                │        │              │                │        │             │           │
-│                │                │        │              │                │        │   ┌─────────▼────────┐  │
-│   ┌────────────▼────────────┐   │        │  ┌───────────▼────────────┐   │        │   │ enable-App.routes│  │
+│                │                ├────────►              │                ├────────►   ┌─────────▼────────┐  │
+│   ┌────────────▼────────────┐   │ import │  ┌───────────▼────────────┐   │ import │   │ enable-App.routes│  │
 │   │                         │   │        │  │                        │   │        │   └──────────────────┘  │
-│   │ Einrichtung - Libraries │   │        │  │ insertVariablesinTable │   │        │                         │
-│   │                         │   │        │  │ ${measureData.main()}  │   │        │                         │
-│   └────────────┬────────────┘   │        │  └────────┬───────────────┘   │        │  ┌──────────────────┐   │
-│                │                │        │           │                   │        │  │app.route(/)      │   │
-│                │                ├────────┤           │                   ├───────►│  │return(index.html)│   │
-│                │                │        │           │                   │ import │  └──────────────────┘   │
-│      ┌─────────▼─────────┐      │        │           │                   │        │                         │
-│      │                   │      │        │ ┌─────────┴─────────────────┐ ├────────►                         │
+│   │ Einrichtung - Libraries │   ├────────┤  │ insertVariablesinTable │   ├────────►                         │
+│   │                         │   │        │  │ ${measureData.main()}  │   │ import │                         │
+│   └────────────┬────────────┘   │        │  └────────────────────────┘   │        │  ┌──────────────────┐   │
+│                │                │        │                               │        │  │app.route(/)      │   │
+│                │                │        │                               │        │  │return(index.html)│   │
+│                │                │        ├───────────────────────────────┤        │  └──────────────────┘   │
+│      ┌─────────▼─────────┐      │        │         extractData.py        │        │                         │
+│      │                   │      │        │ ┌───────────────────────────┐ ├────────►                         │
 │      │ DeclareGPIOstate  │      │        │ │getDataByVariable(DateTime)│ │ import │  ┌───────────────────┐  │
-│      │                   │      │        │ └─────────┬───┬─────────────┘ │        │  │app.route(/getdata)│  │
-│      └─────────┬─────────┘      ├────────►           │   │               │        │  │return(Past5hData) │  │
-│                │                │ import │           │   │               │        │  └───────────────────┘  │
-│                │                │        │        $$$$$$$▼$$$$$$$        │        │                         │
-│        ┌───────┴──────┐         │        │        $   return()  $        │        │                         │
-│        │              │         │        │        $ DataRecords $        │        └─────────────────────────┘
-│        │ readGPIOValue│         │        │        $             $        │
-│        │              │         │        │        $$$$$$$$$$$$$$$        │
-│        └──────┬───────┘         │        │           │                   │
-│               │                 │        │           │                   │
-│        $$$$$$$▼$$$$$$$$         │        │    ┌──────▼───────────────┐   │
-│        $   return()   $         │        │    │                      │   │
-│        $ valueResult  $         │        │    │  print(insertedData) │   │
-│        $              $         │        │    │                      │   │
-│        $$$$$$$$$$$$$$$$         │        │    └──────────────────────┘   │
-│                                 │        │                               │
-└─────────────────────────────────┘        └───────────────────────────────┘
+│      │                   │      │        │ └───┬─────────┬─────────────┘ │        │  │app.route(/getdata)│  │
+│      └─────────┬─────────┘      │        │     │         │               │        │  │return(Past$hData) │  │
+│                │                │        │     │         │               │        │  └───────────────────┘  │
+│                │                │        │     │  $$$$$$$▼$$$$$$$        │        │                         │
+│        ┌───────┴──────┐         │        │     │  $   return()  $        │        │   ┌─────────────────┐   │
+│        │              │         │        │     │  $ DataRecords $        │        │   │app.route(/avg)  │   │
+│        │ readGPIOValue│         │        │     │  $             $        │        │   │return(Past$hAvg)│   │
+│        │              │         │        │     │  $$$$$$$$$$$$$$$        │        │   └─────────────────┘   │
+│        └──────┬───────┘         │        │     │                         │        │                         │
+│               │                 │        │    ┌▼───────────────┐         │        │                         │
+│        $$$$$$$▼$$$$$$$$         │        │    │getAvg(dictDict)│         │        │                         │
+│        $   return()   $         │        │    └──┬─────────────┘         │        └─────────────────────────┘
+│        $ valueResult  $         │        │       │                       │
+│        $              $         │        │       │                       │
+│        $$$$$$$$$$$$$$$$         │        │   $$$$▼$$$$$$$$               │
+│                                 │        │   $  return() $               │
+└─────────────────────────────────┘        │   $ ValueDict $               │
+                                           │   $           $               │
+                                           │   $$$$$$$$$$$$$               │
+                                           └───────────────────────────────┘
 ```
 ### Speicherung
 

@@ -5,7 +5,7 @@ def DHT22value():
     import Adafruit_DHT
     from cfg import config 
 
-    sensor = 22
+    sensor = 22 # DHT22
     pin = config.pinDict['DHT22'] # Pull sensor location from config
 
     humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
