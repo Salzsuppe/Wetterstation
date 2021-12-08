@@ -30,22 +30,19 @@ def getDataByVariable(DateTime):
 
 
 def getAvg(dictDict):
-    '''Returns the avg of a list of tuples {'xyz':(1,2,3),'xyza'(2,4,6)} = 1.5, 3, 4.5'''
+    '''Returns the avg of nestedDict {"curr-0h":{"TmpC":1,"TmpF":2},"curr-1h":{"TmpC":2,"TmpF":4}} = {"TmpC":1.5,"TmpF":3}'''
+    # !!!Note: No data will result in a lower average (1+3+0)/3 != (1+3)/2 !!!
     ListDict = list(dictDict.values()) # Changes the outer Dict in a list
-    print(ListDict)
     ValueDict = {}
     for subDict in ListDict: # Removes DateTime string
-        del subDict["DateTime"]
+        try:
+            del subDict["DateTime"]
+        except KeyError: # Prevent error on nonexistend data
+            print("No DateTime found for deletion")
         
         for Key in subDict:
+            # For each Key in subDict, add Key[val]/lenght at Key position in ValueDict
             KeyVal = subDict[Key]
             lenght = len(dictDict)
             ValueDict[Key] = ValueDict.get(Key,0)+(KeyVal/lenght) # Create the entry (if not existing) and add value
     return ValueDict
-
-
-    
-    
-
-
-#getAvg({"curr-0":{"DateTime":2468,"TmpC":2,"TmpF":4},"curr-1":{"DateTime":1234,"TmpC":4,"TmpF":8}})
