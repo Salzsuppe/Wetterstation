@@ -198,8 +198,8 @@ Während der Ausarbeitung haben wir uns verschiedene Dinge angeignet um das Proj
   + Git repository (Github/git)
 
 + Stefan
-  + 
-  + 
+  + HTML basics gelernt
+  + CSS basics gelernt
 ## Probleme
 
 ### Backend - Library
