@@ -5,7 +5,7 @@ function makeRain(){
     //creates new divs which are randomly shown on the screen
     var raindropWrapper = document.querySelector(".raindropWrapper")
     for (i = 0; i<160; i++){
-        var raindrop = '<div class="raindrop" style="top:'+getRandomArbitrary(0, 99)+'%; left:'+getRandomArbitrary(0, 99)+'%;"></div>'
+        var raindrop = '<div class="raindrop" style="top:'+getRandomArbitrary(0, 99)+'%; left:'+getRandomArbitrary(0, 98)+'%;"><img src="static/Wetterdesign/Raindrop.svg"></div>'
         raindropWrapper.insertAdjacentHTML('beforeend', raindrop)
     }
 }
@@ -17,16 +17,22 @@ function changeTemp(temp, unit) {
     }
 }
 
+let avgData
+
+async function getAvgData(hour) {
+    //gets the avg Ddata from the flask application in app.py
+    let avgResponse = await fetch(`/avg/${hour}`);
+    avgData = await avgResponse.json(); 
+    return avgData
+}
+
 let weatherData;
 
 async function fillValues(){
     //gets all the data from the flask application in app.py
     for (hour = 0; hour < 6; hour++) {}
-    for (avg = 0; avg < 168; avg++) {}
     let response = await fetch(`/getdata/${hour}`);
-    let avgResponse = await fetch(`/avg/${avg}`);
     weatherData = await response.json();
-    avgData = await avgResponse.json();
     changeTemp(weatherData['curr-0h']['TemperatureC'], "C")
 }
 
@@ -82,7 +88,15 @@ function getFeelingTemp() {
 }
 makeRain()
 
-function update(){
+async function update(){
+    avgr24 = await getAvgData(24)
+    avgr48 = await getAvgData(48)
+    avgr72 = await getAvgData(72)
+    avgr96 = await getAvgData(96)
+    avgr120 = await getAvgData(120)
+    avgr144 = await getAvgData(144)
+    avgr168 = await getAvgData(168)
+
     let template = `
     <div class="table-wrapper">
     <table>
@@ -150,10 +164,21 @@ function update(){
           <th>7 Tage Avg.</th>
         </tr>
         <tr>
+          <td>Temperature</td>
+          <td>${avgr24.avgData['TemperatureC']}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
           <td>UV-Index</td>
           <td></td>
           <td></td>
-          <td></td>
+          <td></td>object Object]
           <td></td>
           <td></td>
           <td></td>

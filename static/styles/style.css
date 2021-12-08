@@ -10,7 +10,7 @@ body{
 }
 .sunny{
     overflow-x: hidden;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     background-color: #00AEF9;
@@ -124,7 +124,7 @@ body{
 }
 .rainy{
     overflow-x: hidden;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     background-color: #004788;
@@ -133,10 +133,7 @@ body{
 }
 .raindrop{
     position: absolute;
-    height: 1.5em;
-    width: 0.5em;
-    background-color: #00FFFF;
-    border-radius: 100%;
+    width: 1em;
 }
 .rain-dark-gras{
     position: absolute;
