@@ -22,7 +22,8 @@ def createDB():
             Pressure REAL,
             Rain INT,
             Wind REAL,
-            UV INT );""")
+            UV INT,
+            Light REAL );""")
     conn.close()
     print("DB and Table created successfully")
 
@@ -33,8 +34,8 @@ def insertValuesInTable(DataCollection):
     cursor = conn.cursor() # Open cursor
 
     InsertParameter = """INSERT INTO RawData
-            (DateTime, TemperatureC, TemperatureF, TemperatureK, Humidity, Pressure, Rain, Wind, UV)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+            (DateTime, TemperatureC, TemperatureF, TemperatureK, Humidity, Pressure, Rain, Wind, UV, Light)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
 
     # The INSERT function, using the $DataCollection to insert as var in the $InserParameter
     # Combined it is the command to append into the DB
@@ -50,7 +51,7 @@ def fakedataDay():
     import datetime
     for hour in range(24):
         ShiftedTime = measureData.nonISOtime + datetime.timedelta(hours=(hour*-1))
-        insertValuesInTable([ShiftedTime.isoformat(), 0, 1, 2, 3, 4, 5, 6, 7])
+        insertValuesInTable([ShiftedTime.isoformat(), 0, 1, 2, 3, 4, 5, 6, 7, 8])
 
 def main():
     '''Create table and insert Values'''
@@ -60,4 +61,5 @@ def main():
 # Prevent execution on import (It just works.)
 if __name__ == '__main__':
     #main()
+    createDB()
     fakedataDay()
