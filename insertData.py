@@ -24,6 +24,7 @@ def createDB():
             Wind REAL,
             UV INT );""")
     conn.close()
+    print("DB and Table created successfully")
 
 
 def insertValuesInTable(DataCollection):
@@ -40,6 +41,7 @@ def insertValuesInTable(DataCollection):
     cursor.execute(InsertParameter, DataCollection)
     conn.commit()
     print("Rows affected:", cursor.rowcount)
+    print("insertedData:"+str(DataCollection))
     cursor.close()
     conn.close()
 

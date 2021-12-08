@@ -25,7 +25,7 @@ def getDataByVariable(DateTime):
     DataRecords = dict(zip(Names, Values)) # Merge ValueNames with Values into one dict()
     cursor.close
     conn.close()
-    print(DataRecords)
+    print("Extracted Data:"+str(DataRecords))
     return DataRecords
 
 
@@ -37,12 +37,15 @@ def getAvg(dictDict):
     for subDict in ListDict: # Removes DateTime string
         try:
             del subDict["DateTime"]
+            print("NoDateTimeDict:"+str(subDict))
         except KeyError: # Prevent error on nonexistend data
             print("No DateTime found for deletion")
-        
+            print("NoDateTimeDict:"+str(subDict))
+
         for Key in subDict:
             # For each Key in subDict, add Key[val]/lenght at Key position in ValueDict
             KeyVal = subDict[Key]
             lenght = len(dictDict)
             ValueDict[Key] = ValueDict.get(Key,0)+(KeyVal/lenght) # Create the entry (if not existing) and add value
+    print("ValueDict: "+str(ValueDict))
     return ValueDict
