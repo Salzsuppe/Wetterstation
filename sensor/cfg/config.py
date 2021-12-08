@@ -7,7 +7,8 @@ pinDict = {
     'Pressure':13,
     'Rain':15,
     'Wind':16,
-    'UV':18
+    'UV':18,
+    'Light':22
     }
 
 # Output regulation Pin
@@ -24,4 +25,5 @@ dataEntryList = [
         'Rain',
         'Wind',
         'UV'
+        'Light'
         ]
