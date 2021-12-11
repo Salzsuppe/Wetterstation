@@ -33,5 +33,6 @@ def measureValues():
         else:
             timeout += 1
         time.sleep(1)
+        ser.write(0)
 
 sched.start()

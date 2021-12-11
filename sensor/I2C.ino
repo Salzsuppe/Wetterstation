@@ -29,20 +29,9 @@ void loop(){
       Serial.print(",'Temperature:");
       Serial.print(temp);
       Serial.println("}");
+      
+      Serial.println(state);
+      delay(1000);
     }
   }
-
-  // Write serial
-  float lux = lightMeter.readLightLevel();
-  Serial.print("Pressure = ");
-  Serial.print(bmp.readPressure());
-  Serial.print(" hpa");
-
-  Serial.print(" Temp = ");
-  Serial.print(bmp.readTemperature());
-  Serial.print(" °C");
-
-  Serial.print(" Lux = ");
-  Serial.println(lux);
-  delay(5000);
 }
