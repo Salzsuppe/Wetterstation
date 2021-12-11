@@ -1,6 +1,7 @@
 # Import Library
 from apscheduler.schedulers.blocking import BlockingScheduler # Running the program periodically
 import datetime # Store time
+import time
 import serial # Serial communication
 from sensor.cfg import config # Import intervalt
 #import RPi.GPIO as GPIO # Set ESP deep sleep status
@@ -21,8 +22,16 @@ def measureValues():
     answer = None
     #GPIO.output(config.VPin, HIGH) # Disable Deep sleep
     while timeout < 5:
-        ser.write(str.encode("getVal")) # Trigger esp program
+
+        ser.write(1) # Trigger esp program
         print("Wake message sent")
         answer = ser.readline().decode('utf-8').rstrip() # esp sent data
         print(answer)
+        if answer is not None:
+            return answer
+            break
+        else:
+            timeout += 1
+        time.sleep(1)
+
 sched.start()
