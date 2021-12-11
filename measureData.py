@@ -1,84 +1,28 @@
-# The main function of this file will be the data collection
-# It is supposed to split the processing into "Setup" - Collection - Storing - Extraction - Display
+# Import Library
+from apscheduler.schedulers.blocking import BlockingScheduler # Running the program periodically
+import datetime # Store time
+import serial # Serial communication
+from sensor.cfg import config # Import intervalt
+#import RPi.GPIO as GPIO # Set ESP deep sleep status
 
-# This is a module, supposed to be imported, on execution data wont be stored
+sched = BlockingScheduler()
 
-# Check Pin var
-# Check Readme.md links
+port, baud = [value for value in list(config.serial.values())] # Get config values
+ser = serial.Serial(port, baud, timeout=1) # Configure serial with the config file
+ser.flush() # Configure serial to wait until serial write is done before continuing
 
-# Import lib
-import datetime # Access time to store in DB 
-from sensor.cfg import config # Pin numeration,
+#GPIO.setup(config.VPin, GPIO.OUT)
 
-# nonISO is used in dataListByshiftTime(nonISOtime) 
-nonISOtime = datetime.datetime.now().replace(microsecond=0, second=0, minute=0) # Cut ms, s & m
-currtime = nonISOtime.isoformat()
-
-
+@sched.scheduled_job('cron', second=0) ### Change to minute=0
 def measureValues():
-    # Import lib
-    import RPi.GPIO as GPIO # Access the pins
-
-    # Necessary configuration functions
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setwarnings(False)
-
-    def declareGPIOstate():
-        '''Input declaration'''
-        chan_list = list(config.pinDict.values()) # Use values() to isolate the values
-        GPIO.setup(chan_list, GPIO.IN)
-       
-        # make sure VPIN is regulating 3.3V instead of 5V
-        GPIO.setup(config.VPin, GPIO.OUT)
-
-    def readGPIOValue():
-        '''Store measured values in list'''
-        GPIO.output(config.VPin, GPIO.HIGH) # Enable voltage regulation pin
-
-        temperature = GPIO.input(config.pinDict['Temperature']) # For simplified processing
-        valueList = [] # Empty to fill in loop
-
-        # Modifying Values 
-        changingValues = [currtime, temperature, temperature*9/5+32, temperature+273.15]
-        
-        # Append changingValues to the main list
-        for value in changingValues:
-            valueList.append(value)
-
-        for entry in list(config.pinDict.values()):
-            # Append all pin values from pins in pinDict{} to valueList[]
-            if entry != config.pinDict['Temperature']:
-                valueList.append(GPIO.input(entry))
-        
-        return valueList
-    
-
-    # Executing functions in measureValues() to return the list
-    declareGPIOstate()
-    valueResults = readGPIOValue()
-    
-    GPIO.cleanup() # Setting all modified pins back to default
-    return valueResults
-
-
-
-# Try except to allow the program to run without RPi GPIO lib, with fake values. (Win10 compatibility)
-def main():
-    '''Execute all previous functions'''
-    try:
-        measuredValueResult = measureValues()
-    except:
-        measuredValueResult = [currtime, 0, 1, 2, 3, 4, 1, 6, 7, 8]
-
-    print(measuredValueResult)
-    return measuredValueResult
-
-def debugmain():
-    val = measureValues()
-    print(val)
-    return val
-
-# Prevent execution on import (It just works.)
-if __name__ == '__main__':
-    # Change to main()/debugmain() depending on the need 
-    debugmain() 
+    '''Wake the esp for data measurement, acquire the data and return'''
+    print("Execution Time:"+str(datetime.datetime.now()))
+    timeout = 0
+    answer = None
+    #GPIO.output(config.VPin, HIGH) # Disable Deep sleep
+    while timeout < 5:
+        ser.write(str.encode("getVal")) # Trigger esp program
+        print("Wake message sent")
+        answer = ser.readline().decode('utf-8').rstrip() # esp sent data
+        print(answer)
+sched.start()
