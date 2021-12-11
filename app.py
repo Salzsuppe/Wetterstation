@@ -37,7 +37,8 @@ def index():
 @app.route('/getdata/<int:hours>')
 def data(hours):
     '''Store data from past $hours in nested Dict on /getdata/'''
-    return dataListByShiftTime(hours)
+    weekday = datetime.datetime.today().weekday()
+    return dataListByShiftTime(hours), weekday
 
 @app.route('/avg/<int:hours>')
 def avg(hours):

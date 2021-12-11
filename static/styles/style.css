@@ -10,7 +10,7 @@ body{
 }
 .sunny{
     overflow-x: hidden;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     background-color: #00AEF9;
@@ -81,7 +81,7 @@ body{
 }
 .cloudy{
     overflow-x: hidden;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     background-color: #9CACB4;

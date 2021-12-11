@@ -153,34 +153,43 @@ async function update() {
       </tr>
       <tr>
       <td>Luftdruck</td>
-       <td>${weatherData["curr-5h"]["Pressure"]}Bar</td>
-        <td>${weatherData["curr-4h"]["Pressure"]}Bar</td>
-        <td>${weatherData["curr-3h"]["Pressure"]}Bar</td>
-        <td>${weatherData["curr-2h"]["Pressure"]}Bar</td>
-        <td>${weatherData["curr-1h"]["Pressure"]}Bar</td>
-        <td>${weatherData["curr-0h"]["Pressure"]}Bar</td>
+        <td>${weatherData["curr-5h"]["Pressure"]} Bar</td>
+        <td>${weatherData["curr-4h"]["Pressure"]} Bar</td>
+        <td>${weatherData["curr-3h"]["Pressure"]} Bar</td>
+        <td>${weatherData["curr-2h"]["Pressure"]} Bar</td>
+        <td>${weatherData["curr-1h"]["Pressure"]} Bar</td>
+        <td>${weatherData["curr-0h"]["Pressure"]} Bar</td>
         <td>${avgr["Pressure"]}</td>
       </tr>
       <tr>
       <td>Luftfeuchtigkeit</td>
-        <td>${weatherData["curr-5h"]["Humidity"]}%</td>
-        <td>${weatherData["curr-4h"]["Humidity"]}%</td>
-        <td>${weatherData["curr-3h"]["Humidity"]}%</td>
-        <td>${weatherData["curr-2h"]["Humidity"]}%</td>
-        <td>${weatherData["curr-1h"]["Humidity"]}%</td>
-        <td>${weatherData["curr-0h"]["Humidity"]}%</td>
+        <td>${weatherData["curr-5h"]["Humidity"]} %</td>
+        <td>${weatherData["curr-4h"]["Humidity"]} %</td>
+        <td>${weatherData["curr-3h"]["Humidity"]} %</td>
+        <td>${weatherData["curr-2h"]["Humidity"]} %</td>
+        <td>${weatherData["curr-1h"]["Humidity"]} %</td>
+        <td>${weatherData["curr-0h"]["Humidity"]} %</td>
         <td>${avgr["Humidity"]}</td>
       </tr>
       <tr>
       <td>Windstärke</td>
-        <td>${weatherData["curr-5h"]["Wind"]}km/h</td>
-        <td>${weatherData["curr-4h"]["Wind"]}km/h</td>
-        <td>${weatherData["curr-3h"]["Wind"]}km/h</td>
-        <td>${weatherData["curr-2h"]["Wind"]}km/h</td>
-        <td>${weatherData["curr-1h"]["Wind"]}km/h</td>
-        <td>${weatherData["curr-0h"]["Wind"]}km/h</td>
+        <td>${weatherData["curr-5h"]["Wind"]} km/h</td>
+        <td>${weatherData["curr-4h"]["Wind"]} km/h</td>
+        <td>${weatherData["curr-3h"]["Wind"]} km/h</td>
+        <td>${weatherData["curr-2h"]["Wind"]} km/h</td>
+        <td>${weatherData["curr-1h"]["Wind"]} km/h</td>
+        <td>${weatherData["curr-0h"]["Wind"]} km/h</td>
         <td>${avgr["Wind"]}</td>
       </tr>
+      <td>Helligkeit</td>
+      <td>${weatherData["curr-5h"]["Light"]} Lux</td>
+      <td>${weatherData["curr-4h"]["Light"]} Lux</td>
+      <td>${weatherData["curr-3h"]["Light"]} Lux</td>
+      <td>${weatherData["curr-2h"]["Light"]} Lux</td>
+      <td>${weatherData["curr-1h"]["Light"]} Lux</td>
+      <td>${weatherData["curr-0h"]["Light"]} Lux</td>
+      <td>${avgr["Light"]}</td>
+    </tr>
     </table>
     <table>
         <tr>
@@ -195,53 +204,53 @@ async function update() {
         </tr>
         <tr>
           <td>Temperature</td>
-          <td>${avgr24["TemperatureC"]}°C</td>
-          <td>${avgr48["TemperatureC"]}°C</td>
-          <td>${avgr72["TemperatureC"]}°C</td>
-          <td>${avgr96["TemperatureC"]}°C</td>
-          <td>${avgr120["TemperatureC"]}°C</td>
-          <td>${avgr144["TemperatureC"]}°C</td>
-          <td>${avgr168["TemperatureC"]}°C</td>
+          <td>${avgr24["TemperatureC"]} °C</td>
+          <td>${avgr48["TemperatureC"]} °C</td>
+          <td>${avgr72["TemperatureC"]} °C</td>
+          <td>${avgr96["TemperatureC"]} °C</td>
+          <td>${avgr120["TemperatureC"]} °C</td>
+          <td>${avgr144["TemperatureC"]} °C</td>
+          <td>${avgr168["TemperatureC"]} °C</td>
         </tr>
         <tr>
           <td>UV-Index</td>
-          <td>${avgr24["UV"]}</td>
-          <td>${avgr48["UV"]}</td>
-          <td>${avgr72["UV"]}</td>
-          <td>${avgr96["UV"]}</td>
-          <td>${avgr120["UV"]}</td>
-          <td>${avgr144["UV"]}</td>
-          <td>${avgr168["UV"]}</td>
+          <td>${avgr24["UV"]} </td>
+          <td>${avgr48["UV"]} </td>
+          <td>${avgr72["UV"]} </td>
+          <td>${avgr96["UV"]} </td>
+          <td>${avgr120["UV"]} </td>
+          <td>${avgr144["UV"]} </td>
+          <td>${avgr168["UV"]} </td>
         </tr>
         <tr>
         <td>Luftdruck</td>
-          <td>${avgr24["Pressure"]}Bar</td>
-          <td>${avgr48["Pressure"]}Bar</td>
-          <td>${avgr72["Pressure"]}Bar</td>
-          <td>${avgr96["Pressure"]}Bar</td>
-          <td>${avgr120["Pressure"]}Bar</td>
-          <td>${avgr144["Pressure"]}Bar</td>
-          <td>${avgr168["Pressure"]}Bar</td>
+          <td>${avgr24["Pressure"]} Bar</td>
+          <td>${avgr48["Pressure"]} Bar</td>
+          <td>${avgr72["Pressure"]} Bar</td>
+          <td>${avgr96["Pressure"]} Bar</td>
+          <td>${avgr120["Pressure"]} Bar</td>
+          <td>${avgr144["Pressure"]} Bar</td>
+          <td>${avgr168["Pressure"]} Bar</td>
         </tr>
         <tr>
         <td>Luftfeuchtigkeit</td>
-          <td>${avgr24["Humidity"]}%</td>
-          <td>${avgr48["Humidity"]}%</td>
-          <td>${avgr72["Humidity"]}%</td>
-          <td>${avgr96["Humidity"]}%</td>
-          <td>${avgr120["Humidity"]}%</td>
-          <td>${avgr144["Humidity"]}%</td>
-          <td>${avgr168["Humidity"]}%</td>
+          <td>${avgr24["Humidity"]} %</td>
+          <td>${avgr48["Humidity"]} %</td>
+          <td>${avgr72["Humidity"]} %</td>
+          <td>${avgr96["Humidity"]} %</td>
+          <td>${avgr120["Humidity"]} %</td>
+          <td>${avgr144["Humidity"]} %</td>
+          <td>${avgr168["Humidity"]} %</td>
         </tr>
         <tr>
         <td>Windstärke</td>
-          <td>${avgr24["Wind"]}km/h</td>
-          <td>${avgr48["Wind"]}km/h</td>
-          <td>${avgr72["Wind"]}km/h</td>
-          <td>${avgr96["Wind"]}km/h</td>
-          <td>${avgr120["Wind"]}km/h</td>
-          <td>${avgr144["Wind"]}km/h</td>
-          <td>${avgr168["Wind"]}km/h</td>
+          <td>${avgr24["Wind"]} km/h</td>
+          <td>${avgr48["Wind"]} km/h</td>
+          <td>${avgr72["Wind"]} km/h</td>
+          <td>${avgr96["Wind"]} km/h</td>
+          <td>${avgr120["Wind"]} km/h</td>
+          <td>${avgr144["Wind"]} km/h</td>
+          <td>${avgr168["Wind"]} km/h</td>
         </tr>
       </table>
     </div>`;
