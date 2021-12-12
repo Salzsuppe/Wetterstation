@@ -36,13 +36,13 @@ body{
 }
 .sun-dark-gras{
     position: absolute;
-    top: 36em;
+    top: 49em;
     right: 0vw;
     width: 80vw;
 }
 .sun-light-gras{
     position: absolute;
-    top: 33em;
+    top: 45em;
     left: 0;
     width: 55vw;
 }
@@ -173,9 +173,15 @@ body{
     background-color: lightgrey;
 }
 .weather-data{
-    margin-top: 20em;
+    margin-top: 30em;
     display: flex;
     justify-content: center;
+}
+.warning-signs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
 }
 .button-wrapper {
     display: flex;
@@ -183,20 +189,35 @@ body{
     justify-content: space-between;
     width: 80%;
 }
-.button-wrapper button {
+.data-button {
     border: none;
     background: none;
-    width: 5em;
-    height: 5em;
+    width: 7em;
+    height: 7em;
     border-radius: 100%;
     background-color: rgb(131, 131, 255);
 }
-.button-wrapper button:hover {
-    width: 5.5em;
-    height: 5.5em;
+.data-button:hover {
+    width: 7.5em;
+    height: 7.5em;
     box-shadow: 0.5em 1em 1.2em 0em rgb(188, 188, 188);
 }
 .data-button div{
     display: flex;
     justify-content: center;
+}
+.data-button p {
+    font-size: 1.3rem;
+}
+.data-sheet-wrapper {
+    display: none;
+}
+.data-sheet-wrapper table {
+    width: 80%;
+}
+.data-sheet-activated {
+    display: flex!important;
+    margin-top: 5em;
+    width: 90%;
+    border: black;
 }

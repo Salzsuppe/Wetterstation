@@ -8,7 +8,6 @@
     <meta name="keywords" content="HTML, CSS, JavaScript, Python">
     <meta name="description" content="Daten einer Wetterstation anzeigen">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/button.css') }}">
     <title>Wetterstation</title>
 </head>
 <body>
@@ -70,11 +69,11 @@
         <div class="warning-sings"></div>
         <div class="button-wrapper" id="button-wrapper">
             <button class="data-button" >
-                <div id="data-button-T">
+                <div id="data-button-T" onclick="showDataT()">
                     <p>T</p>
                 </div>
             </button>
-            <button class="data-button" >
+            <button class="data-button" onclick="showDataUV()">
                 <div id="data-button-UV">
                     <p>UV</p> 
                 </div>
@@ -102,5 +101,6 @@
         </div>
     </div>
     <script src="{{ url_for('static',filename='main.js') }}"></script>
+    <script src="{{ url_for('static',filename='addTemplate.js') }}></script>
 </body>
 </html>

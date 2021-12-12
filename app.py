@@ -28,7 +28,6 @@ def dataListByShiftTime(shift_val):
 
 
 # Accessible URL's
-
 @app.route('/')
 def index():
     '''Root site, index.html will be presented'''
