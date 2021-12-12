@@ -58,10 +58,10 @@ let menuActivated = false;
 //activates the menu for changing the temperature units
 function showMenu() {
   if (!menuActivated) {
-    for (const el of document.querySelectorAll(".menu-pulldown")) {
-      el.classList.add("menu-pulldown-activated"); //changes the class name to show smth else wich is styled in css
-    }
-    menuActivated = true;
+      for (const el of document.querySelectorAll(".menu-pulldown")) {
+        el.classList.add("menu-pulldown-activated"); //changes the class name to show smth else wich is styled in css
+      }
+      menuActivated = true;
   } else {
     for (const el of document.querySelectorAll(".menu-pulldown")) {
       el.classList.remove("menu-pulldown-activated"); //changes the class name again to show what it was before
@@ -92,11 +92,13 @@ function getFeelingTemp() {
   showMenu();
 }
 
+//function to change the weather screen when the the weather is different
 async function weatherScreen() {
-  sun = document.querySelector(".sunny");
+  sun = document.querySelector(".sunny"); //select the different screens
   rain = document.querySelector(".rainy");
   cloud = document.querySelector(".cloudy");
 
+  //changes the visiglity of the classes
   if (weatherData['curr-0h']['Rain'] == 1) {
     sun.style.display = 'none'
     rain.style.display = 'flex'

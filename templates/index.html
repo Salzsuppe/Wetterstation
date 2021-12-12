@@ -16,16 +16,10 @@
         <div class="sunny">
             <div class="sun"></div>
             <div class="cloud1"></div>
-            <div class="cloud2"></div>
-            <div class="tree"><img src="/static/Wetterdesign/Baum.png" alt=""></div>
-            <div class="sun-light-gras">
-                <img src="static/Wetterdesign/SunGrasHell.svg" alt="Light-Gras">
-            </div>
-            <div class="sun-dark-gras">
-                <img src="static/Wetterdesign/SunGrasDunkel.svg" alt="Dark-Gras">
-            </div>
+            <div class="sun-light-gras"><img src="/static/Wetterdesign/SunGrasHell.svg" alt="Light-Gras"></div>
+            <div class="sun-dark-gras"><img src="/static/Wetterdesign/SunGrasDunkel.svg " alt="Dark-Gras"></div>
             <div class="temperature">
-                <button class="menu-button"><img src="/static/Wetterdesign/Polygon 1.svg" alt=""></button>
+                <button class="menu-button" onclick="makeAnimation()"><img src="/static/Wetterdesign/Group 1.svg" alt=""></button>
                 <div class="menu-pulldown">
                     <button class="C" onclick="onClickCelsius()">Celsius</button>
                     <button class="F" onclick="onClickFahrenheit()">Fahrenheit</button>
@@ -37,21 +31,11 @@
             </div>        
         </div>
         <div class="cloudy">
-            <div class="cloud1">
-                <img src="static/Wetterdesign/Wolke.svg" alt="Wolke">
-            </div>
-            <div class="cloud2">
-                <img src="static/Wetterdesign/Wolke.svg" alt="Wolke">
-            </div>
-            <div class="cloud3">
-                <img src="static/Wetterdesign/Wolke.svg" alt="Wolke">
-            </div>
-            <div class="cloud-light-gras">
-                <img src="static/Wetterdesign/BewGrasHell.svg" alt="Light-Gras">
-            </div>
-            <div class="cloud-dark-gras">
-                <img src="static/Wetterdesign/BewGrasDunkel.svg" alt="Dark-Gras">
-            </div>
+            <div class="cloud1"></div>
+            <div class="cloud2"></div>
+            <div class="cloud3"></div>
+            <div class="cloud-light-gras"><img src="static/Wetterdesign/BewGrasHell.svg" alt="Light-Gras"></div>
+            <div class="cloud-dark-gras"><img src="static/Wetterdesign/BewGrasDunkel.svg" alt="Dark-Gras"></div>
             <div class="temperature">
                 <button class="menu-button"><img src="/static/Wetterdesign/Polygon 1.svg" alt=""></button>
                 <div class="menu-pulldown">
@@ -66,12 +50,8 @@
         </div>
         <div class="rainy">
             <div class="raindropWrapper"></div>
-            <div class="rain-light-gras">
-                <img src="static/Wetterdesign/RainLightGras.svg" alt="Light-Gras">
-            </div>
-            <div class="rain-dark-gras">
-                <img src="static/Wetterdesign/RainDarkGras.svg" alt="Dark-Gras">
-            </div>
+            <div class="rain-light-gras"><img src="static/Wetterdesign/RainLightGras.svg" alt="Light-Gras"></div>
+            <div class="rain-dark-gras"><img src="static/Wetterdesign/RainDarkGras.svg" alt="Dark-Gras"></div>
             <div class="temperature">
                 <button class="menu-button"><img src="/static/Wetterdesign/Polygon 1.svg" alt=""></button>
                 <div class="menu-pulldown">
@@ -85,10 +65,41 @@
             </div>
         </div>
     </div>
+
     <div class="weather-data">
-        <div class="warning-sings">
+        <div class="warning-sings"></div>
+        <div class="button-wrapper" id="button-wrapper">
+            <button class="data-button" >
+                <div id="data-button-T">
+                    <p>T</p>
+                </div>
+            </button>
+            <button class="data-button" >
+                <div id="data-button-UV">
+                    <p>UV</p> 
+                </div>
+            </button>
+            <button class="data-button">
+                <div id="data-button-LF">
+                    <p>LF</p>
+                </div>
+            </button>
+            <button class="data-button">
+                <div id="data-button-LD">
+                    <p>LD</p>
+                </div>
+            </button>
+            <button class="data-button">
+                <div id="data-button-WS">
+                    <p>WS</p>
+                </div>
+            </button>
+            <button class="data-button">
+                <div id="data-button-L">
+                    <p>L</p>
+                </div>
+            </button>
         </div>
-        <div class="table-wrapper" id="table-wrapper"></div>
     </div>
     <script src="{{ url_for('static',filename='main.js') }}"></script>
 </body>
