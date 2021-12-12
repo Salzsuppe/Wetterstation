@@ -5,33 +5,43 @@
 BH1750 lightMeter;
 Adafruit_BMP085 bmp;;
 
-byte number = 0;
-
 void setup(){
+  //Enable deep sleep wakeup on G4
+  esp_sleep_enable_ext0_wakeup(GPIO_NUM_4,HIGH);
 
+  // Start libraries & Serial
   Serial.begin(115200);
+  Serial.flush();
   lightMeter.begin();
   bmp.begin();
+  
+  
+  while (true) {
+    // Declare datatypes for the values
+    float lux = lightMeter.readLightLevel();
+    int hpa = bmp.readPressure();
+    float temp = bmp.readTemperature();
+    // Writing the date like a dictionary for simple conversion 
+    Serial.print("{'Pressure':");
+    Serial.print(hpa);
+    Serial.print(",'Light':");
+    Serial.print(lux);
+    Serial.print(",'Temperature:");
+    Serial.print(temp);
+    Serial.println("}");
+
+    delay(1000);
+
+    // Stop program if confirmation is recieved
+    int answer = Serial.read();
+    if (answer = 1) {
+        break;
+    }
+
+  }
+
+  esp_deep_sleep_start();
+  //Anything beyond start wont be called
 }
 
-void loop(){
-  // Write serial while the main py requests it
-  if (Serial.available()){
-    bool state = Serial.read();
-    while (state = 1) {
-      float lux = lightMeter.readLightLevel();
-      int hpa = bmp.readPressure();
-      float temp = bmp.readTemperature();
-      Serial.print("{'Pressure':");
-      Serial.print(hpa);
-      Serial.print(",'Light':");
-      Serial.print(lux);
-      Serial.print(",'Temperature:");
-      Serial.print(temp);
-      Serial.println("}");
-      
-      Serial.println(state);
-      delay(1000);
-    }
-  }
-}
+void loop(){}

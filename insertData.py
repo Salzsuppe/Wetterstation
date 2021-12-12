@@ -7,6 +7,7 @@
 import sqlite3 # Our Database
 import measureData # 'Storing' depends on 'Collection'
 from sensor.cfg import config
+from apscheduler.schedulers.blocking import BlockingScheduler # Running the program periodically
 
 # Var to simplify the code
 conn = sqlite3.connect('Raw.db') # The argument which db you want to modify
@@ -54,9 +55,14 @@ def fakedataDay():
         insertValuesInTable([ShiftedTime.isoformat(), 0, 1, 2, 3, 4, 5, 6, 7, 8])
 
 def main():
-    '''Create table and insert Values'''
+    '''Create table and insert Values periodically'''
     createDB()
-    insertValuesInTable(measureData.main())
+
+    sched = BlockingScheduler()
+    @sched.scheduled_job('cron', second=0) ### Change to minute=0
+    def passData():
+        insertValuesInTable(measureData.main())
+    sched.start()
 
 # Prevent execution on import (It just works.)
 if __name__ == '__main__':
