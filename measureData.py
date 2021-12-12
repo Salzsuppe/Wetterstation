@@ -15,7 +15,7 @@ nonISOtime = datetime.datetime.now().replace(microsecond=0, second=0, minute=0) 
 currtime = nonISOtime.isoformat()
 
 def measureValues():
-    '''Wake the esp for data measurement, acquire the data and return'''
+    '''Wake the esp for data measurement, acquire the data and send esp to sleep'''
 
     # Serial configuration
     port, baud = [value for value in list(config.serial.values())] # Get config values
@@ -30,21 +30,19 @@ def measureValues():
     print("Execution Time:"+str(datetime.datetime.now()))
     
     while True:
-        answer = ser.readline().decode('utf-8').rstrip() # esp sent data
-        print(answer)
-        if answer is not None:
-            GPIO.cleanup() # Remove power at (esp)G4
+        if ser.in_waiting > 0:
+            data = ser.readline().decode('utf-8').rstrip() # recieved data
+            print("Recieved line:"+str(data))
+            if "{IDENTIFIER}" in data: # search to filter data from esp serial debug
+                dataList = data.split() # String to List
+                print("Recieved Data:"+str(dataList))
+                dataList = [currtime if item == '{IDENTIFIER}' else item for item in dataList] # Remakes the list but {ID..} is replaced
 
-            ser.write(bytes(1)) # Send 1 byte to esp
-            print("Serial break send")
-
-            time.sleep(5) ##DEBUG Allows me to see that serial monitor is not being used before closing
-            ser.close()
-            
-            print("not none answer:"+str(answer))
-            return answer
-            break
-        time.sleep(1)
+                GPIO.cleanup() # Remove power at (esp)G4 
+                ser.write(bytes(1)) # Send 1 byte to esp to stop the program
+                print("Serial break send")
+                ser.close()
+                return dataList
 
 if __name__ == '__main__':
     measureValues()

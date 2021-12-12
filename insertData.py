@@ -9,11 +9,11 @@ import measureData # 'Storing' depends on 'Collection'
 from sensor.cfg import config
 from apscheduler.schedulers.blocking import BlockingScheduler # Running the program periodically
 
-# Var to simplify the code
-conn = sqlite3.connect('Raw.db') # The argument which db you want to modify
+scheduler = BlockingScheduler()
 
 def createDB():
     '''Create database and its table, if not already existing'''
+    conn = sqlite3.connect('Raw.db') # Open DB
     conn.execute("""CREATE TABLE IF NOT EXISTS RawData 
             (DateTime TEXT,
             TemperatureC REAL,
@@ -31,6 +31,7 @@ def createDB():
 
 def insertValuesInTable(DataCollection):
     '''Variables used in the INSERT function, to shorten it'''
+    createDB()
     conn = sqlite3.connect('Raw.db') # Open DB
     cursor = conn.cursor() # Open cursor
 
@@ -54,18 +55,13 @@ def fakedataDay():
         ShiftedTime = measureData.nonISOtime + datetime.timedelta(hours=(hour*-1))
         insertValuesInTable([ShiftedTime.isoformat(), 0, 1, 2, 3, 4, 5, 6, 7, 8])
 
+@scheduler.scheduled_job('cron', minute=0)
 def main():
     '''Create table and insert Values periodically'''
-    createDB()
+    insertValuesInTable(measureData.measureValues())
 
-    sched = BlockingScheduler()
-    @sched.scheduled_job('cron', second=0) ### Change to minute=0
-    def passData():
-        insertValuesInTable(measureData.main())
-    sched.start()
 
 # Prevent execution on import (It just works.)
 if __name__ == '__main__':
-    #main()
-    createDB()
+    #scheduler.start()
     fakedataDay()

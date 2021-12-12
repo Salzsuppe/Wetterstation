@@ -233,5 +233,6 @@ Analog Sensoren müssen mithilfe eines AD-Wandlers gelesen werden. Dieser wieder
 
 Ich habe mehrere Sensoren ausprobiert, das System mehrmals neu aufgesetzt, verschiedenste Tutorials durchsucht und oft die Schaltung neu aufgebaut.
 I2C funktioniert bei mir weder am Raspi Zero 2W noch am Raspi 4b+ den ich privat besitze.
-Am ESP32 werden BMP180 & BH1750 erkannt und können gelesen werden, die Werte sollen in Zukunft über serial übertragen werden.
 
+Am ESP32 konnten alle sensoren mit I2C gelesen werden, darauf hin habe ich eine serial connection zwischen ihnen aufgebaut, über GPIO ging es nicht direkt also habe ich ein Kabel genutzt.
+Jetzt weckt measureData.py den esp, der dan mit der Messung beginnt, sobald das Programm die Daten erhalten hat, läuft es weiter.
