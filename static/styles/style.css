@@ -34,44 +34,30 @@ body{
     border-radius: 50%;
     box-shadow: 2em 2em 10em 6em lightgray;
 }
-.sunny .cloud2{
-    position: absolute;
-    top: 10vw;
-    left: 17vw;
-    width: 23vw;
-    border-radius: 50%;
-    box-shadow: 2em 2em 10em 6em lightgray;
-}
-.tree{
-    position: absolute;
-    right: 18vw;
-    top: 28vw;
-    z-index: 5;
-}
 .sun-dark-gras{
     position: absolute;
-    top: 42vw;
+    top: 36em;
     right: 0vw;
     width: 80vw;
 }
 .sun-light-gras{
     position: absolute;
-    top: 40vw;
-    left: 0vw;
+    top: 33em;
+    left: 0;
     width: 55vw;
 }
 .temperature{
-    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 15em;
-    height: 10em;
+    width: 15vw;
+    height: 10vw;
 }
 .temperature #sunny{
     font-family: Cabin;
     font-size: 2rem;
+    font-weight: 600;
     margin: 0.2em 0;
 }
 .temperature .temp{
@@ -89,32 +75,32 @@ body{
 }
 .cloudy .cloud1{
     position: absolute;
-    top: 5vw;
-    right: 16vw;
+    top: 5em;
+    right: 16em;
     width: 23vw;
 }
 .cloudy .cloud2{
     position: absolute;
-    top: 3vw;
-    left: 27vw;
+    top: 3em;
+    left: 27em;
     width: 23vw;
 }
 .cloudy .cloud3{
     position: absolute;
-    top: 18vw;
-    left: 8vw;
+    top: 18em;
+    left: 8em;
     width: 23vw;
 }
 .cloud-dark-gras{
     position: absolute;
-    top: 42vw;
-    right: 0vw;
+    top: 42em;
+    right: 0;
     width: 80vw;
 }
 .cloud-light-gras{
     position: absolute;
-    top: 40vw;
-    left: 0vw;
+    top: 40em;
+    left: 0;
     width: 55vw;
 }
 .temperature #cloudy{
@@ -137,14 +123,14 @@ body{
 }
 .rain-dark-gras{
     position: absolute;
-    top: 42vw;
-    right: 0vw;
+    top: 42em;
+    right: 0;
     width: 80vw;
 }
 .rain-light-gras{
     position: absolute;
-    top: 40vw;
-    left: 0vw;
+    top: 40em;
+    left: 0;
     width: 55vw;
 }
 .temperature{
@@ -191,22 +177,26 @@ body{
     display: flex;
     justify-content: center;
 }
-#table-wrapper{
+.button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 80%;
 }
-table {
-    font-family: Rubik;
-    border-collapse: collapse;
-    margin: 2em, 2em;
-    width: 100%
+.button-wrapper button {
+    border: none;
+    background: none;
+    width: 5em;
+    height: 5em;
+    border-radius: 100%;
+    background-color: rgb(131, 131, 255);
 }
-td, th {
-    text-align: left;
-    padding: 1em;
+.button-wrapper button:hover {
+    width: 5.5em;
+    height: 5.5em;
+    box-shadow: 0.5em 1em 1.2em 0em rgb(188, 188, 188);
 }
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-tr:nth-child(odd) {
-    background-color: #c4c4c4;
+.data-button div{
+    display: flex;
+    justify-content: center;
 }
