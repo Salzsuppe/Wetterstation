@@ -11,7 +11,7 @@ pinDict = {
     'Light':22
     }
 
-# Output regulation Pin
+# Output regulation Pin (Board, Physical numbering)
 VPin = 22
 
 # Serial connection

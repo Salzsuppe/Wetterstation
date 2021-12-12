@@ -14,7 +14,7 @@ void setup(){
   Serial.flush();
   lightMeter.begin();
   bmp.begin();
-  
+  delay(250); 
   
   while (true) {
     // Declare datatypes for the values

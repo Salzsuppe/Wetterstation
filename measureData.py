@@ -23,6 +23,7 @@ def measureValues():
     ser.flush() # Configure serial to wait until serial write is done before continuing
 
     # Disabel esp deepsleep with Hight voltage from VPin to (esp)G4
+    GPIO.setmode(GPIO.BOARD)
     GPIO.setup(config.VPin, GPIO.OUT)
     GPIO.output(config.VPin, GPIO.HIGH)
 
@@ -32,12 +33,18 @@ def measureValues():
         answer = ser.readline().decode('utf-8').rstrip() # esp sent data
         print(answer)
         if answer is not None:
-            ser.write(bytes(1, 'utf-8')) # Send 1 byte to esp 
+            GPIO.cleanup() # Remove power at (esp)G4
+
+            ser.write(bytes(1)) # Send 1 byte to esp
             print("Serial break send")
+
+            time.sleep(5) ##DEBUG Allows me to see that serial monitor is not being used before closing
+            ser.close()
+            
             print("not none answer:"+str(answer))
             return answer
             break
         time.sleep(1)
 
-if __name__ == 'main':
+if __name__ == '__main__':
     measureValues()
