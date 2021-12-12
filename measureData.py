@@ -1,38 +1,43 @@
 # Import Library
-from apscheduler.schedulers.blocking import BlockingScheduler # Running the program periodically
 import datetime # Store time
 import time
 import serial # Serial communication
 from sensor.cfg import config # Import intervalt
-#import RPi.GPIO as GPIO # Set ESP deep sleep status
 
-sched = BlockingScheduler()
+#Debug
+try:
+    import RPi.GPIO as GPIO # Set ESP deep sleep status
+except:
+    print("failed to import RPI")
 
-port, baud = [value for value in list(config.serial.values())] # Get config values
-ser = serial.Serial(port, baud, timeout=1) # Configure serial with the config file
-ser.flush() # Configure serial to wait until serial write is done before continuing
+# nonISO is used in dataListByshiftTime(nonISOtime) 
+nonISOtime = datetime.datetime.now().replace(microsecond=0, second=0, minute=0) # Cut ms, s & m
+currtime = nonISOtime.isoformat()
 
-#GPIO.setup(config.VPin, GPIO.OUT)
-
-@sched.scheduled_job('cron', second=0) ### Change to minute=0
 def measureValues():
     '''Wake the esp for data measurement, acquire the data and return'''
-    print("Execution Time:"+str(datetime.datetime.now()))
-    timeout = 0
-    answer = None
-    #GPIO.output(config.VPin, HIGH) # Disable Deep sleep
-    while timeout < 5:
 
-        ser.write(1) # Trigger esp program
-        print("Wake message sent")
+    # Serial configuration
+    port, baud = [value for value in list(config.serial.values())] # Get config values
+    ser = serial.Serial(port, baud, timeout=1) # Configure serial with the config file
+    ser.flush() # Configure serial to wait until serial write is done before continuing
+
+    # Disabel esp deepsleep with Hight voltage from VPin to (esp)G4
+    GPIO.setup(config.VPin, GPIO.OUT)
+    GPIO.output(config.VPin, GPIO.HIGH)
+
+    print("Execution Time:"+str(datetime.datetime.now()))
+    
+    while True:
         answer = ser.readline().decode('utf-8').rstrip() # esp sent data
         print(answer)
         if answer is not None:
+            ser.write(bytes(1, 'utf-8')) # Send 1 byte to esp 
+            print("Serial break send")
+            print("not none answer:"+str(answer))
             return answer
             break
-        else:
-            timeout += 1
         time.sleep(1)
-        ser.write(0)
 
-sched.start()
+if __name__ == 'main':
+    measureValues()
