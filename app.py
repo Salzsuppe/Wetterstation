@@ -44,10 +44,6 @@ def avg(hours):
     '''Store avg data from past $hours in nested Dict on /avg/'''
     return extractData.getAvg(dataListByShiftTime(hours))
 
-@app.route('/debug')
-def debug():
-    return render_template('debug.html')
-
 # Prevent execution on import & enable on Site Debug
 if __name__ == '__main__':
     app.run()

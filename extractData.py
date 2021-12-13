@@ -1,11 +1,11 @@
 # The main function of this file will be the data extraction from sqlite3
-# It is supposed to split the processing into Setup - Collection - Storing - "Extraction" - Display
+# It is supposed to split the processing into Measuring - Collection - Storing - "Extraction" - Display
 
 # This is a module, supposed to be import, not executed
 
 # Import lib
 import sqlite3 # Our DB
-from sensor.cfg import config
+from cfg import config
 
 def getDataByVariable(DateTime):
     '''Search the DB for DateTime and return the values as List'''
