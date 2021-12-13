@@ -36,7 +36,7 @@ async function warningSigns() {
   ice = `<div class"ice"></div>`
   uv = `<div class="uv"></div>`
   wind = `<div class="wind"></div>`
-  nebel = `<div class="nebel"</div>`
+  nebel = `<div class="nebel>"</div>`
   el = document.querySelector('.warning-signs')
     var somethingTrue = false;
     el.innerHTML = null;
