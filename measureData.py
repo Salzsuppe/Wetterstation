@@ -1,6 +1,5 @@
 # Import Library
 import datetime # Store time
-import time
 import serial # Serial communication
 from sensor.cfg import config # Import intervalt
 

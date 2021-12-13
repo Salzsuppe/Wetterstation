@@ -31,7 +31,6 @@ def getDataByVariable(DateTime):
 
 def getAvg(dictDict):
     '''Returns the avg of nestedDict {"curr-0h":{"TmpC":1,"TmpF":2},"curr-1h":{"TmpC":2,"TmpF":4}} = {"TmpC":1.5,"TmpF":3}'''
-    # !!!Note: No data will result in a lower average (1+3+0)/3 != (1+3)/2 !!!
     ListDict = list(dictDict.values()) # Changes the outer Dict in a list
     ValueDict = {}
     for subDict in ListDict: # Removes DateTime string

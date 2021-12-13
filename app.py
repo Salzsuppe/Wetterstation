@@ -4,7 +4,6 @@
 # This is the webserver, execute to activate
 
 # Import lib
-from logging import debug ### DISABLE DEBUG LATER
 from flask import Flask, render_template
 import datetime # To access datetime.timedelta(Time shift))
 import measureData # Import $nonISOtime
@@ -23,7 +22,9 @@ def dataListByShiftTime(shift_val):
     for hour in range(shift_val):
         ShiftedTime = measureData.nonISOtime + datetime.timedelta(hours=(hour*-1))
         ISOformatTime = ShiftedTime.isoformat()
-        PastTimeDataDict["curr-"+str(hour)+"h"] = extractData.getDataByVariable(ISOformatTime)
+        data = extractData.getDataByVariable(ISOformatTime)
+        if data: # It equals true if the dictionary has elements
+            PastTimeDataDict["curr-"+str(hour)+"h"] = extractData.getDataByVariable(ISOformatTime)
     return PastTimeDataDict
 
 
@@ -43,6 +44,10 @@ def avg(hours):
     '''Store avg data from past $hours in nested Dict on /avg/'''
     return extractData.getAvg(dataListByShiftTime(hours))
 
+@app.route('/debug')
+def debug():
+    return render_template('debug.html')
+
 # Prevent execution on import & enable on Site Debug
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

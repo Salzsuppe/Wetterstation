@@ -21,15 +21,15 @@ Die Anzahl der Stunden kann in der URL angepasst werden.
 ## Getting Started
 
 Um das Programm zu nutzten, muss es heruntergeladen und konfiguriert werden.<sup>1</sup>
-Benötigt werden `python3, flask` packages.
+Das firstrun.sh wird alle benötigten packages automatisch herunterladen.
 ```
-sudo apt update && apt upgrade -y # Systemupdate
-sudo apt install python3 flask
-pip install flask Adafruit_DHT
-
+cd # Setze die directory zu /home/$USER
+sudo apt install git -y # Das tool welches genutzt wird zum herunterladen des repo
 git clone https://github.com/Salzsuppe/Wetterstation
 cd Wetterstation
-nano cfg/config.py
+./firstrun.sh
+
+nano sensor/cfg/config.py
 ```
 Nun die Pin-Numerierung anpassen, gemeint sind Board Pins (Nur GPIO numerierung).
 <kbd>strg+X</kbd>, <kbd>y</kbd>, <kbd>Enter</kbd>
