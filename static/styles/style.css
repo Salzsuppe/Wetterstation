@@ -28,7 +28,7 @@ body{
 }
 .sunny .cloud1{
     position: absolute;
-    top: 7vw;
+    top: 8em;
     right: 16vw;
     width: 23vw;
     border-radius: 50%;
@@ -70,36 +70,50 @@ body{
     display: none;
     align-items: center;
     justify-content: center;
-    background-color: #9CACB4;
+    background-color: #717e85;
     height: 46vw;
 }
 .cloudy .cloud1{
     position: absolute;
     top: 5em;
     right: 16em;
-    width: 23vw;
+    width: 19vw;
+    border-radius: 40%;
+    box-shadow: 2em 2em 10em 8em lightgray;
 }
 .cloudy .cloud2{
     position: absolute;
     top: 3em;
     left: 27em;
     width: 23vw;
+    border-radius: 50%;
+    box-shadow: 2em 2em 10em 10em lightgray;
 }
 .cloudy .cloud3{
     position: absolute;
-    top: 18em;
+    top: 30em;
     left: 8em;
-    width: 23vw;
+    width: 21vw;
+    border-radius: 60%;
+    box-shadow: 2em 2em 10em 6em lightgray;
+}
+.cloudy .cloud4{
+    position: absolute;
+    top: 28em;
+    right: 3em;
+    width: 25vw;
+    border-radius: 60%;
+    box-shadow: 2em 2em 10em 6em lightgray;
 }
 .cloud-dark-gras{
     position: absolute;
-    top: 42em;
-    right: 0;
+    top: 49em;
+    right: 0vw;
     width: 80vw;
 }
 .cloud-light-gras{
     position: absolute;
-    top: 40em;
+    top: 45em;
     left: 0;
     width: 55vw;
 }
@@ -123,13 +137,13 @@ body{
 }
 .rain-dark-gras{
     position: absolute;
-    top: 42em;
-    right: 0;
+    top: 49em;
+    right: 0vw;
     width: 80vw;
 }
 .rain-light-gras{
     position: absolute;
-    top: 40em;
+    top: 45em;
     left: 0;
     width: 55vw;
 }
@@ -179,6 +193,7 @@ body{
 }
 .warning-signs {
     display: flex;
+    position: absolute;
     flex-direction: row;
     justify-content: space-between;
     width: 80%;
@@ -188,8 +203,11 @@ body{
     flex-direction: row;
     justify-content: space-between;
     width: 80%;
+    margin: 5em;
 }
 .data-button {
+    display: flex;
+    justify-content: center;
     border: none;
     background: none;
     width: 7em;
@@ -202,22 +220,43 @@ body{
     height: 7.5em;
     box-shadow: 0.5em 1em 1.2em 0em rgb(188, 188, 188);
 }
-.data-button div{
-    display: flex;
-    justify-content: center;
-}
 .data-button p {
     font-size: 1.3rem;
 }
 .data-sheet-wrapper {
     display: none;
 }
-.data-sheet-wrapper table {
-    width: 80%;
+table {
+    font-family: Rubik;
+    border-collapse: collapse;
+    margin: 2em, 2em;
+    width: 100%
+}
+td, th {
+    text-align: left;
+    padding: 1em;
+}
+tr:nth-child(1) {
+    background-color: rgb(194, 194, 194);
 }
 .data-sheet-activated {
     display: flex!important;
-    margin-top: 5em;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    margin-top: 15em;
     width: 90%;
-    border: black;
+}
+.header {
+    display: flex;
+    justify-content: center;
+    font-family: Rubik;
+    font-size: 3rem;
+}
+.header p {
+    margin-bottom: 1em;
+}
+.warning {
+    display: none;
 }

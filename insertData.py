@@ -53,7 +53,7 @@ def fakedataDay():
     import datetime
     for hour in range(24):
         ShiftedTime = measureData.nonISOtime + datetime.timedelta(hours=(hour*-1))
-        insertValuesInTable([ShiftedTime.isoformat(), 0, 1, 2, 3, 4, 5, 6, 7, 8])
+        insertValuesInTable([ShiftedTime.isoformat(), 0, 1, 2, 99, 4, 1, 130, 7, 8])
 
 @scheduler.scheduled_job('cron', minute=0)
 def main():

@@ -6,22 +6,20 @@ let avgr96;
 let avgr120;
 let avgr144;
 let avgr168;
+let avgData;
 menuActivated = false;
 
-async function fillValues() {
-    let response = await fetch(`/getdata/6`);
-    weatherData = await response.json();
-}
-
+//fetches the data from the avgData flask application
 async function getAvgData(hour) {
     let avgResponse = await fetch(`/avg/${hour}`);
-    avgData = await avgResponse.json();
+    avgData = await avgResponse.json(); //makes a json object to access the data
     for (const key of Object.keys(avgData)) {
-        avgData[key] = avgData[key].toFixed(2);
+        avgData[key] = avgData[key].toFixed(2); //rounds the data on 2 decimal places
     }
     return avgData;
 }
 
+//declare the avgData variables so they can be accessed from every function
 async function declareData() {
     avgr = await getAvgData(5);
     avgr24 = await getAvgData(24);
@@ -33,8 +31,22 @@ async function declareData() {
     avgr168 = await getAvgData(168);
 }
 
+declareData().then(() => {
+    //adds an onclick event for the menu buttons
+    document.querySelector("#data-button-T").addEventListener('click', showDataT)
+    document.querySelector("#data-button-UV").addEventListener('click', showDataUV)
+    document.querySelector("#data-button-LF").addEventListener('click', showDataLF)
+    document.querySelector("#data-button-LD").addEventListener('click', showDataLD)
+    document.querySelector("#data-button-L").addEventListener('click', showDataL)
+    document.querySelector("#data-button-WS").addEventListener('click', showDataWS)
+})
+//creates a template which will be added to the HTML when a button is pressed
 async function showDataT() {
+    //template
     temperature = `
+    <div class="header">
+        <p>Temperatur</p>
+    </div>
     <table>
         <tr>
             <th>-5h</th>
@@ -55,7 +67,7 @@ async function showDataT() {
             <td>${avgr['TemperatureC']}</td>
         </tr>
     </table>
-    <table>
+    <table class="avg-table">
         <tr>
             <th>Gestern</th>
             <th>Vorgestern</th>
@@ -75,21 +87,26 @@ async function showDataT() {
             <th>${avgr168['TemperatureC']}°C</th>
         </tr>
     </table>`
+    //shows the data table when the button is pressed
     if (!menuActivated) {
-        for (const el of document.querySelectorAll('.data-sheet-wrapper')) {
-            el.classList.add("data-sheet-activated");
+        for (const el of document.querySelectorAll(".data-sheet-wrapper")) {
             el.innerHTML = temperature;
+            el.classList.add('data-sheet-activated')//adds a class name so the style attributs change
         }
         menuActivated = true;
     } else {
         for (const el of document.querySelectorAll('.data-sheet-wrapper')) {
-            el.classList.remove('data-sheet-acitvated')
+            el.innerHTML = null;
+            el.classList.remove('data-sheet-acitvated')//removes the class name when the button is pressed again
         }
         menuActivated = false;
     }
 }
 async function showDataUV() {
-    UvIndex = `
+    uvIndex = `
+    <div class="header">
+        <p>UV-Index</p>
+    </div>
     <table>
         <tr>
             <th>-5h</th>
@@ -110,7 +127,7 @@ async function showDataUV() {
             <td>${avgr['UV']}</td>
         </tr>
     </table>
-    <table>
+    <table class="avg-table">
         <tr>
             <th>Gestern</th>
             <th>Vorgestern</th>
@@ -121,23 +138,260 @@ async function showDataUV() {
             <th>Vor 7 Tagen</th>
         </tr>
         <tr>
-            <th>${avgr24}['UV']</th>
-            <th>${avgr48}['UV']</th>
-            <th>${avgr72}['UV']</th>
-            <th>${avgr96}['UV']</th>
-            <th>${avgr120}['TemperatureC']</th>
-            <th>${avgr144}['TemperatureC']</th>
-            <th>${avgr168}['TemperatureC']</th>
+            <th>${avgr24['UV']}</th>
+            <th>${avgr48['UV']}</th>
+            <th>${avgr72['UV']}</th>
+            <th>${avgr96['UV']}</th>
+            <th>${avgr120['UV']}</th>
+            <th>${avgr144['UV']}</th>
+            <th>${avgr168['UV']}</th>
         </tr>
     </table>`
     if (!menuActivated) {
-        for (const el of document.querySelectorAll('.data-sheet-wrapper')) {
-            el.classList.add("data-sheet-activated");
-            el.innerHTML = UvIndex;
+        for (const el of document.querySelectorAll(".data-sheet-wrapper")) {
+            el.innerHTML = uvIndex;
+            el.classList.add('data-sheet-activated')
         }
         menuActivated = true;
     } else {
         for (const el of document.querySelectorAll('.data-sheet-wrapper')) {
+            el.innerHTML = null;
+            el.classList.remove('data-sheet-acitvated')
+        }
+        menuActivated = false;
+    }
+}
+async function showDataLF() {
+    humidity = `
+    <div class="header">
+        <p>Luftfeuchtigkeit</p>
+    </div>
+    <table>
+        <tr>
+            <th>-5h</th>
+            <th>-4h</th>
+            <th>-3h</th>
+            <th>-2h</th>
+            <th>-1h</th>
+            <th>Gerade</th>
+            <th>Avg</th>
+        <tr>
+        <tr>
+            <td>${weatherData['curr-5h']['Humidity']}</td>
+            <td>${weatherData['curr-4h']['Humidity']}</td>
+            <td>${weatherData['curr-3h']['Humidity']}</td>
+            <td>${weatherData['curr-2h']['Humidity']}</td>
+            <td>${weatherData['curr-1h']['Humidity']}</td>
+            <td>${weatherData['curr-0h']['Humidity']}</td>
+            <td>${avgr['Humidity']}</td>
+        </tr>
+    </table>
+    <table class="avg-table">
+        <tr>
+            <th>Gestern</th>
+            <th>Vorgestern</th>
+            <th>Vor 3 Tagen</th>
+            <th>Vor 4 Tagen</th>
+            <th>Vor 5 Tagen</th>
+            <th>Vor 6 Tagen</th>
+            <th>Vor 7 Tagen</th>
+        </tr>
+        <tr>
+            <th>${avgr24['Humidity']}</th>
+            <th>${avgr48['Humidity']}</th>
+            <th>${avgr72['Humidity']}</th>
+            <th>${avgr96['Humidity']}</th>
+            <th>${avgr120['Humidity']}</th>
+            <th>${avgr144['Humidity']}</th>
+            <th>${avgr168['Humidity']}</th>
+        </tr>
+    </table>`
+    if (!menuActivated) {
+        for (const el of document.querySelectorAll(".data-sheet-wrapper")) {
+            el.innerHTML = humidity;
+            el.classList.add('data-sheet-activated')
+        }
+        menuActivated = true;
+    } else {
+        for (const el of document.querySelectorAll('.data-sheet-wrapper')) {
+            el.innerHTML = null;
+            el.classList.remove('data-sheet-acitvated')
+        }
+        menuActivated = false;
+    }
+}
+async function showDataLD() {
+    pressure = `
+    <div class="header">
+        <p>Luftdruck</p>
+    </div>
+    <table>
+        <tr>
+            <th>-5h</th>
+            <th>-4h</th>
+            <th>-3h</th>
+            <th>-2h</th>
+            <th>-1h</th>
+            <th>Gerade</th>
+            <th>Avg</th>
+        <tr>
+        <tr>
+            <td>${weatherData['curr-5h']['Pressure']}</td>
+            <td>${weatherData['curr-4h']['Pressure']}</td>
+            <td>${weatherData['curr-3h']['Pressure']}</td>
+            <td>${weatherData['curr-2h']['Pressure']}</td>
+            <td>${weatherData['curr-1h']['Pressure']}</td>
+            <td>${weatherData['curr-0h']['Pressure']}</td>
+            <td>${avgr['Pressure']}</td>
+        </tr>
+    </table>
+    <table class="avg-table">
+        <tr>
+            <th>Gestern</th>
+            <th>Vorgestern</th>
+            <th>Vor 3 Tagen</th>
+            <th>Vor 4 Tagen</th>
+            <th>Vor 5 Tagen</th>
+            <th>Vor 6 Tagen</th>
+            <th>Vor 7 Tagen</th>
+        </tr>
+        <tr>
+            <th>${avgr24['Pressure']}</th>
+            <th>${avgr48['Pressure']}</th>
+            <th>${avgr72['Pressure']}</th>
+            <th>${avgr96['Pressure']}</th>
+            <th>${avgr120['Pressure']}</th>
+            <th>${avgr144['Pressure']}</th>
+            <th>${avgr168['Pressure']}</th>
+        </tr>
+    </table>`
+    if (!menuActivated) {
+        for (const el of document.querySelectorAll(".data-sheet-wrapper")) {
+            el.innerHTML = pressure;
+            el.classList.add('data-sheet-activated')
+        }
+        menuActivated = true;
+    } else {
+        for (const el of document.querySelectorAll('.data-sheet-wrapper')) {
+            el.innerHTML = null;
+            el.classList.remove('data-sheet-acitvated')
+        }
+        menuActivated = false;
+    }
+}
+async function showDataWS() {
+    wind = `
+    <div class="header">
+        <p>Windstärke</p>
+    </div>
+    <table>
+        <tr>
+            <th>-5h</th>
+            <th>-4h</th>
+            <th>-3h</th>
+            <th>-2h</th>
+            <th>-1h</th>
+            <th>Gerade</th>
+            <th>Avg</th>
+        <tr>
+        <tr>
+            <td>${weatherData['curr-5h']['Wind']}</td>
+            <td>${weatherData['curr-4h']['Wind']}</td>
+            <td>${weatherData['curr-3h']['Wind']}</td>
+            <td>${weatherData['curr-2h']['Wind']}</td>
+            <td>${weatherData['curr-1h']['Wind']}</td>
+            <td>${weatherData['curr-0h']['Wind']}</td>
+            <td>${avgr['Wind']}</td>
+        </tr>
+    </table>
+    <table class="avg-table">
+        <tr>
+            <th>Gestern</th>
+            <th>Vorgestern</th>
+            <th>Vor 3 Tagen</th>
+            <th>Vor 4 Tagen</th>
+            <th>Vor 5 Tagen</th>
+            <th>Vor 6 Tagen</th>
+            <th>Vor 7 Tagen</th>
+        </tr>
+        <tr>
+            <th>${avgr24 ['Wind']}</th>
+            <th>${avgr48 ['Wind']}</th>
+            <th>${avgr72 ['Wind']}</th>
+            <th>${avgr96 ['Wind']}</th>
+            <th>${avgr120['Wind']}</th>
+            <th>${avgr144['Wind']}</th>
+            <th>${avgr168['Wind']}</th>
+        </tr>
+    </table>`
+    if (!menuActivated) {
+        for (const el of document.querySelectorAll(".data-sheet-wrapper")) {
+            el.innerHTML = wind;
+            el.classList.add('data-sheet-activated')
+        }
+        menuActivated = true;
+    } else {
+        for (const el of document.querySelectorAll('.data-sheet-wrapper')) {
+            el.innerHTML = null;
+            el.classList.remove('data-sheet-acitvated')
+        }
+        menuActivated = false;
+    }
+}
+async function showDataL() {
+    light = `
+    <div class="header">
+        <p>Helligkeit</p>
+    </div>
+    <table>
+        <tr>
+            <th>-5h</th>
+            <th>-4h</th>
+            <th>-3h</th>
+            <th>-2h</th>
+            <th>-1h</th>
+            <th>Gerade</th>
+            <th>Avg</th>
+        <tr>
+        <tr>
+            <td>${weatherData['curr-5h']['Light']}</td>
+            <td>${weatherData['curr-4h']['Light']}</td>
+            <td>${weatherData['curr-3h']['Light']}</td>
+            <td>${weatherData['curr-2h']['Light']}</td>
+            <td>${weatherData['curr-1h']['Light']}</td>
+            <td>${weatherData['curr-0h']['Light']}</td>
+            <td>${avgr['Light']}</td>
+        </tr>
+    </table>
+    <table class="avg-table">
+        <tr>
+            <th>Gestern</th>
+            <th>Vorgestern</th>
+            <th>Vor 3 Tagen</th>
+            <th>Vor 4 Tagen</th>
+            <th>Vor 5 Tagen</th>
+            <th>Vor 6 Tagen</th>
+            <th>Vor 7 Tagen</th>
+        </tr>
+        <tr>
+            <th>${avgr24['Light']}</th>
+            <th>${avgr48['Light']}</th>
+            <th>${avgr72['Light']}</th>
+            <th>${avgr96['Light']}</th>
+            <th>${avgr120['Light']}</th>
+            <th>${avgr144['Light']}</th>
+            <th>${avgr168['Light']}</th>
+        </tr>
+    </table>`
+    if (!menuActivated) {
+        for (const el of document.querySelectorAll(".data-sheet-wrapper")) {
+            el.innerHTML = light;
+            el.classList.add('data-sheet-activated')
+        }
+        menuActivated = true;
+    } else {
+        for (const el of document.querySelectorAll('.data-sheet-wrapper')) {
+            el.innerHTML = null;
             el.classList.remove('data-sheet-acitvated')
         }
         menuActivated = false;

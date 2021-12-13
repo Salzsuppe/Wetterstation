@@ -1,3 +1,80 @@
+let menuActivated = false;
+let weatherData;
+
+//gets all the data from the flask application in app.py
+async function fillValues() {
+  let response = await fetch(`/getdata/6`);
+  weatherData = await response.json();
+  changeTemp(weatherData["curr-0h"]["TemperatureC"], "C");
+}
+
+//function to change the weather screen on load, when the the weather is different
+window.onload = async function weatherScreen() {
+  sun = document.querySelector(".sunny"); //select the different screens
+  rain = document.querySelector(".rainy");
+  cloud = document.querySelector(".cloudy");
+
+  //changes the visiblity of the classes
+  if (weatherData['curr-0h']['Rain'] == 1) {
+    sun.style.display = 'none'
+    rain.style.display = 'flex'
+    cloud.style.display = 'none'
+  }
+  else if (weatherData['curr-0h']['Humidity'] >= 60 && weatherData['curr-0h']['UV'] < 1) {
+    sun.style.display = 'none'
+    rain.style.display = 'none'
+    cloud.style.display = 'flex'
+  }
+  else if (weatherData['curr-0h']['UV'] >= 1) {
+    sun.style.display = 'flex'
+    rain.style.display = 'none'
+    cloud.style.display = 'none'
+  }
+}
+
+async function warningSigns() {
+  ice = `<div class"ice"></div>`
+  uv = `<div class="uv"></div>`
+  wind = `<div class="wind"></div>`
+  nebel = `<div class="nebel"</div>`
+  el = document.querySelector('.warning-signs')
+    var somethingTrue = false;
+    el.innerHTML = null;
+    if (weatherData['curr-0h']['TemperatureC'] <= 0 && weatherData['curr-0h']['Rain'] == 1) {
+      el.innerHTML += ice;
+      somethingTrue = true;
+      el.classList.add('ice')
+    } else {
+      el.classList.remove('ice')
+    }
+    if (weatherData['curr-0h']['UV'] >= 6) {
+      el.innerHTML += uv;
+      somethingTrue = true;
+      el.classList.add('uv')
+    } else {
+      el.classList.remove('uv')
+    }
+    if (weatherData['curr-0h']['Wind'] > 120) {
+      el.innerHTML += wind;
+      somethingTrue = true;
+      el.classList.add('wind')
+    } else {
+      el.classList.remove('wind')
+    }
+    if (weatherData['curr-0h']['Humidity'] >= 90 && weatherData['curr-0h']['UV'] < 2) {
+      el.innerHTML += nebel;
+      somethingTrue = true;
+      el.classList.add('nebel')
+    } else {
+      el.classList.remove('nebel')
+    }
+    if (somethingTrue == false) {
+      el.innerHTML = null;
+    }
+}
+fillValues().then(warningSigns)
+setInterval(warningSigns, 60 * 60 * 1000); //the table will be updated every hour
+
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 }
@@ -10,6 +87,7 @@ function makeRain() {
     raindropWrapper.insertAdjacentHTML("beforeend", raindrop);
   }
 }
+makeRain();
 
 //gets every .temp element and changes the text in it
 function changeTemp(temp, unit) {
@@ -17,28 +95,6 @@ function changeTemp(temp, unit) {
     el.innerText = temp + "°" + unit;
   }
 }
-
-let avgData;
-
-//gets the avg Ddata from the flask application in app.py
-async function getAvgData(hour) {
-  let avgResponse = await fetch(`/avg/${hour}`);
-  avgData = await avgResponse.json();
-  for (const key of Object.keys(avgData)) {
-    avgData[key] = avgData[key].toFixed(2);
-  }
-  return avgData;
-}
-
-let weatherData;
-
-//gets all the data from the flask application in app.py
-async function fillValues() {
-  let response = await fetch(`/getdata/6`);
-  weatherData = await response.json();
-  changeTemp(weatherData["curr-0h"]["TemperatureC"], "C");
-}
-
 //changing the temperature values on button click
 function onClickCelsius() {
   changeTemp(weatherData["curr-0h"]["TemperatureC"], "C"); //getting variables from the dictionary
@@ -53,23 +109,20 @@ function onClickKelvin() {
   showMenu();
 }
 
-let menuActivated = false;
-
 //activates the menu for changing the temperature units
 function showMenu() {
   if (!menuActivated) {
       for (const el of document.querySelectorAll(".menu-pulldown")) {
-        el.classList.add("menu-pulldown-activated"); //changes the class name to show smth else wich is styled in css
+        el.classList.add("menu-pulldown-activated"); //adds a class name so the style attributs change
       }
       menuActivated = true;
   } else {
     for (const el of document.querySelectorAll(".menu-pulldown")) {
-      el.classList.remove("menu-pulldown-activated"); //changes the class name again to show what it was before
+      el.classList.remove("menu-pulldown-activated"); //removes the class name when the button is pressed again
     }
     menuActivated = false;
   }
 }
-
 //adds an onclick event for the menu buttons
 for (const el of document.querySelectorAll(".menu-button")) {
   //select every element which is named menu-button
@@ -91,28 +144,3 @@ function getFeelingTemp() {
   changeTemp(roundFeeling, "C");
   showMenu();
 }
-
-//function to change the weather screen when the the weather is different
-async function weatherScreen() {
-  sun = document.querySelector(".sunny"); //select the different screens
-  rain = document.querySelector(".rainy");
-  cloud = document.querySelector(".cloudy");
-
-  //changes the visiglity of the classes
-  if (weatherData['curr-0h']['Rain'] == 1) {
-    sun.style.display = 'none'
-    rain.style.display = 'flex'
-    cloud.style.display = 'none'
-  }
-  else if (weatherData['curr-0h']['Humidity'] >= 60 && weatherData['curr-0h']['UV'] < 1) {
-    sun.style.display = 'none'
-    rain.style.display = 'none'
-    cloud.style.display = 'flex'
-  }
-  else if (weatherData['curr-0h']['UV'] >= 1) {
-    sun.style.display = 'flex'
-    rain.style.display = 'none'
-    cloud.style.display = 'none'
-  }
-}
-makeRain();

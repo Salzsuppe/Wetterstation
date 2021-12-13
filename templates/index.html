@@ -13,12 +13,12 @@
 <body>
     <div class="weather-screen">
         <div class="sunny">
-            <div class="sun"></div>
+            <a href="/getdata/999"><div class="sun"></div></a>
             <div class="cloud1"></div>
             <div class="sun-light-gras"><img src="/static/Wetterdesign/SunGrasHell.svg" alt="Light-Gras"></div>
             <div class="sun-dark-gras"><img src="/static/Wetterdesign/SunGrasDunkel.svg " alt="Dark-Gras"></div>
             <div class="temperature">
-                <button class="menu-button" onclick="makeAnimation()"><img src="/static/Wetterdesign/Group 1.svg" alt=""></button>
+                <button class="menu-button"><img src="/static/Wetterdesign/Group 1.svg" alt=""></button>
                 <div class="menu-pulldown">
                     <button class="C" onclick="onClickCelsius()">Celsius</button>
                     <button class="F" onclick="onClickFahrenheit()">Fahrenheit</button>
@@ -33,6 +33,7 @@
             <div class="cloud1"></div>
             <div class="cloud2"></div>
             <div class="cloud3"></div>
+            <div class="cloud4"></div>
             <div class="cloud-light-gras"><img src="static/Wetterdesign/BewGrasHell.svg" alt="Light-Gras"></div>
             <div class="cloud-dark-gras"><img src="static/Wetterdesign/BewGrasDunkel.svg" alt="Dark-Gras"></div>
             <div class="temperature">
@@ -66,41 +67,31 @@
     </div>
 
     <div class="weather-data">
-        <div class="warning-sings"></div>
+        <div class="warning-signs"></div>
         <div class="button-wrapper" id="button-wrapper">
-            <button class="data-button" >
-                <div id="data-button-T" onclick="showDataT()">
-                    <p>T</p>
-                </div>
+            <button class="data-button" id="data-button-T">
+                <p>T</p>
             </button>
-            <button class="data-button" onclick="showDataUV()">
-                <div id="data-button-UV">
+            <button class="data-button" id="data-button-UV">
                     <p>UV</p> 
-                </div>
             </button>
-            <button class="data-button">
-                <div id="data-button-LF">
+            <button class="data-button" id="data-button-LF">
                     <p>LF</p>
-                </div>
             </button>
-            <button class="data-button">
-                <div id="data-button-LD">
+            <button class="data-button" id="data-button-LD">
                     <p>LD</p>
-                </div>
             </button>
-            <button class="data-button">
-                <div id="data-button-WS">
+            <button class="data-button" id="data-button-WS">
                     <p>WS</p>
-                </div>
             </button>
-            <button class="data-button">
-                <div id="data-button-L">
+            <button class="data-button" id="data-button-L">
                     <p>L</p>
-                </div>
             </button>
+        </div>
+        <div class="data-sheet-wrapper">
         </div>
     </div>
     <script src="{{ url_for('static',filename='main.js') }}"></script>
-    <script src="{{ url_for('static',filename='addTemplate.js') }}></script>
+    <script src="{{ url_for('static',filename='addTemplate.js') }}"></script>
 </body>
 </html>
