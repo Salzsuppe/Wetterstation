@@ -1,21 +1,34 @@
 // This is the file that will be flashed onto the esp32
+// The main function of this file will be the measurement of the sensors
+// It is supposed to split the processing into "Measuring" - Collection - Storing - Extraction - Display
 #include "BH1750.h"
 #include "Adafruit_BMP085.h"
 #include "DHT.h"
 #include "Adafruit_ADS1X15.h"
 
+
+//CONFIG:
+#define DHTTYPE DHT22 //Change to DHT11 to use it
+#define DHTPIN 12 // Pin to access DHT sensor
+#define BAUDRATE 115200 // Communication speed (9600) for arduino
+#define WAKEPIN GPIO_NUM_4 // Change the last number, note: not all pins are eligable
+#define WAKESTATE HIGH //The state, the pin should be to wake the esp
+#define ADCSENSITIVITY 0.1875 //The ADS has 0.1875
+#define WINDPIN 0 //The Ax connection at ADC
+#define UVPIN 1 //The Ax connection at ADC
+
 // create objects
 Adafruit_ADS1115 ads1115;
-DHT dht(12, DHT22); // Change first value to connected DHT pin
+DHT dht(DHTPIN, DHTTYPE); // Change first value to connected DHT pin
 BH1750 lightMeter;
 Adafruit_BMP085 bmp;;
 
 void setup(){
   //Enable deep sleep wakeup on G4
-  esp_sleep_enable_ext0_wakeup(GPIO_NUM_4,HIGH);
+  esp_sleep_enable_ext0_wakeup(WAKEPIN,WAKESTATE);
 
   // Start libraries & Serial
-  Serial.begin(115200);
+  Serial.begin(BAUDRATE);
   Serial.flush();
   ads1115.begin();
   dht.begin();
@@ -24,8 +37,8 @@ void setup(){
   delay(250); 
 
   // Remap voltage from ADC to values
-  float wind_vol = (ads1115.readADC_SingleEnded(0)*0.1875/1000); //0.1875 is the ADC resolution
-  float UV_vol = (ads1115.readADC_SingleEnded(1)*0.1875/1000);
+  float wind_vol = (ads1115.readADC_SingleEnded(WINDPIN)*ADCSENSITIVITY/1000); //0.1875 is the ADC resolution
+  float UV_vol = (ads1115.readADC_SingleEnded(WINDPIN)*ADCSENSITIVITY/1000);
 
   // Declare datatypes for the values
   //float TempC = dht.readTemperature();

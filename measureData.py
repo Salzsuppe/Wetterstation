@@ -1,13 +1,17 @@
+# The main function of this file will be the data Collection from the esp32
+# It is supposed to split the processing into Measuring - "Collection" - Storing - Extraction - Display
+
+# This is a modules, supposed to be imported, on exection it will show the measuredValues, but they wont be stored.
+
 # Import Library
 import datetime # Store time
-import time
 import serial # Serial communication
-from sensor.cfg import config # Import intervalt
+from cfg import config # Import intervalt
 
 #Debug
 try:
     import RPi.GPIO as GPIO # Set ESP deep sleep status
-except:
+except ModuleNotFoundError:
     print("failed to import RPI")
 
 # nonISO is used in dataListByshiftTime(nonISOtime) 

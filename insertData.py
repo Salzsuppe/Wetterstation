@@ -1,12 +1,11 @@
 # The main function of this file will be the data storage in sqlite3
-# It is supposed to split the processing into Setup - Collection - "Storing" - Extraction - Display
+# It is supposed to split the processing into Measuring - Collection - "Storing" - Extraction - Display
 
-# This is file is a program, on execution it will create a DB entry with the current Values
+# This is file is a program, on execution it will create a DB table and periodically add measured Values Values
 
 # Import lib
 import sqlite3 # Our Database
 import measureData # 'Storing' depends on 'Collection'
-from sensor.cfg import config
 from apscheduler.schedulers.blocking import BlockingScheduler # Running the program periodically
 
 scheduler = BlockingScheduler()
@@ -33,7 +32,7 @@ def insertValuesInTable(DataCollection):
     '''Variables used in the INSERT function, to shorten it'''
     createDB()
     conn = sqlite3.connect('Raw.db') # Open DB
-    cursor = conn.cursor() # Open cursor
+    cursor = conn.cursor() # Open cursor to execute sql statements
 
     InsertParameter = """INSERT INTO RawData
             (DateTime, TemperatureC, TemperatureF, TemperatureK, Humidity, Pressure, Rain, Wind, UV, Light)
