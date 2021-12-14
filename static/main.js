@@ -33,7 +33,7 @@ window.onload = async function weatherScreen() {
 }
 
 async function warningSigns() {
-  ice = `<div class"ice"></div>`
+  ice = `<div class="ice"></div>`
   uv = `<div class="uv"></div>`
   wind = `<div class="wind"></div>`
   nebel = `<div class="nebel>"</div>`
