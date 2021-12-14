@@ -5,7 +5,7 @@ let weatherData;
 async function fillValues() {
   let response = await fetch(`/getdata/6`);
   weatherData = await response.json();
-  changeTemp(weatherData["curr-0h"]["TemperatureC"], "C");
+  changeTemp(weatherData["curr-0h"]["TemperatureC"].toFixed(2), "C");
 }
 
 //function to change the weather screen on load, when the the weather is different
@@ -33,10 +33,10 @@ window.onload = async function weatherScreen() {
 }
 
 async function warningSigns() {
-  ice = `<div class="ice"></div>`
-  uv = `<div class="uv"></div>`
-  wind = `<div class="wind"></div>`
-  nebel = `<div class="nebel>"</div>`
+  ice = `<div><img src="/static/Wetterdesign/ice.png"></div>`
+  uv = `<div><img src="/static/Wetterdesign/uv.png"></div>`
+  wind = `<div><img src="/static/Wetterdesign/wind.png"></div>`
+  nebel = `<div><img src="/static/Wetterdesign/fog.png"></div>`
   el = document.querySelector('.warning-signs')
     var somethingTrue = false;
     el.innerHTML = null;
@@ -97,15 +97,15 @@ function changeTemp(temp, unit) {
 }
 //changing the temperature values on button click
 function onClickCelsius() {
-  changeTemp(weatherData["curr-0h"]["TemperatureC"], "C"); //getting variables from the dictionary
+  changeTemp(weatherData["curr-0h"]["TemperatureC"].toFixed(2), "C"); //getting variables from the dictionary
   showMenu();
 }
 function onClickFahrenheit() {
-  changeTemp(weatherData["curr-0h"]["TemperatureF"], "F");
+  changeTemp(weatherData["curr-0h"]["TemperatureF"].toFixed(2), "F");
   showMenu();
 }
 function onClickKelvin() {
-  changeTemp(weatherData["curr-0h"]["TemperatureK"], "K");
+  changeTemp(weatherData["curr-0h"]["TemperatureK"].toFixed(2), "K");
   showMenu();
 }
 

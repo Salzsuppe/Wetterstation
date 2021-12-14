@@ -58,12 +58,12 @@ async function showDataT() {
             <th>Avg</th>
         <tr>
         <tr>
-            <td>${weatherData['curr-5h']['TemperatureC']}</td>
-            <td>${weatherData['curr-4h']['TemperatureC']}</td>
-            <td>${weatherData['curr-3h']['TemperatureC']}</td>
-            <td>${weatherData['curr-2h']['TemperatureC']}</td>
-            <td>${weatherData['curr-1h']['TemperatureC']}</td>
-            <td>${weatherData['curr-0h']['TemperatureC']}</td>
+            <td>${weatherData['curr-5h']['TemperatureC'].toFixed(2)}°C</td>
+            <td>${weatherData['curr-4h']['TemperatureC'].toFixed(2)}°C</td>
+            <td>${weatherData['curr-3h']['TemperatureC'].toFixed(2)}°C</td>
+            <td>${weatherData['curr-2h']['TemperatureC'].toFixed(2)}°C</td>
+            <td>${weatherData['curr-1h']['TemperatureC'].toFixed(2)}°C</td>
+            <td>${weatherData['curr-0h']['TemperatureC'].toFixed(2)}°C</td>
             <td>${avgr['TemperatureC']}</td>
         </tr>
     </table>
@@ -177,12 +177,12 @@ async function showDataLF() {
             <th>Avg</th>
         <tr>
         <tr>
-            <td>${weatherData['curr-5h']['Humidity']}</td>
-            <td>${weatherData['curr-4h']['Humidity']}</td>
-            <td>${weatherData['curr-3h']['Humidity']}</td>
-            <td>${weatherData['curr-2h']['Humidity']}</td>
-            <td>${weatherData['curr-1h']['Humidity']}</td>
-            <td>${weatherData['curr-0h']['Humidity']}</td>
+            <td>${weatherData['curr-5h']['Humidity']}%</td>
+            <td>${weatherData['curr-4h']['Humidity']}%</td>
+            <td>${weatherData['curr-3h']['Humidity']}%</td>
+            <td>${weatherData['curr-2h']['Humidity']}%</td>
+            <td>${weatherData['curr-1h']['Humidity']}%</td>
+            <td>${weatherData['curr-0h']['Humidity']}%</td>
             <td>${avgr['Humidity']}</td>
         </tr>
     </table>
@@ -197,13 +197,13 @@ async function showDataLF() {
             <th>Vor 7 Tagen</th>
         </tr>
         <tr>
-            <th>${avgr24['Humidity']}</th>
-            <th>${avgr48['Humidity']}</th>
-            <th>${avgr72['Humidity']}</th>
-            <th>${avgr96['Humidity']}</th>
-            <th>${avgr120['Humidity']}</th>
-            <th>${avgr144['Humidity']}</th>
-            <th>${avgr168['Humidity']}</th>
+            <th>${avgr24['Humidity']}%</th>
+            <th>${avgr48['Humidity']}%</th>
+            <th>${avgr72['Humidity']}%</th>
+            <th>${avgr96['Humidity']}%</th>
+            <th>${avgr120['Humidity']}%</th>
+            <th>${avgr144['Humidity']}%</th>
+            <th>${avgr168['Humidity']}%</th>
         </tr>
     </table>`
     if (!menuActivated) {
@@ -236,12 +236,12 @@ async function showDataLD() {
             <th>Avg</th>
         <tr>
         <tr>
-            <td>${weatherData['curr-5h']['Pressure']}</td>
-            <td>${weatherData['curr-4h']['Pressure']}</td>
-            <td>${weatherData['curr-3h']['Pressure']}</td>
-            <td>${weatherData['curr-2h']['Pressure']}</td>
-            <td>${weatherData['curr-1h']['Pressure']}</td>
-            <td>${weatherData['curr-0h']['Pressure']}</td>
+            <td>${weatherData['curr-5h']['Pressure']} Bar</td>
+            <td>${weatherData['curr-4h']['Pressure']} Bar</td>
+            <td>${weatherData['curr-3h']['Pressure']} Bar</td>
+            <td>${weatherData['curr-2h']['Pressure']} Bar</td>
+            <td>${weatherData['curr-1h']['Pressure']} Bar</td>
+            <td>${weatherData['curr-0h']['Pressure']} Bar</td>
             <td>${avgr['Pressure']}</td>
         </tr>
     </table>
@@ -256,13 +256,13 @@ async function showDataLD() {
             <th>Vor 7 Tagen</th>
         </tr>
         <tr>
-            <th>${avgr24['Pressure']}</th>
-            <th>${avgr48['Pressure']}</th>
-            <th>${avgr72['Pressure']}</th>
-            <th>${avgr96['Pressure']}</th>
-            <th>${avgr120['Pressure']}</th>
-            <th>${avgr144['Pressure']}</th>
-            <th>${avgr168['Pressure']}</th>
+            <th>${avgr24['Pressure']} Bar</th>
+            <th>${avgr48['Pressure']} Bar</th>
+            <th>${avgr72['Pressure']} Bar</th>
+            <th>${avgr96['Pressure']} Bar</th>
+            <th>${avgr120['Pressure']} Bar</th>
+            <th>${avgr144['Pressure']} Bar</th>
+            <th>${avgr168['Pressure']} Bar</th>
         </tr>
     </table>`
     if (!menuActivated) {
@@ -295,12 +295,12 @@ async function showDataWS() {
             <th>Avg</th>
         <tr>
         <tr>
-            <td>${weatherData['curr-5h']['Wind']}</td>
-            <td>${weatherData['curr-4h']['Wind']}</td>
-            <td>${weatherData['curr-3h']['Wind']}</td>
-            <td>${weatherData['curr-2h']['Wind']}</td>
-            <td>${weatherData['curr-1h']['Wind']}</td>
-            <td>${weatherData['curr-0h']['Wind']}</td>
+            <td>${weatherData['curr-5h']['Wind']} km/h</td>
+            <td>${weatherData['curr-4h']['Wind']} km/h</td>
+            <td>${weatherData['curr-3h']['Wind']} km/h</td>
+            <td>${weatherData['curr-2h']['Wind']} km/h</td>
+            <td>${weatherData['curr-1h']['Wind']} km/h</td>
+            <td>${weatherData['curr-0h']['Wind']} km/h</td>
             <td>${avgr['Wind']}</td>
         </tr>
     </table>
@@ -315,13 +315,13 @@ async function showDataWS() {
             <th>Vor 7 Tagen</th>
         </tr>
         <tr>
-            <th>${avgr24 ['Wind']}</th>
-            <th>${avgr48 ['Wind']}</th>
-            <th>${avgr72 ['Wind']}</th>
-            <th>${avgr96 ['Wind']}</th>
-            <th>${avgr120['Wind']}</th>
-            <th>${avgr144['Wind']}</th>
-            <th>${avgr168['Wind']}</th>
+            <th>${avgr24['Wind']}km/h</th>
+            <th>${avgr48['Wind']}km/h</th>
+            <th>${avgr72['Wind']}km/h</th>
+            <th>${avgr96['Wind']}km/h</th>
+            <th>${avgr120['Wind']}km/h</th>
+            <th>${avgr144['Wind']}km/h</th>
+            <th>${avgr168['Wind']}km/h</th>
         </tr>
     </table>`
     if (!menuActivated) {
@@ -354,12 +354,12 @@ async function showDataL() {
             <th>Avg</th>
         <tr>
         <tr>
-            <td>${weatherData['curr-5h']['Light']}</td>
-            <td>${weatherData['curr-4h']['Light']}</td>
-            <td>${weatherData['curr-3h']['Light']}</td>
-            <td>${weatherData['curr-2h']['Light']}</td>
-            <td>${weatherData['curr-1h']['Light']}</td>
-            <td>${weatherData['curr-0h']['Light']}</td>
+            <td>${weatherData['curr-5h']['Light']} Lux</td>
+            <td>${weatherData['curr-4h']['Light']} Lux</td>
+            <td>${weatherData['curr-3h']['Light']} Lux</td>
+            <td>${weatherData['curr-2h']['Light']} Lux</td>
+            <td>${weatherData['curr-1h']['Light']} Lux</td>
+            <td>${weatherData['curr-0h']['Light']} Lux</td>
             <td>${avgr['Light']}</td>
         </tr>
     </table>
@@ -374,13 +374,13 @@ async function showDataL() {
             <th>Vor 7 Tagen</th>
         </tr>
         <tr>
-            <th>${avgr24['Light']}</th>
-            <th>${avgr48['Light']}</th>
-            <th>${avgr72['Light']}</th>
-            <th>${avgr96['Light']}</th>
-            <th>${avgr120['Light']}</th>
-            <th>${avgr144['Light']}</th>
-            <th>${avgr168['Light']}</th>
+            <th>${avgr24['Light']} Lux</th>
+            <th>${avgr48['Light']} Lux</th>
+            <th>${avgr72['Light']} Lux</th>
+            <th>${avgr96['Light']} Lux</th>
+            <th>${avgr120['Light']} Lux</th>
+            <th>${avgr144['Light']} Lux</th>
+            <th>${avgr168['Light']} Lux</th>
         </tr>
     </table>`
     if (!menuActivated) {

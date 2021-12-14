@@ -37,7 +37,7 @@
             <div class="cloud-light-gras"><img src="static/Wetterdesign/BewGrasHell.svg" alt="Light-Gras"></div>
             <div class="cloud-dark-gras"><img src="static/Wetterdesign/BewGrasDunkel.svg" alt="Dark-Gras"></div>
             <div class="temperature">
-                <button class="menu-button"><img src="/static/Wetterdesign/Polygon 1.svg" alt=""></button>
+                <button class="menu-button"><img src="/static/Wetterdesign/Group 1.svg" alt=""></button>
                 <div class="menu-pulldown">
                     <button class="C" onclick="onClickCelsius()">Celsius</button>
                     <button class="F" onclick="onClickFahrenheit()">Fahrenheit</button>
@@ -53,7 +53,7 @@
             <div class="rain-light-gras"><img src="static/Wetterdesign/RainLightGras.svg" alt="Light-Gras"></div>
             <div class="rain-dark-gras"><img src="static/Wetterdesign/RainDarkGras.svg" alt="Dark-Gras"></div>
             <div class="temperature">
-                <button class="menu-button"><img src="/static/Wetterdesign/Polygon 1.svg" alt=""></button>
+                <button class="menu-button"><img src="/static/Wetterdesign/Group 1.svg" alt=""></button>
                 <div class="menu-pulldown">
                     <button class="C" onclick="onClickCelsius()">Celsius</button>
                     <button class="F" onclick="onClickFahrenheit()">Fahrenheit</button>
@@ -66,8 +66,11 @@
         </div>
     </div>
 
-    <div class="weather-data">
+    <div class="warning-signs-wrapper">
         <div class="warning-signs"></div>
+    </div>
+    <div class="weather-data">
+
         <div class="button-wrapper" id="button-wrapper">
             <button class="data-button" id="data-button-T">
                 <p>T</p>
@@ -88,8 +91,7 @@
                     <p>L</p>
             </button>
         </div>
-        <div class="data-sheet-wrapper">
-        </div>
+        <div class="data-sheet-wrapper"></div>
     </div>
     <script src="{{ url_for('static',filename='main.js') }}"></script>
     <script src="{{ url_for('static',filename='addTemplate.js') }}"></script>

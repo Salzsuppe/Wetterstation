@@ -36,13 +36,13 @@ body{
 }
 .sun-dark-gras{
     position: absolute;
-    top: 49em;
+    top: 36em;
     right: 0vw;
     width: 80vw;
 }
 .sun-light-gras{
     position: absolute;
-    top: 45em;
+    top: 32em;
     left: 0;
     width: 55vw;
 }
@@ -107,13 +107,13 @@ body{
 }
 .cloud-dark-gras{
     position: absolute;
-    top: 49em;
+    top: 36em;
     right: 0vw;
     width: 80vw;
 }
 .cloud-light-gras{
     position: absolute;
-    top: 45em;
+    top: 32em;
     left: 0;
     width: 55vw;
 }
@@ -137,13 +137,13 @@ body{
 }
 .rain-dark-gras{
     position: absolute;
-    top: 49em;
+    top: 36em;
     right: 0vw;
     width: 80vw;
 }
 .rain-light-gras{
     position: absolute;
-    top: 45em;
+    top: 32em;
     left: 0;
     width: 55vw;
 }
@@ -259,4 +259,31 @@ tr:nth-child(1) {
 }
 .warning {
     display: none;
+}
+.ice {
+    display: flex!important;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.wind {
+    display: flex!important;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 90%;
+}
+.uv {
+    display: flex!important;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 90%;
+}
+.nebel {
+    display: flex!important;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 90%;  
+}
+.ice img {
+    margin-bottom: 5em;
+    height: 10em;
 }
