@@ -6,7 +6,6 @@
 # Import lib
 from flask import Flask, render_template
 import datetime # To access datetime.timedelta(Time shift))
-import measureData # Import $nonISOtime
 import insertData # Import table creation
 import extractData # Import sql extract functions
 
@@ -20,7 +19,9 @@ def dataListByShiftTime(shift_val):
     '''Get DB entries by $currtime + $shift_val'''
     PastTimeDataDict = {}
     for hour in range(shift_val):
-        ShiftedTime = measureData.nonISOtime + datetime.timedelta(hours=(hour*-1))
+        nonISOtime = datetime.datetime.now().replace(microsecond=0, second=0, minute=0)
+
+        ShiftedTime = nonISOtime + datetime.timedelta(hours=(hour*-1))
         ISOformatTime = ShiftedTime.isoformat()
         data = extractData.getDataByVariable(ISOformatTime)
         if data: # It equals true if the dictionary has elements

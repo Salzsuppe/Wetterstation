@@ -15,8 +15,6 @@ except ModuleNotFoundError:
     print("failed to import RPI")
 
 # nonISO is used in dataListByshiftTime(nonISOtime) 
-nonISOtime = datetime.datetime.now().replace(microsecond=0, second=0, minute=0) # Cut ms, s & m
-currtime = nonISOtime.isoformat()
 
 def measureValues():
     '''Wake the esp for data measurement, acquire the data and send esp to sleep'''
@@ -38,6 +36,9 @@ def measureValues():
             data = ser.readline().decode('utf-8').rstrip() # recieved data
             print("Recieved line:"+str(data))
             if "{IDENTIFIER}" in data: # search to filter data from esp serial debug
+                nonISOtime = datetime.datetime.now().replace(microsecond=0, second=0, minute=0) # Cut ms, s & m
+                currtime = nonISOtime.isoformat()
+
                 dataList = data.split() # String to List
                 print("Recieved Data:"+str(dataList))
                 dataList = [currtime if item == '{IDENTIFIER}' else item for item in dataList] # Remakes the list but {ID..} is replaced
