@@ -57,19 +57,19 @@ Nun die Zeile anhängen:
 
 ## Sensorik
 
-Raspberry pi zero 2
++ Raspberry pi zero 2
 
-dht 22
++ dht 22
 
-GY-302
++ GY-302
 
-GY-68
++ GY-68
 
-UV Sensor ohne Namen
++ UV Sensor ohne Namen
 
-ads1115
++ ads1115
 
-HW-103/ YL-38
++ HW-103/ YL-38
 
 
 ## Struktur
