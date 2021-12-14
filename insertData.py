@@ -48,10 +48,11 @@ def insertValuesInTable(DataCollection):
     conn.close()
 
 def fakedataDay():
-    '''Inserts Data for an entire Day with made up values'''
+    '''Inserts Data for an entire Day with made up values -  solely for testing'''
     import datetime
+    nonISOtime = datetime.datetime.now().replace(microsecond=0, second=0, minute=0)
     for hour in range(24):
-        ShiftedTime = measureData.nonISOtime + datetime.timedelta(hours=(hour*-1))
+        ShiftedTime = nonISOtime + datetime.timedelta(hours=(hour*-1))
         insertValuesInTable([ShiftedTime.isoformat(), 0, 1, 2, 99, 4, 1, 130, 7, 8])
 
 @scheduler.scheduled_job('cron', minute=0)
@@ -62,5 +63,5 @@ def main():
 
 # Prevent execution on import (It just works.)
 if __name__ == '__main__':
-    #scheduler.start()
-    fakedataDay()
+    scheduler.start()
+    #fakedataDay() # Debug
