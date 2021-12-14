@@ -55,6 +55,23 @@ Nun die Zeile anhängen:
 
 <sup>[2]: Wir haben dies mithilfe eines Systemctl.service gemacht.</sup>
 
+## Sensorik
+
+Raspberry pi zero 2
+
+dht 22
+
+GY-302
+
+GY-68
+
+UV Sensor ohne Namen
+
+ads1115
+
+HW-103/ YL-38
+
+
 ## Struktur
 
 [old/](https://github.com/Salzsuppe/Wetterstation/tree/main/old) enthält alte Version des Codes
