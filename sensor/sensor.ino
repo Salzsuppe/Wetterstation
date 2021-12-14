@@ -16,6 +16,7 @@
 #define ADCSENSITIVITY 0.1875 //The ADS has 0.1875
 #define WINDPIN 0 //The Ax connection at ADC
 #define UVPIN 1 //The Ax connection at ADC
+#define RAINPIN 2 //The Ax connection at ADC
 
 // create objects
 Adafruit_ADS1115 ads1115;
@@ -38,7 +39,8 @@ void setup(){
 
   // Remap voltage from ADC to values
   float wind_vol = (ads1115.readADC_SingleEnded(WINDPIN)*ADCSENSITIVITY/1000); //0.1875 is the ADC resolution
-  float UV_vol = (ads1115.readADC_SingleEnded(WINDPIN)*ADCSENSITIVITY/1000);
+  float UV_vol = (ads1115.readADC_SingleEnded(UVPIN)*ADCSENSITIVITY/1000);
+  float rain_vol = (ads1115.readADC_SingleEnded(RAINPIN)*ADCSENSITIVITY/1000);
 
   // Declare datatypes for the values
   //float TempC = dht.readTemperature();
@@ -47,9 +49,9 @@ void setup(){
   float TempK = TempC+273.15;
   int Humidity = dht.readHumidity();
   float Pressure = bmp.readPressure()/1000; // Convert hpa to bar
-  int Rain = int(true); // Conversion to int to save in DB               ADD LATER!
-  float Wind = map(wind_vol, 0, 123, 0, 12); // Remap (value, fromLow, fromHigh, toLow, fromHigh)
-  float UV = map(UV_vol, 0, 240, 0, 10);
+  int Rain = rain_vol;//map(rain_vol, 0, 1, 0, 10); // Conversion to int to save in DB               ADD LATER!
+  float Wind = wind_vol;//map(wind_vol, 0, 123, 0, 12); // Remap (value, fromLow, fromHigh, toLow, fromHigh)
+  float UV = UV_vol;//map(UV_vol, 0, 240, 0, 10);
   float Light = lightMeter.readLightLevel();
 
   // Sending data with something to identify it from the debug entries 
